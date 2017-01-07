@@ -4,9 +4,19 @@
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{url}
-\usepackage[hidelinks,breaklinks]{hyperref}
 \usepackage[slovak]{babel} % vypnite pre prace v anglictine
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{pstricks}
+%\usepackage{cleveref}
 \linespread{1.25} % hodnota 1.25 by mala zodpovedat 1.5 riadkovaniu
+\setlength{\parskip}{1em}
+
+
+\newtheorem{defn}{Definícia}
+\newtheorem{lema}[defn]{Lema}
+\newtheorem{veta}[defn]{Veta}
+\newtheorem{dosl}[defn]{Dôsledok}
 
 % -------------------
 % --- Definicia zakladnych pojmov
