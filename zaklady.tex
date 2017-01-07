@@ -35,11 +35,28 @@ hľadanie $\lambda(G)$. Keďže pre každý graf existuje triviálne ofarbenie
 používajúce párne čísla od $0$ po $2n - 2$, z hľadiska výpočtovej zložitosti
 sú tieto problémy takmer totožné.
 
-Keďže ide o modifikáciu problému farbenia grafov, je očakávateľné, že tento
-problém bude $\mathcal{NP}$-ťažký. Tento výsledok dokázali už Griggs a Yeh
-\cite{griggs_yeh_tree}. V tom istom článku taktiež ukázali ekvivalenciu
-nami definovaného problému so zovšeobecnením problému na reálne čísla.
+Jedným z dôvodov, prečo je $L(2,1)$-farbeniam venovaná pozornosť, je ich uplatnenie
+pri prideľovaní frekvenčných pásiem vysielacím staniciam. Kvôli interferencii
+elektromagnetických vysielačov a prijímačov na podobných frekvenciách totiž
+musia veľmi blízke vysielače dostať veľmi rozdielne pásmo, ale viac vzdialeným
+vysielačom stačí menší rozdiel.
 
+Aj keď je náš problém formulovaný jazykom celých čísel, už v prvých článkoch
+venujúcich sa tejto problematike bola dokázaná ekvivalencia
+nami definovaného problému so zovšeobecnením problému na reálne čísla\cite{griggs_yeh_tree}.
+
+Keďže ide o modifikáciu problému farbenia grafov, je očakávateľné, že tento
+problém bude $\mathcal{NP}$-ťažký, čo sa podarilo dokázať v tom istom článku.
+Taktiež sa postupom času dokázala zložitosť problému aj na niektorých obmedzených
+triedach grafov, napr. planárnych, bipartitných, dokonca aj na grafoch s
+priemerom $2$\cite{color_survey}.
+
+Ďalšou oblasťou skúmania boli dolné a horné ohraničenia na hodnotu $\lambda(G)$.
+Vhodnou charakteristikou sa ukázal byť maximálny stupeň grafu. Pre všeobecné
+grafy bolo najprv dokázané horné ohraničenie $\lambda(G) \leq \Delta^2 + 2\Delta$
+pomocou jednoduchého pažravého priradenia\cite{griggs_yeh_tree},
+ktoré bolo neskôr vylepšené na $\lambda(G) \leq \Delta^2 + \Delta$ s použitím
+šikovnejšieho priradzovania\cite{chang_kuo}.
 
 \section{Farbenie špeciálnych grafov}
 
