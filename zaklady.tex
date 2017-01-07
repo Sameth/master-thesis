@@ -27,7 +27,8 @@ najmenší počet farieb potrebujeme pre platné ofarbenie daného grafu. Podobn
 si vieme pri $L(2,1)$-farbeniach všímať, aké najväčšie číslo používajú. Toto
 číslo budeme nazývať \emph{rozpätím $L(2,1)$-farbenia}. Najmenšie možné rozpätie
 $L(2,1)$-farbenia grafu $G$ budeme nazývať \emph{$L(2,1)$-farbiace číslo} a
-označovať $\lambda(G)$.
+označovať $\lambda(G)$. Dôležité je všimnúť si, že $L(2,1)$-farbenie s
+rozpätím $k$ môže používať až $k+1$ rôznych hodnôt.
 
 Pod problémom $k-L(2,1)$-farbenia budeme rozumieť problém existencie farbenia
 s rozpätím nanajvýš $k$. Podobne vieme zadefinovať problém $L(2,1)$-farbenia ako
@@ -58,7 +59,20 @@ pomocou jednoduchého pažravého priradenia\cite{griggs_yeh_tree},
 ktoré bolo neskôr vylepšené na $\lambda(G) \leq \Delta^2 + \Delta$ s použitím
 šikovnejšieho priradzovania\cite{chang_kuo}.
 
-\section{Farbenie špeciálnych grafov}
+Pre špeciálne triedy grafov sa podarilo dokázať silnejšie ohraničenia. Napríklad
+pre grafy s priemerom $2$ platí a je tesný odhad $\lambda(G) \leq \Delta^2$\cite{griggs_yeh_tree}
+. Ďalej pre chordálne grafy platí odhad $\lambda(G) \leq \frac{\left( \Delta + 3 \right)^2}{4}$\cite{griggs_yeh_tree}
+.
+
+Medzi ďalšie triedy grafov, na ktorých sú dokázané tesnejšie obmedzenia na $L(2,1)$-farbiace
+číslo, patria aj stromy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 2$\cite{griggs_yeh_tree},
+kaktusy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 3$ a vonkajšie planárne
+grafy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 8$\cite{outer_planar_bound}.
+
+Griggs a Yeh taktiež vyslovili hypotézu, že v každom grafe platí $\lambda(G) \leq \Delta^2$,
+ktorá dodnes nebola vyriešená.
+
+\section{Polynomiálne farbenie špeciálnych grafov}
 
 
 
