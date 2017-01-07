@@ -6,8 +6,8 @@ $L(2,1)$-farbeniach grafov, ktoré budú dôležité pre túto prácu.
 
 Pokiaľ nebude povedané inak, grafy spomínané v tejto práci budú neorientované,
 súvislé a jednoduché, bez slučiek a násobných hrán. Množinu vrcholov budeme
-označovať $V(G)$ a množinu hrán $E(G)$. Vzdialenosť dvoch
-vrcholov $u$ a $v$ v grafe budeme označovať $d(u,v)$.
+označovať $V(G)$ a množinu hrán $E(G)$. Vzdialenosť dvoch vrcholov $u$ a $v$
+v grafe budeme označovať $d(u,v)$. 
 
 Ako prvé si poriadne
 zadefinujeme $L(2,1)$-farbenie grafu a problémy s ním súvisiace.
@@ -22,7 +22,23 @@ nezáporné celé číslo spĺňajúc nasledujúce podmienky:
 \end{itemize}
 \end{defn}
 
+Pri obyčajných vrcholových, či hranových farbeniach grafov skúmame, aký
+najmenší počet farieb potrebujeme pre platné ofarbenie daného grafu. Podobne
+si vieme pri $L(2,1)$-farbeniach všímať, aké najväčšie číslo používajú. Toto
+číslo budeme nazývať \emph{rozpätím $L(2,1)$-farbenia}. Najmenšie možné rozpätie
+$L(2,1)$-farbenia grafu $G$ budeme nazývať \emph{$L(2,1)$-farbiace číslo} a
+označovať $\lambda(G)$.
 
+Pod problémom $k-L(2,1)$-farbenia budeme rozumieť problém existencie farbenia
+s rozpätím nanajvýš $k$. Podobne vieme zadefinovať problém $L(2,1)$-farbenia ako
+hľadanie $\lambda(G)$. Keďže pre každý graf existuje triviálne ofarbenie
+používajúce párne čísla od $0$ po $2n - 2$, z hľadiska výpočtovej zložitosti
+sú tieto problémy takmer totožné.
+
+Keďže ide o modifikáciu problému farbenia grafov, je očakávateľné, že tento
+problém bude $\mathcal{NP}$-ťažký. Tento výsledok dokázali už Griggs a Yeh
+\cite{griggs_yeh_tree}. V tom istom článku taktiež ukázali ekvivalenciu
+nami definovaného problému so zovšeobecnením problému na reálne čísla.
 
 
 \section{Farbenie špeciálnych grafov}
