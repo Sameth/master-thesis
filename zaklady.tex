@@ -158,6 +158,46 @@ planárne grafy\cite{outer_planar}.
 
 Oba algoritmy fungujú principiálne podobne ako algoritmus pre stromy v tom, že lokálne pre
 nejakú množinu vrcholov zisťujú, aké všetky kombinácie hodnôt im môžu byť priradené na
-základe rovnakej informácie pre blízke okolité body, ktorých nemôže byť príliš veľa.
+základe rovnakej informácie pre blízke okolité body, ktorých v týchto triedach grafov nie je
+príliš veľa.
 
 \section{Farbenie všeobecných grafov}
+
+Paralelne k výskumu špeciálnych tried grafov, na ktorých sa dá riešiť problém $L(2,1)$-farbenia,
+sa skúmajú algoritmy schopné riešiť tento problém na všeobecných grafoch. Keďže ide o problém,
+ktorého exponenciálne riešenia majú pomerne veľký základ, pre časovú zložitosť budeme používať
+$O^*$-notáciu, pri ktorej sa neuvádzajú ani násobné polynomiálne faktory.
+
+S prvým význačným riešením tohto problému prišiel D. Kráľ, keď vyriešil všeobecnejší problém
+priradzovania kanálov (channel assignment problem). Pre problém $L(2,1)$-farbenia z neho 
+jednoduchou úpravou vstupu vznikol algoritmus s časovou zložitosťou $O^*(4^n)$\cite{kral_channel}.
+
+S lepšími algoritmami prišli Havet a kol. Prezentujú algoritmus pre problém $4$-$L(2,1)$-farbenia
+s časovou zložitosťou $O^*(1.3009^n)$ a algoritmus pre riešenie problému $L(2,1)$-farbenia s
+časovou zložitosťou $O^*(3.8730^n)$.
+
+Algoritmy na riešenie všeobecného problému sa postupom času vylepšovali spolu s približovaním
+horných a dolných odhadov. Aktuálne najlepším algoritmom pre všeobecné grafy je algoritmus
+od Junosza-Szaniawskeho a kol., ktorého časová zložitosť je $O^*(2.6488^n)$\cite{junosza_fast}.
+Tento algoritmus budeme ďalej nazývať ako algoritmus Junosza-Szaniawski.
+
+\subsection{Algoritmus Junosza-Szaniawski}
+
+Nazačiatok si zadefinujeme dôležité pojmy $2$\emph{-pakovania} a vlastných párov, ktoré budeme
+viackrát potrebovať pri popise algoritmu.
+
+\begin{defn}
+    Podmnožinu $S$ vrcholovej množiny grafu $G$ nazývame $2$\emph{pakovaním} grafu $G$, pokiaľ každé
+    dva vrcholy v $S$ majú vzdialenosť aspoň $3$ v grafe $G$.
+\end{defn}
+
+\begin{defn}
+    Usporiadanú dvojicu $(S, X)$ podmnožín vrcholovej množiny grafu $G$ nazývame \emph{vlastný pár}
+    grafu $G$, ak $S \cap X = \emptyset$ a $S$ je $2$-pakovaním grafu $G$.
+
+    Počet všetkých vlastných párov grafu $G$ budeme označovať $pp(G)$. Najväčšiu hodnotu $pp(G)$
+    spomedzi všetkých $k$-vrcholových grafov budeme označovať $pp(k)$.
+\end{defn}
+
+
+
