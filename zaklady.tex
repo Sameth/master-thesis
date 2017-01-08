@@ -13,13 +13,13 @@ Ako prvé si poriadne
 zadefinujeme $L(2,1)$-farbenie grafu a problémy s ním súvisiace.
 
 \begin{defn}
-$L(2,1)$-farbenie grafu $G$ je zobrazenie $\omega$, ktoré každému vrcholu priradí
-nezáporné celé číslo spĺňajúc nasledujúce podmienky:
+    $L(2,1)$-farbenie grafu $G$ je zobrazenie $\omega$, ktoré každému vrcholu priradí
+    nezáporné celé číslo spĺňajúc nasledujúce podmienky:
 
-\begin{itemize}
-\item $d(u, v) = 1 \Rightarrow \left| \omega(u) - \omega(v) \right| \ge 2$
-\item $d(u, v) = 2 \Rightarrow \omega(u) \neq \omega(v)$
-\end{itemize}
+    \begin{itemize}
+        \item $d(u, v) = 1 \Rightarrow \left| \omega(u) - \omega(v) \right| \ge 2$
+        \item $d(u, v) = 2 \Rightarrow \omega(u) \neq \omega(v)$
+    \end{itemize}
 \end{defn}
 
 Pri obyčajných vrcholových, či hranových farbeniach grafov skúmame, aký
@@ -66,7 +66,7 @@ pre grafy s priemerom $2$ platí a je tesný odhad $\lambda(G) \leq \Delta^2$\ci
 
 Medzi ďalšie triedy grafov, na ktorých sú dokázané tesnejšie obmedzenia na $L(2,1)$-farbiace
 číslo, patria aj stromy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 2$\cite{griggs_yeh_tree},
-kaktusy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 3$ a vonkajšie planárne
+kaktusy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 3$\cite{kaktusy} a vonkajšie planárne
 grafy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 8$\cite{outer_planar_bound}.
 
 Griggs a Yeh taktiež vyslovili hypotézu, že v každom grafe platí $\lambda(G) \leq \Delta^2$,
@@ -102,13 +102,13 @@ Pre vnútorný vrchol $v$ so synmi $v_1, v_2, \ldots v_q$ vieme pre ľubovoľné
 či $(a, b) \in S(T(v))$ nasledovne:
 
 \begin{enumerate}
-\item Zostrojíme bipartitný graf $G_{a,b}(v)$, ktorého jednou partíciou budú vrcholy $v_1, v_2 \ldots v_q$ a
-druhou partíciou hodnoty množiny $\{0, 1, \ldots k\}$ a ktorého množinu hrán zostrojíme nasledovne:
-$$E(G_{a,b}) = \{ (v_i, x) | x \neq b \wedge (a, x) \in S(T(v_i))\}$$
+    \item Zostrojíme bipartitný graf $G_{a,b}(v)$, ktorého jednou partíciou budú vrcholy $v_1, v_2 \ldots v_q$ a
+    druhou partíciou hodnoty množiny $\{0, 1, \ldots k\}$ a ktorého množinu hrán zostrojíme nasledovne:
+    $$E(G_{a,b}) = \{ (v_i, x) | x \neq b \wedge (a, x) \in S(T(v_i))\}$$
 
-\item Nájdeme najväčšie párenie na grafe $G_{a,b}$.
+    \item Nájdeme najväčšie párenie na grafe $G_{a,b}$.
 
-\item Ak nájdené párenie má veľkosť $q$, potom $(a,b) \in S(T(v))$, inak $(a,b) \notin S(T(v))$.
+    \item Ak nájdené párenie má veľkosť $q$, potom $(a,b) \in S(T(v))$, inak $(a,b) \notin S(T(v))$.
 \end{enumerate}
 
 Do pozornosti dávame skutočnosť, že nájdené párenie zodpovedá priradeniu hodnôt vrcholom
@@ -117,8 +117,43 @@ $v_1, \ldots v_q$, pri ktorom je platné ohodnotenie vrcholov $v$ a $v'$ hodnota
 Nakoniec $L(2,1)$-farbenie stromu $T$ s rozpätím $k$ existuje práve vtedy, keď je množina
 $S(T(r))$ neprázdna.
 
-\subsection{Kaktusy a vonkajšie planárne grafy}
+Časová zložitosť tohto algoritmu je $O(n \cdot k^{4.5})$\cite{chang_kuo}. Neskôr sa objavili
+mierne upravené algoritmy s lepšou časovou zložitosťou.
 
+\subsection{Zlepšenia Chang-Kuo algoritmu}
 
+Prvý zlepšujúci algoritmus urýchľuje konštrukciu
+párení tak, že najprv nájde základné párenie bez obmedzení spôsobených priradením hodnoty $b$
+vrcholu $v'$.
+
+Pre overenie každej dvojice $(a,b)$ vo vrchole $v$ teda stačí nájsť jedno základné
+párenie pre každé $a$. Priradenie farby $b$ vrcholu $v'$ môže odstrániť nanajvýš jednu hranu z párenia,
+tú, ktorá spája nejaký vrchol s hodnotou $b$. 
+
+Vďaka tomu vieme overiť existenciu párenia v Chang-Kuo algoritme hľadaním nanajvýš
+jednej zlepšujúcej cesty. Ďalšie zlepšenie vyplýva z využitia predspracovania stromu popísaného
+už v článku s pôvodným algoritmom. Vďaka nemu sa dá vstupný strom zredukovať tak, aby každý
+listový vrchol bol hranou spojený s vrcholom maximálneho stupňa v grafe\cite{chang_kuo}.
+
+Dôslednou analýzou 
+zložitosti dostaneme celkovú časovú zložitosť vylepšeného algoritmu $O(n^{1.75})$\cite{chang_kuo_improv}.
+
+Pri poslednom zlepšení algoritmu riešiaceho problém $L(2,1)$-farbenia autori zavádzajú
+pojem kompatibility ohodnotenia vrcholov, vďaka ktorému dokážu viaceré farby vrcholu $v$
+spracovať naraz. Časová zložitosť algoritmu bude lineárna od veľkosti vstupného stromu\cite{chang_kuo_linear}.
+
+\subsection{Cyklové stromy a vonkajšie planárne grafy}
+
+Ďalšími triedami grafov s polynomiálnymi algoritmami sú cyklové stromy\cite{kaktusy} a vonkajšie
+planárne grafy\cite{outer_planar}.
+
+\begin{defn}
+    Cyklový strom je graf, v ktorom každý vrchol leží na najviac jednej kružnici.
+\end{defn}
+
+\begin{defn}
+    Vonkajší planárny graf je planárny graf, pre ktorý existuje rovinné nakreslenie, v ktorom
+    všetky vrcholy ležia vo vonkajšej oblasti.
+\end{defn}
 
 \section{Farbenie všeobecných grafov}
