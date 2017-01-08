@@ -30,7 +30,7 @@ $L(2,1)$-farbenia grafu $G$ budeme nazývať \emph{$L(2,1)$-farbiace číslo} a
 označovať $\lambda(G)$. Dôležité je všimnúť si, že $L(2,1)$-farbenie s
 rozpätím $k$ môže používať až $k+1$ rôznych hodnôt.
 
-Pod problémom $k-L(2,1)$-farbenia budeme rozumieť problém existencie farbenia
+Pod problémom $k$-$L(2,1)$-farbenia budeme rozumieť problém existencie farbenia
 s rozpätím nanajvýš $k$. Podobne vieme zadefinovať problém $L(2,1)$-farbenia ako
 hľadanie $\lambda(G)$. Keďže pre každý graf existuje triviálne ofarbenie
 používajúce párne čísla od $0$ po $2n - 2$, z hľadiska výpočtovej zložitosti
@@ -72,7 +72,52 @@ grafy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 8$\cite{outer_plan
 Griggs a Yeh taktiež vyslovili hypotézu, že v každom grafe platí $\lambda(G) \leq \Delta^2$,
 ktorá dodnes nebola vyriešená.
 
+Ďalej sa pozrieme na zopár tried grafov, na ktorých vieme riešiť problém $L(2,1)$-farbenia
+v polynomiálnom čase a popíšeme si zodpovedajúce algoritmy.
+
 \section{Polynomiálne farbenie špeciálnych grafov}
+
+Prvou triedou grafov, pre ktoré bol objavený polynomiálny algoritmus na riešenie
+problému $k$-$L(2,1)$-farbenia, sú stromy\cite{chang_kuo}. Tento algoritmus si
+podrobne popíšeme.
+
+\subsection{Chang-Kuo algoritmus}
+
+Vstupom pre algoritmus je strom $T$ zakorenený v listovom vrchole so synom $r$ a číslo $k$.
+Tento algoritmus zistí, či existuje $L(2,1)$-farbenie grafu $T$ s rozpätím $k$.
+
+Pre ľubovoľný
+vrchol $v$ zadefinujeme $T(v)$ ako podstrom stromu $T$ zakorenený vo vrchole $v$. Taktiež
+zadefinujeme $T'(v')$ ako $T(v)$ s novým vrcholom $v'$, ktorý je spojený iba s $v$, čiže
+$$ G\left(V(T(v)) \cup \{ v' \}, E(T(v)) \cup \{ (v', v)\} \right) $$
+kde $v'$ je nový vrchol nevyskytujúci sa v $T(v)$.
+
+Základnou myšlienkou algoritmu je konštruovať množiny $S(T(v))$ definované nasledovne:
+$$S(T(v)) = \{ (a, b) | \textrm{ existuje } L(2,1) \textrm{ farbenie } f \textrm{ grafu } T'(v') \textrm{ také, že } f(v) = a \textrm{ a } f(v') = b\}$$
+
+Pre ľubovoľný listový vrchol $v_l$ ľahko vidíme, že 
+$$S(T(v_l)) = \{ (a, b) | a \leq k \wedge b \leq k \wedge |a - b| \ge 2\}$$
+
+Pre vnútorný vrchol $v$ so synmi $v_1, v_2, \ldots v_q$ vieme pre ľubovoľné $a, b, |a - b| \ge 2$ overiť,
+či $(a, b) \in S(T(v))$ nasledovne:
+
+\begin{enumerate}
+\item Zostrojíme bipartitný graf $G_{a,b}(v)$, ktorého jednou partíciou budú vrcholy $v_1, v_2 \ldots v_q$ a
+druhou partíciou hodnoty množiny $\{0, 1, \ldots k\}$ a ktorého množinu hrán zostrojíme nasledovne:
+$$E(G_{a,b}) = \{ (v_i, x) | x \neq b \wedge (a, x) \in S(T(v_i))\}$$
+
+\item Nájdeme najväčšie párenie na grafe $G_{a,b}$.
+
+\item Ak nájdené párenie má veľkosť $q$, potom $(a,b) \in S(T(v))$, inak $(a,b) \notin S(T(v))$.
+\end{enumerate}
+
+Do pozornosti dávame skutočnosť, že nájdené párenie zodpovedá priradeniu hodnôt vrcholom
+$v_1, \ldots v_q$, pri ktorom je platné ohodnotenie vrcholov $v$ a $v'$ hodnotami $a$ a $b$.
+
+Nakoniec $L(2,1)$-farbenie stromu $T$ s rozpätím $k$ existuje práve vtedy, keď je množina
+$S(T(r))$ neprázdna.
+
+\subsection{Kaktusy a vonkajšie planárne grafy}
 
 
 
