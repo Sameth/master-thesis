@@ -312,3 +312,43 @@ konštanty $k$ dostaneme časovú zložitosť dostatočne blízku $O^*(pp(n))$. 
 odhadu časovej zložitosti nakoniec potrebujeme nejaké ohraničenie pre počet vlastných
 párov v $n$-vrcholovom grafe.
 
+\subsection{Horný odhad hodnoty $pp(n)$}
+
+Pre odhad hodnoty $pp(n)$ najprv zmenšíme množinu uvažovaných grafov nasledujúcimi dvoma
+pomocnými pozorovaniami.
+
+\begin{lema}
+    Nech $e$ je hrana súvislého grafu $G$ taká, že graf $G-\{e\}$ je súvislý. Potom
+    $pp(G) \leq pp(G-\{e\})$.
+\end{lema}
+
+\begin{proof}
+    Nech $S$ je $2$-pakovaním grafu $G$. Odstránením hrany $e$ z grafu $G$ nezmenšíme
+    vzdialenosť žiadnej dvojice vrcholov v $G$, čiže nezmenšíme vzdialenosť žiadnej
+    dvojice vrcholov v $S$. Množina $S$ je teda zároveň aj $2$-pakovaním grafu $G-\{e\}$.
+    Z vyjadrenia $pp(g)$ pomocou $2$-pakovaní \ref{pp_g} vyplýva dokazovaná nerovnosť.
+\end{proof}
+
+Keďže najmenším súvislým grafom je strom, ďalej sa pri hornom odhade hodnoty $pp(k)$ obmedzíme
+práve na stromy.
+
+\begin{lema}
+   Nech $T$ je strom, nech $u_1$ a $u_2$ sú listové vrcholy so spoločným susedom $v$. Potom
+   $pp(T) \leq pp(T \cup (u_1, u_2) - (u_1, v))$.
+\end{lema}
+
+\begin{proof}
+    Podobne ako v predošlej leme ukážeme, že každé $2$-pakovanie $S$ stromu $T$ je zároveň $2$-pakovaním
+    v $T \cup (u_1, u_2) - (u_1, v)$. Nahliadneme, že zatiaľčo $d(u_1, u_2)$ klesne, vzdialenosť
+    $u_1$ od akéhokoľvek iného vrcholu takouto výmenou neklesne. Zároveň sa nezmení vzdialenosť
+    žiadnej inej dvojice vrcholov. Keďže $S$ nemôže obsahovať zároveň vrcholy $u_1$ aj $u_2$,
+    vzdialenosť akejkoľvek dvojice vrcholov v $S$ touto operáciou neklesne, preto každá dvojica
+    vrcholov v $S$ stále bude mať vzdialenosť aspoň $3$.
+\end{proof}
+
+Vďaka tejto leme sa pri dokazovaní horného ohraničenia počtu vlastných párov môžeme obmedziť
+na stromy, ktorých žiadne dva listy nemajú spoločného suseda, okrem triviálneho prípadu
+stromu s tromi vrcholmi.
+
+
+
