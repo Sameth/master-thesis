@@ -332,9 +332,22 @@ pomocnými pozorovaniami.
 Keďže najmenším súvislým grafom je strom, ďalej sa pri hornom odhade hodnoty $pp(k)$ obmedzíme
 práve na stromy.
 
+\begin{figure}
+
+\centerline{\includegraphics[width=0.3\textwidth]{images/pp_prevesenie.pdf}}
+
+\caption[Prevesenie listového vrcholu]{Znázornenie operácie prevesenie listového vrchola
+na iný list, s ktorým majú spoločného suseda. Táto operácia nezmenšuje počet vlastných
+párov stromu.}
+
+\label{pp:prevesenie}
+
+\end{figure}
+
 \begin{lema}
    Nech $T$ je strom, nech $u_1$ a $u_2$ sú listové vrcholy so spoločným susedom $v$. Potom
-   $pp(T) \leq pp(T \cup (u_1, u_2) - (u_1, v))$.
+   $pp(T) \leq pp(T \cup (u_1, u_2) - (u_1, v))$. Táto grafová operácia je znázornená na
+   obr. \ref{pp:prevesenie}.
 \end{lema}
 
 \begin{proof}
@@ -350,5 +363,43 @@ Vďaka tejto leme sa pri dokazovaní horného ohraničenia počtu vlastných pá
 na stromy, ktorých žiadne dva listy nemajú spoločného suseda, okrem triviálneho prípadu
 stromu s tromi vrcholmi.
 
+Nech $T$ je strom s aspoň štyrmi vrcholmi, ktorého žiadne listy nemajú spoločný vrchol. Pozrieme
+sa na najdlhšiu cestu $P$ v $T$. Koncový vrchol cesty označíme $v$, jeho suseda označíme $u$ a suseda $u$
+iného, ako $v$ označíme $c$. Keďže žiaden vrchol nemá za susedov dva listy, $c$ je jednoznačne určený.
+Ďalej sa v dôkaze horného ohraničenia rozoberá niekoľko prípadov podľa okolia vrchola $c$. Spomedzi
+všetkých si ukážeme jeden, ostatné sa dajú vyriešiť podobným spôsobom.
 
+Ak $\delta(c) = 2$, všetky vlastné páry $(S,X)$ rozdelíme na tie,
+v ktorých $v$ patrí do $S$ a tie, kde $v$ nepatrí do $S$. Vlastných párov, kde $v$ nepatrí do $S$ je
+dvakrát toľko ako v grafe $T - \{v\}$, podľa toho, či $v$ patrí do $X$. Tento počet vieme zhora
+odhadnúť na $pp(n-1)$. Ak $v$ patrí do $S$, tak $u$ ani $c$ nemôžu patriť do $S$. Vlastných párov
+v tomto prípade bude štornásobok počtu vlastných párov v grafe $T - \{v, u, c\}$, čo vieme zhora
+odhadnúť ako $pp(n-3)$.
 
+Dostávame teda nasledujúcu nerovnosť: $pp(n) \leq 2pp(n-1) + 4 pp(n-3)$. Vyriešením nerovností pre
+všetky prípady dostaneme horné ohraničenie $pp(n) \leq 2 \tau^n$\cite{junosza_fast}, kde $\tau \approx 2.6488$ je kladný koreň rovnice
+$$\tau^5 = 16\tau + 88.$$
+
+\subsection{Dolné odhady hodnoty $pp(n)$}
+
+\begin{figure}
+
+\centerline{\includegraphics[width=0.8\textwidth]{images/pp_hreben.pdf}}
+
+\caption[Trieda grafov s vysokým $pp(n)$]{Trieda grafov s $pp(n) = \Theta(2.6117^n)$}
+
+\label{pp:hreben}
+
+\end{figure}
+
+Prvé dolné odhady hodnoty $pp(n)$ využívali grafy znázornené na obr. \ref{pp:hreben}.
+Pomocou rekurzívneho vyjadrenia počtu vlastných párov na týchto špeciálnych grafoch
+vzniklo dolné ohraničenie $pp(n) = \Omega(2.6117^n)$.
+
+Analýzou zakorenených stromov s priemerom $6$ sa dá dolný odhad zvýšiť na $pp(n) = \Omega(2.6313^n)\cite{vlastne_pary}$.
+Dôkladnejšou analýzou zakorenených stromov, ktorých všetky podstromy sú rovnaké, sa dá
+odhad vylepšiť až na $pp(n) = \Omega(2.6391^n)$\cite{vlastne_pary}.
+
+Dôležité je poznamenať, že zatiaľ čo horný asymptotický odhad počtu vlastných párov je zároveň
+horným odhadom časovej zložitosti algoritmu Junosza-Szaniawski, o dolnom odhade počtu vlastných
+párov zatiaľ nie je dokázané, že by zdola odhadoval zložitosť tohto algoritmu.
