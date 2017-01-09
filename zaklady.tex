@@ -292,6 +292,23 @@ dlhé v závislosti od $n$, túto kontrolu vieme pre každý reťazec vykonať v
 
 \subsection{Analýza časovej zložitosti algoritmu Junosza-Szaniawski}
 
-Pre odhad časovej zložitosti najprv odhadneme počet reťazcov, ktoré môžu vzniknúť pri počítaní
-$T_i \oplus P$.
+Pre odhad časovej zložitosti najprv zhora odhadneme veľkosť tabuľky $T_i$.
+Vrcholy s hodnotou $\bar{1}$ musia tvoriť $2$-pakovanie grafu $G$. Pre akýkoľvek
+výber vrcholov s hodnotou $\bar{1}$ majú zvyšné vrcholy iba dve možnosti, $0$ alebo $1$. Všetkých
+reťazcov dĺžky $n$ teda môže byť nanajvýš $pp(n)$. Podobný odhad vieme spraviť aj
+pre počet reťazcov dĺžky $n''$, ktoré sa vyskytnú v nejakom rekurzívnom volaní pri
+počítaní operácie $\oplus$.
+
+V každom kroku rekurzívneho výpočtu operácie $\oplus$ na množinách sa pripraví nanajvýš
+$pp(k')$ možných prefixov výsledných reťazcov. Pre každý z nich sa spustí rekurzívny
+výpočet na dvojici množín reťazcov, kde dĺžka reťazcov je $n' - k'$. Časová zložitosť
+výpočtu teda zodpovedá nasledujúcej rekurencii:
+
+$$t(n') = O(n \cdot pp(n') + pp(k')t(n' - k')); k \leq k' \leq 2k $$
+
+Riešením tejto rekurencie sa ukáže byť funkcia $O(nn' \cdot pp(n')$. Pripomíname, že hodnota
+$n'$ je zhora ohraničená ako $n(1 + \frac{1}{k})$. Voľbou dostatočne veľkej
+konštanty $k$ dostaneme časovú zložitosť dostatočne blízku $O^*(pp(n))$. Pre dokončenie
+odhadu časovej zložitosti nakoniec potrebujeme nejaké ohraničenie pre počet vlastných
+párov v $n$-vrcholovom grafe.
 
