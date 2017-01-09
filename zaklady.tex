@@ -105,9 +105,7 @@ Pre vnútorný vrchol $v$ so synmi $v_1, v_2, \ldots v_q$ vieme pre ľubovoľné
     \item Zostrojíme bipartitný graf $G_{a,b}(v)$, ktorého jednou partíciou budú vrcholy $v_1, v_2 \ldots v_q$ a
     druhou partíciou hodnoty množiny $\{0, 1, \ldots k\}$ a ktorého množinu hrán zostrojíme nasledovne:
     $$E(G_{a,b}) = \{ (v_i, x) | x \neq b \wedge (a, x) \in S(T(v_i))\}$$
-
     \item Nájdeme najväčšie párenie na grafe $G_{a,b}$.
-
     \item Ak nájdené párenie má veľkosť $q$, potom $(a,b) \in S(T(v))$, inak $(a,b) \notin S(T(v))$.
 \end{enumerate}
 
@@ -199,6 +197,11 @@ viackrát potrebovať pri popise algoritmu.
     spomedzi všetkých $k$-vrcholových grafov budeme označovať $pp(k)$.
 \end{defn}
 
+\begin{pozn}
+    Počet vlastných párov grafu $G$ vieme vypočítať nasledovne:
+    $$pp(G) = \sum_{\substack{S \in \mathcal{P}(V_G) \\ S \textrm{ je } 2 \textrm{-pakovanie}}} 2^{n - |S|}$$
+\end{pozn}
+
 Základnou myšlienkou algoritmu je vytvárať všetky čiastočné $L(2,1)$-farbenia s obmedzeným rozpätím.
 Tieto čiastočné farbenia rozdelíme do tabuliek $T_0, T_1, \ldots T_{2n}$ a budeme kódovať pomocou
 $n$-znakových reťazcov nad abecedou $\{0, \bar{0}, 1, \bar{1}\}$. Tabuľka $T_k$ bude obsahovať
@@ -265,4 +268,5 @@ S takýmto označením vieme potom výpočet $A \oplus B$ rozdeliť na dve čast
 $$A \oplus B = \bigcup_{\substack{u \in \{0, \bar{0}, 1, \bar{1}\}^p \\ v \in \{0, 1\}^p \\ [u \oplus v \textrm{ je definované}]} }
 (u \oplus v)(A_u \oplus B_v) = \bigcup_{\substack{v \in \{0, 1\}^p \\ w \in \{0, 1, \bar{1}\}^p}}
 w \left[ \left( \bigcup_{\substack{u \in \{0, \bar{0}, 1, \bar{1}\}^p \\ [u \oplus v = w] }} A_u \right) \oplus B_v \right]$$
+
 
