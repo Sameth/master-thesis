@@ -185,7 +185,7 @@ Na začiatok si zadefinujeme dôležité pojmy $2$\emph{-pakovania} a vlastných
 viackrát potrebovať pri popise algoritmu.
 
 \begin{defn}
-    Podmnožinu $S$ vrcholovej množiny grafu $G$ nazývame $2$\emph{pakovaním} grafu $G$, pokiaľ každé
+    Podmnožinu $S$ vrcholovej množiny grafu $G$ nazývame $2$\emph{-pakovaním} grafu $G$, pokiaľ každé
     dva vrcholy v $S$ majú vzdialenosť aspoň $3$ v grafe $G$.
 \end{defn}
 
@@ -194,10 +194,11 @@ viackrát potrebovať pri popise algoritmu.
     grafu $G$, ak $S \cap X = \emptyset$ a $S$ je $2$-pakovaním grafu $G$.
 
     Počet všetkých vlastných párov grafu $G$ budeme označovať $pp(G)$. Najväčšiu hodnotu $pp(G)$
-    spomedzi všetkých $k$-vrcholových grafov budeme označovať $pp(k)$.
+    spomedzi všetkých $k$-vrcholových \emph{súvislých} grafov budeme označovať $pp(k)$.
 \end{defn}
 
 \begin{pozn}
+    \label{pp_g}
     Počet vlastných párov grafu $G$ vieme vypočítať nasledovne:
     $$pp(G) = \sum_{\substack{S \in \mathcal{P}(V_G) \\ S \textrm{ je } 2 \textrm{-pakovanie}}} 2^{n - |S|}$$
 \end{pozn}
@@ -269,4 +270,28 @@ $$A \oplus B = \bigcup_{\substack{u \in \{0, \bar{0}, 1, \bar{1}\}^p \\ v \in \{
 (u \oplus v)(A_u \oplus B_v) = \bigcup_{\substack{v \in \{0, 1\}^p \\ w \in \{0, 1, \bar{1}\}^p}}
 w \left[ \left( \bigcup_{\substack{u \in \{0, \bar{0}, 1, \bar{1}\}^p \\ [u \oplus v = w] }} A_u \right) \oplus B_v \right]$$
 
+Z definície zobrazenia $\oplus$ na reťazcoch vidíme, že ak je pre dané $v$ a $w$ prázdna množina
+$$ \bigcup_{\substack{u \in \{0, \bar{0}, 1, \bar{1}\}^p \\ [u \oplus v = w] }} A_u,$$
+výpočet sa pre túto dvojicu môže ukončiť.
+
+Z predpisu zobrazenia $\oplus$ vidíme, že $v_i = 1$ práve vtedy, keď $w_i = \bar{1}$. Pre dané
+$v$ preto môže existovať nanajvýš $2^{p - \|v\|}$, kde $\|v\|$ označuje počet jednotkových znakov
+vo $v$. Počet dvojíc $v$ a $w$, pre ktoré existuje nejaké platné $u$ teda vieme zhora ohraničiť
+hodnotou
+$$\sum_{v \in \{0, 1\} 2^{p - \|v\|}}.$$
+
+Keďže v algoritme vykonávame operáciu $T_i \oplus P$, kde $P$ sú reťazce zodpovedajúce
+$2$-pakovaniam grafu $G$ a grafy $G_1, G_2, \ldots G_q$, podľa ktorých budeme operáciu $T_i \oplus P$
+deliť na menšie časti, sú súvislé, vieme túto sumu vyjadriť ako $pp(p)$\ref{pp_g}.
+
+Keďže súčet počtov vrcholov v grafoch $G_1 \ldots G_q$ je $n' \leq n(1 + \frac{1}{k})$, kde
+$n' \ge n$, v reťazcoch z výpočtu $T_i \oplus P$ budeme mať pre niektoré vrcholy viacero
+nezávislých pozícií kodujúcich ich stav ofarbenia. Všetky reťazce, v ktorých bude niektorý
+vrchol zároveň ofarbený aj neofarbený, z množiny odstránime. Keďže reťazce sú polynomiálne
+dlhé v závislosti od $n$, túto kontrolu vieme pre každý reťazec vykonať v polynomiálnom čase.
+
+\subsection{Analýza časovej zložitosti algoritmu Junosza-Szaniawski}
+
+Pre odhad časovej zložitosti najprv odhadneme počet reťazcov, ktoré môžu vzniknúť pri počítaní
+$T_i \oplus P$.
 
