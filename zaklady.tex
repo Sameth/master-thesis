@@ -183,7 +183,7 @@ Tento algoritmus budeme ďalej nazývať ako algoritmus Junosza-Szaniawski.
 
 \subsection{Algoritmus Junosza-Szaniawski}
 
-Nazačiatok si zadefinujeme dôležité pojmy $2$\emph{-pakovania} a vlastných párov, ktoré budeme
+Na začiatok si zadefinujeme dôležité pojmy $2$\emph{-pakovania} a vlastných párov, ktoré budeme
 viackrát potrebovať pri popise algoritmu.
 
 \begin{defn}
@@ -211,5 +211,40 @@ reťazec $a$ práve vtedy, keď existuje čiastočné $L(2,1)$-farbenie $f$ s ro
     \item $a_i = \bar{1}$ ak $f(i) = k$.
 \end{enumerate}
 
+Tabuľku $T_i$ vieme vypočítať z tabuľky $T_{i-1}$ tak, že vezmeme každý reťazec z $T_{i-1}$, každé
+$2$-pakovanie grafu $P$ a vrcholom obsiahnutým v $P$ priradíme farbu $i$. Takéto priradenie farieb
+vieme pekne reprezentovať ako operáciu po jednotlivých znakoch na reťazcoch.
 
+Najprv si zadefinujeme čiastočné zobrazenie $\oplus : \{ 0, \bar{0}, 1, \bar{1}\} \times \{ 0, 1 \} \rightarrow \{0, 1, \bar{1}\}$
+nasledujúcou tabuľkou:
+
+\begin{tabular}{c | c c c c}
+    $\oplus$ & $0$ & $\bar{0}$ & $1$ & $\bar{1}$ \\
+    \hline
+    $0$ & $0$ & $0$ & $1$ & $1$ \\
+    $1$ & $\bar{1}$ & -- & -- & -- \\
+\end{tabular}
+
+Znakom -- označujeme nedefinovanú hodnotu.
+
+Ďalej zobrazenie prirodzene rozšírime na reťazce a množiny reťazcov:
+\begin{equation}
+    a_1 a_2 \ldots a_n \oplus b_1 b_2 \ldots b_n =
+      \begin{cases}
+          \begin{gathered}
+            (a_1 \oplus b_1)(a_2 \oplus b_2) \ldots \\
+            \ldots (a_n \oplus b_n)  
+          \end{gathered} &
+          \begin{aligned}
+            & \textrm{ak je } a_i \oplus b_i \textrm{ definované} \\ 
+            & \textrm{pre každé } i \in \{0, \ldots n\} 
+          \end{aligned} \\
+        \textrm{nedefinované} & \textrm{ inak}
+      \end{cases}
+\end{equation}
+
+$$A \oplus B = \{ a \oplus b | a \in A \wedge b \in B \wedge a \oplus b \textrm{ je definované} \} $$
+
+Po vypočítaní $T_{i-1} \oplus P$ potrebujeme nakoniec zmeniť $0$ na $\bar{0}$ pre všetky vrcholy,
+ktoré susedia s vrcholom farby $i$.
 
