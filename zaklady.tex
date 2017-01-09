@@ -199,5 +199,17 @@ viackrát potrebovať pri popise algoritmu.
     spomedzi všetkých $k$-vrcholových grafov budeme označovať $pp(k)$.
 \end{defn}
 
+Základnou myšlienkou algoritmu je vytvárať všetky čiastočné $L(2,1)$-farbenia s obmedzeným rozpätím.
+Tieto čiastočné farbenia rozdelíme do tabuliek $T_0, T_1, \ldots T_{2n}$ a budeme kódovať pomocou
+$n$-znakových reťazcov nad abecedou $\{0, \bar{0}, 1, \bar{1}\}$. Tabuľka $T_k$ bude obsahovať
+reťazec $a$ práve vtedy, keď existuje čiastočné $L(2,1)$-farbenie $f$ s rozpätím $k$ a s nasledujúcimi vlastnosťami:
+
+\begin{enumerate}
+    \item $a_i = 0$ ak je vrchol $v_i$ neohodnotený farbením $f$ a \emph{neexistuje} vrchol susediaci s $v_i$ ofarbený farbou $k$,
+    \item $a_i = \bar{0}$ ak je vrchol $v_i$ neohodnotený farbením $f$ a \emph{existuje} vrchol susediaci s $v_i$ ofarbený farbou $k$,
+    \item $a_i = 1$ ak $f(i) < k$,
+    \item $a_i = \bar{1}$ ak $f(i) = k$.
+\end{enumerate}
+
 
 
