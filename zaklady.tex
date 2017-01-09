@@ -245,6 +245,24 @@ Znakom -- označujeme nedefinovanú hodnotu.
 
 $$A \oplus B = \{ a \oplus b | a \in A \wedge b \in B \wedge a \oplus b \textrm{ je definované} \} $$
 
-Po vypočítaní $T_{i-1} \oplus P$ potrebujeme nakoniec zmeniť $0$ na $\bar{0}$ pre všetky vrcholy,
-ktoré susedia s vrcholom farby $i$.
+Pri počítaní $T_i$ teda najprv vypočítame $T_{i-1} \oplus P$, kde $P$ je množina všetkých $2$-pakovaní, kde
+každé $2$-pakovanie prirodzene reprezentujeme ako Booleovský reťazec dĺžky $n$. Nakoniec zmeníme $0$ na $\bar{0}$ pre
+všetky vrcholy, ktoré susedia s vrcholom farby $i$.
 
+Posledným stavebným kameňom algoritmu je spôsob, ako rýchlo počítať $A \oplus B$. Principiálne
+sa bude tento postup podobať na Strassenov algoritmus. Graf $G$ si rozdelíme na niekoľko podgrafov
+$G_1, G_2, \ldots G_q$ tak, aby s vopred zvoleným $k$ platilo:
+
+\begin{enumerate}
+    \item $\forall v \in V(G) \exists j : v \in V(G_j)$
+    \item $\forall j \in \{2, 3, \ldots q \} : |V(G_j)| \ge k$
+    \item $\forall j \in \{ 1, 2, \ldots q \} : |V(G_j)| \leq 2k$
+    \item $\sum_{j=1}^q |V(G_j)| \leq n(1 + \frac{1}{k})$
+\end{enumerate}
+
+Pre množinu reťazcov $A$ a reťazec $w$ zadefinujeme množinu suffixov $w$ v $A$ ako $A_w = \{v | wv \in A\}$.
+S takýmto označením vieme potom výpočet $A \oplus B$ rozdeliť na dve časti nasledovne:
+
+$$A \oplus B = \bigcup_{\substack{u \in \{0, \bar{0}, 1, \bar{1}\}^p \\ v \in \{0, 1\}^p \\ [u \oplus v \textrm{ je definované}]} }
+(u \oplus v)(A_u \oplus B_v) = \bigcup_{\substack{v \in \{0, 1\}^p \\ w \in \{0, 1, \bar{1}\}^p}}
+w \left[ \left( \bigcup_{\substack{u \in \{0, \bar{0}, 1, \bar{1}\}^p \\ [u \oplus v = w] }} A_u \right) \oplus B_v \right]$$
