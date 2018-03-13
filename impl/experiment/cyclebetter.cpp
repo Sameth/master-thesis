@@ -6,7 +6,7 @@ ll cyclepp;
 
 ll grafov = 0;
 
-void generate(int next) {
+void generate(int next, int maxcycle) {
     // Koncova podmienka
     if (next == n) {
         grafov ++;
@@ -25,6 +25,8 @@ void generate(int next) {
 
         return;
     }
+
+
     // Zaciname od nicoho
     if (next == 0) {
         // Musime si zvolit velkost prveho cyklu
@@ -35,7 +37,7 @@ void generate(int next) {
                 adjmatrix [(j+1)%i][j] = true;
             }
 
-            generate(i);
+            generate(i, i);
 
             // Odstranime cyklus
             For(j, i) {
@@ -45,10 +47,15 @@ void generate(int next) {
         }
         return;
     }
+    vvi dists(next, vi(next, 1023456789123456789LL));
+    For(i, next) For(j, next) if (adjmatrix [i][j]) dists [i][j] = 1;
+    For(i, next) dists [i][i] = 0;
+    For(k, next) For(i, next) For(j, next) dists [i][j] = min(dists [i][j], dists [i][k] + dists [k][j]);
+
     // Najprv vyskusame cykly do seba
     if (n - next > 1) {
         // Dlzka cyklu
-        for (int i = 2; i <= n - next; i++) {
+        for (int i = 2; i <= min(n - next, maxcycle); i++) {
             // Spojime nove vrcholy v cykle
             For(j, i - 1) {
                 adjmatrix [next + j][next + j + 1] = true;
@@ -63,7 +70,7 @@ void generate(int next) {
                 adjmatrix [j][next + i - 1] = true;
 
                 // Rekurzivne volanie
-                generate (next + i);
+                generate (next + i, maxcycle);
 
                 // Odpojime zaciatok a koniec
                 adjmatrix [next][j] = false;
@@ -92,13 +99,14 @@ void generate(int next) {
         // Cykly cez konce ucha
         // Koniec nemoze byt ten isty a konce nemozu susedit (=> trivialne odstranitelna hrana)
         For(j, next) For(k, next) if (j != k && !adjmatrix [j][k]) {
+            if (dists [j][k] + i > maxcycle) continue;
             // Spojime zaciatok a koniec ucha
             adjmatrix [j][next] = true;
             adjmatrix [next][j] = true;
             adjmatrix [k][next + i - 1] = true;
             adjmatrix [next + i - 1][k] = true;
 
-            generate(next + i);
+            generate(next + i, maxcycle);
 
             // Odpojime zaciatok a koniec ucha
             adjmatrix [j][next] = false;
@@ -131,6 +139,6 @@ int main () {
     cyclepp = count_pp(edges);
 
     cout << "Jednoduchy cyklus ma " << cyclepp << " pp\n";
-    generate(0);
+    generate(0, -1);
     cout << "Mame " << grafov << " grafov.\n";
 }
