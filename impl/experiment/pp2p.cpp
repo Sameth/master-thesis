@@ -1,37 +1,46 @@
 #include"pp2p.hpp"
 
-void count_recursive(vvi& edges, int start, int marked, vector<bool>& disabled, vector<ll>& result) {
-    if (start == (int)edges.size()) {
+void count_recursive(vvi& blocks, int start, int marked, vector<bool>& disabled, vector<ll>& result) {
+    if (start == (int)blocks.size()) {
         result [marked] ++;
         return;
     }
     if (!disabled [start]) {
         vector<int> newdis;
-        queue<pii> todo;
-        todo.push({start, 0});
-        while(!todo.empty()) {
-            auto top = todo.front();
-            todo.pop();
-            if (!disabled [top.first]) {
-                newdis.push_back(top.first);
-                disabled [top.first] = true;
-            }
-            if (top.second < 2) for (auto nei : edges [top.first]) todo.push(mp(nei, top.second + 1));
+        for(int e : blocks [start]) if (!disabled [e]) {
+            disabled [e] = true;
+            newdis.push_back(e);
         }
-        count_recursive(edges, start + 1, marked + 1, disabled, result);
+        count_recursive(blocks, start + 1, marked + 1, disabled, result);
         for (int d : newdis) disabled [d] = false; 
     }
-    count_recursive(edges, start + 1, marked, disabled, result);
+    count_recursive(blocks, start + 1, marked, disabled, result);
 }
 
+// Spocita 2-pakovania, rozdelene podla poctu vrcholov v 2-pakovani
 vector<ll> count_2pack (vvi& edges) {
-    vector<bool> disabled(edges.size(), false);
-    vector<ll> result(edges.size(), 0);
-    count_recursive(edges, 0, 0, disabled, result);
+    // Zakladne prevody
+    int n = edges.size();
+    vector<bool> disabled(n, false);
+    vector<ll> result(n, 0);
+    vvi close_vertices(n);
+    vvi dists(n, vi(n, 1023456789123456789LL));
+
+    // Spocitame vzdialenost kazdej dvojice susedov, F-W.
+    For(i, n) dists [i][i] = 0;
+    For(i, n) for (int e : edges [i]) dists [i][e] = 1;
+    For(k, n) For (i, n) For(j, n) dists [i][j] = min(dists [i][j], dists [i][k] + dists [k][j]);
+
+    // Zapiseme zoznam vrcholov vo vzdialenosti <= 2
+    For(i, n) For(j, n) if (dists [i][j] <= 2) close_vertices [i].push_back(j);
+
+
+    count_recursive(close_vertices, 0, 0, disabled, result);
     while (result.back() == 0) result.pop_back();
     return result;
 }
 
+// Spocita pocet vlastnych parov. Graf zadany zoznamom susedov.
 ll count_pp (vvi& edges) {
     vector<ll> packs = count_2pack(edges);
     ll n = edges.size();
