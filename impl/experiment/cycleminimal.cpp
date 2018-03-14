@@ -6,21 +6,20 @@ ll cyclepp;
 
 ll grafov = 0;
 
-ll dfs(int v, ll& num, vi& renumber, int actn, bool& bridge) {
+ll dfs(int v, int pred, ll& num, vi& renumber, int actn, bool& bridge) {
     renumber [v] = num;
     ll minup = num;
-    For(i, actn) if (adjmatrix [v][i]) {
+    For(i, actn) if (i != pred && adjmatrix [v][i]) {
         if (renumber [i] == -1) {
             num ++;
-            minup = min(dfs(i, num, renumber, actn, bridge), minup);
+            minup = min(dfs(i, v, num, renumber, actn, bridge), minup);
         }
         else {
             minup = min(minup, renumber [i]);
         }
     }
-    if (minup == renumber [v]) bridge = true;
+    if (v != 0 && minup == renumber [v]) bridge = true;
     return minup;
-
 }
 
 bool minimallyconnected(int actn) {
@@ -34,13 +33,17 @@ bool minimallyconnected(int actn) {
         adjmatrix [j][i] = false;
         ll num = 0;
         bool bridge = false;
-        dfs(0, num, renumber, actn, bridge);
+        dfs(0, -1, num, renumber, actn, bridge);
         adjmatrix [i][j] = true;
         adjmatrix [j][i] = true;
-        if (!bridge) return false;
+        if (!bridge) {
+            return false;
+        }
     }
     return true;
 }
+
+
 
 void generate(int next, int maxcycle) {
     // Koncova podmienka
