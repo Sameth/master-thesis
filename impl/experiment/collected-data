@@ -11,3 +11,26 @@ n   pp          cycle1          cycle2      cycle3
 12                                          1738809
 13                                          15188849
 14                                          145265191
+
+Princip:
+cycle1: Obycajne generovanie, vyskusame vsetky moznosti zaciatocneho cyklu. Dalej rekurzivne
+skusame vsetky moznosti, kam pridat sluckovu cestu alebo ucho. Ucho nepridavame na susedne vrcholy,
+lebo trivialne sposobime odstranitelnu hranu.
+
+cycle2: Pridame pocitanie najkratsej vzdialenosti medzi kazdou dvojicou vrcholov (Floyd-Warshall).
+Pridavame iba slucky mensie-rovne povodnemu cyklu (v 4 to upravime na mensie, lebo pridanie slucky
+z n vrcholov sposobi cyklus dlzky n+1, -> vrchol, v ktorom su pripojene). Taktiez pridavame iba
+take ucha, ktore trivialne nesposobia existenciu vacsieho cyklu (cize ak pridavame X vrcholov, tak
+vzdialenost medzi koncami ucha musi byt <= <povodna velkost cyklu> - X, dokonca este -1, lebo
+vzdialenost Y znamena Y+1 roznych vrcholov vratane koncov ucha, ciz vznik cyklu Y+X+1).
+
+cycle3: Ak pocas generovania zistime, ze UZ mame podgraf, v ktorom je vyhoditelna hrana (taka,
+po ktorej vyhodeni nevznikne most), tak koncime. Takato hrana totiz
+// TODO: Overit!!!
+ostane vyhoditelna navzdy. Nas zaujimaju iba take grafy, pre ktore nevieme trivialne vyrobit lepsi
+graf, cize musia byt minimalne 2-hranovo suvisle.
+
+cycle4: Trosku pokopeme do vytvarania cyklov, usporiadame poradie pridavania sluciek a uch. Ked
+pridavame slucku vo vrchole x, oznacime to ako pridanie koncov (x,x). Ked pridavame ucho medzi
+x a y, x > y, tak to oznacime ako (x,y). Nech vytvarame graf akokolvek, vieme takto priradene
+dvojice pridavat v neklesajucom poradi (celkom trivialne).
