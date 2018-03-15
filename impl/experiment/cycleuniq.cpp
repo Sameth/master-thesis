@@ -6,6 +6,8 @@ ll cyclepp;
 
 ll grafov = 0;
 
+// Hlavna rekurzivna funkcia pre hladanie mostov. Vrati najmensie cislo
+// vrchola po spatnej hrane. Ak objavi most, nastavi bridge na true.
 ll dfs(int v, int pred, ll& num, vi& renumber, int actn, bool& bridge) {
     renumber [v] = num;
     ll minup = num;
@@ -22,20 +24,33 @@ ll dfs(int v, int pred, ll& num, vi& renumber, int actn, bool& bridge) {
     return minup;
 }
 
+// Zisti, ci je graf aktualne ulozeny v adjmatrix minimalne 2-hranovo-suvisly
+// Skusi odstranit kazdu hranu a hlada most.
 bool minimallyconnected(int actn) {
     For(i, actn) For(j, actn) if (adjmatrix [i][j]) {
+        // Sanity check
         if (i == j) {
             cerr << "Slucka v grafe!!!\n";
             exit(1);
         }
+        // Cisovanie v dfs-strome
         vi renumber(actn, -1);
+        // Odstranime hranu
         adjmatrix [i][j] = false;
         adjmatrix [j][i] = false;
+
+        // Inicializacia poli a premennych
         ll num = 0;
         bool bridge = false;
+
+        // Pocitanie
         dfs(0, -1, num, renumber, actn, bridge);
+
+        // Vratime hranu
         adjmatrix [i][j] = true;
         adjmatrix [j][i] = true;
+
+        // Ak nie je most, koncime.
         if (!bridge) {
             return false;
         }
@@ -44,19 +59,27 @@ bool minimallyconnected(int actn) {
 }
 
 
-
 void generate(int next, int maxcycle, pii minadd) {
     // Koncova podmienka
     if (next == n) {
+        // Grafy, ktore nie su minimalne 2-hranovo suvisle, nema zmysel kontrolovat
         if (!minimallyconnected(next)) return;
+
+        // Navysime pocitadlo grafov ;-)
         grafov ++;
         vvi edges(n);
+
+        // Sanity check
         For(i, n) For(j, n) if (adjmatrix [i][j] != adjmatrix [j][i]) {
             cerr << "Nesymetricka matica susednosti!\n";
             exit(0);
         }
+
+        // Zmenime reprezentaciu z matice susednosti na zoznam susedov
         For(i, n) For(j, n) if (adjmatrix [i][j]) edges[i].push_back(j);
         ll pp = count_pp(edges);
+
+        // Ak sme nasli lepsie ako pre cyklus, chceme o tom vediet.
         if (pp > cyclepp) {
             cout << pp << endl;
             For(i, n) For(j, n) cout << adjmatrix [i][j] << endl;
@@ -87,7 +110,11 @@ void generate(int next, int maxcycle, pii minadd) {
         }
         return;
     }
+
+    // Ak graf nie je minimalne 2-hranovo suvisly, uz nikdy nebude
     if (!minimallyconnected(next)) return;
+
+    // Spocitame vzdialenost kazdej dvojice vrcholov doteraz
     vvi dists(next, vi(next, 1023456789123456789LL));
     For(i, next) For(j, next) if (adjmatrix [i][j]) dists [i][j] = 1;
     For(i, next) dists [i][i] = 0;
