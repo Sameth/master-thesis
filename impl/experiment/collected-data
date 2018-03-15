@@ -12,6 +12,8 @@ n   pp          cycle1          cycle2      cycle3      cycle4
 13                                          15188849    137669
 14                                          145265191   574764
 15                                                      2479947
+16                                                      10829223
+17                                                      48283822
 
 Princip:
 cycle1: Obycajne generovanie, vyskusame vsetky moznosti zaciatocneho cyklu. Dalej rekurzivne
