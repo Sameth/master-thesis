@@ -1,19 +1,19 @@
 
-n   pp          cycle1          cycle2      cycle3      cycle4      cycle5
-1-4 ...         0               0           0           0           0
-5   112         7               7           7           5           5
-6   304         77              77          29          11          11
-7   800         1255            1212        152         52          52
-8   2048        30391           28226       750         147         142
-9   5312        1041727         922766      4610        596         525
-10  13824       48272011        40511278    29942       2076        1637
-11  35840       2915065367      2310399981  219389      8433        5988
-12                                          1738809     32979       20175
-13                                          15188849    137669      74174
-14                                          145265191   574764      263027
-15                                                      2479947     971401
-16                                                      10829223    3542687
-17                                                      48283822    13173427
+n   pp          cycle1          cycle2      cycle3      cycle4      cycle5      cycle6
+1-4 ...         0               0           0           0           0           0
+5   112         7               7           7           5           5           2
+6   304         77              77          29          11          11          4
+7   800         1255            1212        152         52          52          20
+8   2048        30391           28226       750         147         142         52
+9   5312        1041727         922766      4610        596         525         199
+10  13824       48272011        40511278    29942       2076        1637        600
+11  35840       2915065367      2310399981  219389      8433        5988        2227
+12                                          1738809     32979       20175       7371
+13                                          15188849    137669      74174       27131
+14                                          145265191   574764      263027      94976
+15                                                      2479947     971401      348776
+16                                                      10829223    3542687     1257943
+17                                                      48283822    13173427    4642476
 18                                                                  48852234
 
 Princip:
@@ -39,3 +39,15 @@ cycle4: Trosku pokopeme do vytvarania cyklov, usporiadame poradie pridavania slu
 pridavame slucku vo vrchole x, oznacime to ako pridanie koncov (x,x). Ked pridavame ucho medzi
 x a y, x > y, tak to oznacime ako (x,y). Nech vytvarame graf akokolvek, vieme takto priradene
 dvojice pridavat v neklesajucom poradi (celkom trivialne). Pridane -1 z kroku 2.
+
+cycle5: Pridame vyradzovanie na zaklade maximalneho cyklu. Zaciatocny cyklus musi byt najvacsi
+cyklus vo finalnom grafe. Dlhsi cyklus moze vzniknut iba
+- pridanim slucky (toto je osetrene v cycle2)
+- pridanim ucha velkosti k medzi vrcholy A,B, medzi ktorymi existuje cesta (neopakujuce sa vrcholy)
+  dlzky X - k - 1
+V tejto verzii teda pribudlo pocitanie najdlhsej cesty medzi kazdou dvojicou vrcholov pomocou
+dyn. programovania s bitmaskou. Cas. zlozitost n*m*2^n, zhora taktiez ohranicene poctom ciest
+medzi kazdou dvojicou vrcholov.
+
+cycle6: Vyhodena symetria vzhladom na uplne prvy cyklus v grafe. Uplne prve pridane ucho alebo
+slucka musi byt jednym koncom pripojene k vrcholu 0.
