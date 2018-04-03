@@ -1,4 +1,4 @@
-all: countgraph.bin cycle
+all: countgraph.bin cycle draw
 
 countgraph.bin: countgraph.cpp pp2p.cpp
 	g++ -Wall -Wextra -O2 -g -std=c++11 -o countgraph.bin countgraph.cpp pp2p.cpp
@@ -16,3 +16,7 @@ cycle5.bin: cyclemaxstart.cpp pp2p.cpp pp2p.hpp
 	g++ -Wall -Wextra -O2 -g -std=c++11 -o cycle5.bin cyclemaxstart.cpp pp2p.cpp
 cycle6.bin: cyclemaxzerostart.cpp pp2p.cpp pp2p.hpp
 	g++ -Wall -Wextra -O2 -g -std=c++11 -o cycle6.bin cyclemaxzerostart.cpp pp2p.cpp
+
+draw: draw_largest.bin
+draw_largest.bin: draw_largest.cpp pp2p.cpp pp2p.hpp graphmaker.hpp graphmaker.cpp
+	g++ -Wall -Wextra -O2 -g -std=c++11 -o draw_largest.bin draw_largest.cpp pp2p.cpp graphmaker.cpp
