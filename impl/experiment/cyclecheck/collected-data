@@ -51,3 +51,10 @@ medzi kazdou dvojicou vrcholov.
 
 cycle6: Vyhodena symetria vzhladom na uplne prvy cyklus v grafe. Uplne prve pridane ucho alebo
 slucka musi byt jednym koncom pripojene k vrcholu 0.
+
+---------------------------------------------------------------------------------------------------
+
+Kreslenie grafov: pri dostatocne velkych pripadoch je druhym najlepsim grafom cyklus s malym
+trojcyklom spojene v jednom vrchole. Dalsim je velky cyklus so stvorcyklom (n=13, 14). Dalsi
+je velky cyklus, kde medzi vrcholy vzdialene 2 pridame cestu s 1 vrcholom (n=13, 14). Dalsi
+je velky cyklus s dvomi trojcyklami na susednych vrcholoch (n=13,14).
