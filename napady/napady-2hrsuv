@@ -1,0 +1,23 @@
+A co takto skusit dokaz na dva kroky: Najprv dokazat, ze namiesto umiestnenia spajajuceho ucha
+sa nam oplati spravit zodpovedajuci cyklus z jedneho vrchola do neho samotneho, rovnakej dlzky.
+
+Pre ucho dlzky 1 by sme napr. mohli skusit odovodnit, ze sa nam oplati ho pripojit k nejakemu
+velkemu cyklu?
+
+----------------------------------------------------------------------------------------------
+
+Iny sposob: Co takto skusit zobrat vsetky predosle grafy. Vsetky nove (minimalne 2-hranovo-suvisle)
+grafy vieme urcite dostat dvomi sposobmi (plati? Bolo by treba dokazat): Subdivizia niektorej hrany
+v grafe, alebo jednohranove premostenie. Ak by sa dalo dokazat, ze subdivizia je vzdy lepsia, je
+tu nadej.
+
+----------------------------------------------------------------------------------------------
+
+Iny sposob: Zobrat vsetky nahrdelniky (minimalne 2-hr-suv 2-suv bloky), dokazat, ze cyklus je
+najlepsi z nich. Potom dokazat, ze cyklus je vzdy lepsi, nez spajanie 2 mensich grafov indukciou.
+Pripadne dokazat, ze toto rastie najviac tak rychlo, ako cyklus.
+
+----------------------------------------------------------------------------------------------
+
+Este iny sposob: Pozriet sa na Junosza-Szaniawski, pozriet ich dokaz pre claw-free grafy a
+zistit, ci ho nevieme aplikovat na 2-hr-suvisle grafy.

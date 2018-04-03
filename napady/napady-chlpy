@@ -1,0 +1,4 @@
+2 chlpy sa daju prepojit (pp sa asi nezmeni?), vznikne trojcyklus.
+Jednohranove prepojenie sa da zlepsit tak, ze jednu hranu odstrihneme
+a ostane chlp. Dvojvrcholove - prestrihneme medzi vrcholmi
+a dostaneme 2 chlpy. 
