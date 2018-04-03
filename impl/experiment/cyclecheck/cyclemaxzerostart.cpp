@@ -2,7 +2,7 @@
 
 int n;
 vector<vector<bool> > adjmatrix;
-ll cyclepp;
+ll cyclepp, bestother = -1;
 
 ll grafov = 0;
 
@@ -100,6 +100,7 @@ void generate(int next, int maxcycle, pii minadd) {
         // Zmenime reprezentaciu z matice susednosti na zoznam susedov
         For(i, n) For(j, n) if (adjmatrix [i][j]) edges[i].push_back(j);
         ll pp = count_pp(edges);
+        bestother = max(bestother, pp);
 
         // Ak sme nasli lepsie ako pre cyklus, chceme o tom vediet.
         if (pp > cyclepp) {
@@ -243,4 +244,5 @@ int main () {
     cout << "Jednoduchy cyklus ma " << cyclepp << " pp\n";
     generate(0, -1, {-1,-1});
     cout << "Mame " << grafov << " grafov.\n";
+    cout << "Najlepsia nekruznica mala " << bestother << " pp\n";
 }
