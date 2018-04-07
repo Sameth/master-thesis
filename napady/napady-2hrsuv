@@ -21,3 +21,13 @@ Pripadne dokazat, ze toto rastie najviac tak rychlo, ako cyklus.
 
 Este iny sposob: Pozriet sa na Junosza-Szaniawski, pozriet ich dokaz pre claw-free grafy a
 zistit, ci ho nevieme aplikovat na 2-hr-suvisle grafy.
+
+----------------------------------------------------------------------------------------------
+
+Dalsi sposob: Odhadnut prispevok noveho pripajania pri beznom budovani 2-hranovo-suvislych grafov.
+Napr. ak je malo pp, ktore tymto pridanim "pokazime", tak ich asi bolo malo uz predtym. Ak sa podari
+odhadnut prispevok kazdeho pripojenia na $(\tau + \epsilon)^n$, tak sme vyhrali.
+
+K predoslemu mozno pouzit "fantomove" pp, pp, ktore si pridame a oznacime, ze do ich 2-pakovania
+patri nejaky vrchol a cele to budeme hrat tak, aby kazdy vrchol mal aspon niekolko pp, ktorym sa
+nachadza v 2-pakovani.

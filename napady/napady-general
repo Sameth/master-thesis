@@ -3,3 +3,8 @@ Da sa dokazat? Kolko je takych vlastnych parov (pre dany vrchol x), ze aspon jed
 
 Pre 3-hranovo-suvisle grafy, pozriet na maximalny priemer grafu? Z priemeru sa mozno bude dat
 odhadnut pocet pp?
+
+
+
+Pozriet sa na to cez stromy. Ked potiahneme hranu z vrcholu A do B, odmostuje to vsetky hrany po
+ich LCA (z kazdeho vrcholu dohora po LCA). Pre strom s X listami potrebujeme aspon X/2 hran.
