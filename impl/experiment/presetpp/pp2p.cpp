@@ -1,5 +1,7 @@
 #include"pp2p.hpp"
 
+bool error_done = false;
+
 void count_recursive(vvi& blocks, int start, int marked, vector<bool>& disabled, vector<ll>& result) {
     if (start == (int)blocks.size()) {
         result [marked] ++;
@@ -51,8 +53,11 @@ vector<ll> count_2pack_lim (vvi& edges, vector<int>& preset) {
             for(int e : close_vertices [i]) {
                 disabled [e] = true;
                 if (preset [e] == 1 && e != i) {
-                    cerr << "Dva prilis blizke vrcholy nastavene v 2-pakovani\n";
-                    exit(-1);
+                    if (!error_done) {
+                        cerr << "Dva prilis blizke vrcholy nastavene v 2-pakovani\n";
+                        error_done = true;
+                    }
+                    return {0};
                 }
             }
             initiallymarked ++;
