@@ -26,4 +26,13 @@ matica = np.array([[0, 0, 4], [1, 0, 0], [0, 1, 2]])
 vlastne_cisla = np.linalg.eig(matica)[0]
 najvacsie = np.absolute(vlastne_cisla [2])
 
+print("""
+Predpocitane:
+p[i] - pocet vlastnych parov pre cestu dlzky i
+c[i] - pocet vlastnych parov pre cestu dlzky i
+matica - matica rekurencie pre vlastne pary na cestach
+vlastne_cisla - vlastne cisla matice
+najvacsie - najvacsie vlastne cislo matice
+""")
+
 code.interact(local=locals())
