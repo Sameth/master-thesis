@@ -12,23 +12,81 @@ TODO: Zhrnutie
 Prvý typ ``jednoduchosti'' grafu, ktorú vieme využiť pri hľadaní rýchlejšieho algoritmu,
 zodpovedá hranovej súvislosti grafu. Vezmime si nejaký hranový separátor $S_E$ grafu $G$. 
 Všetkým vrcholom, ktoré sú incidentné s niektorou hranou separátora, zafixujeme nejaké farby.
-Ďalej si vezmime komponenty súvislosti grafu $G - S_E$. Každá dvojica vrcholov, ktoré sú
-v rôznych komponentoch a ešte nemajú priradenú farbu, má vzdialenosť aspoň $3$.
+Ďalej si vezmime komponenty súvislosti grafu $G - S_E$.
 
 Ak v každom komponente súvislosti nájdeme (nezávisle) nejaké $L(2,1)$-farbenie
-konzistentné s ohodnotením separátora, dostaneme tým nejaké správne $L(2,1)$ farbenie
-celého grafu $G$. Toto tvrdenie si formálne zhrnieme v nasledujúcej leme.
+konzistentné s ohodnotením separátora, spojením farbení pre každý podgraf dostaneme
+$L(2,1)$-farbenie celého grafu $G$. Toto tvrdenie si formálne zhrnieme v nasledujúcej leme.
 
 \begin{lema}
-    FIXME: dopisat lemu %TODO!!!!
     Nech $S_E \subseteq E(G)$ je hranový separátor grafu $G$,
     nech $S_V \subseteq V(G)$ je množina všetkých vrcholov, ktoré sú incidentné s niektorou hranou
-    v $S_E$, nech $G_1, G_2, \cdots G_k$ sú komponenty súvislosti grafu $G - S_E$. 
+    v $S_E$, nech $G_1, G_2, \cdots G_k$ sú komponenty súvislosti grafu $G - S_E$.
+
+    Nech $f_S: S_V \to \mathbb{N}$ je čiastočné $L(2,1)$-farbenie množiny $S_V$ v grafe $G$,
+    nech $f_1, f_2, \ldots, f_k$ sú čiastočné $L(2,1)$-farbenia množín $V(G_1) \cup S_V,\ 
+    V(G_2) \cup S_V,\  \ldots, V(G_k) \cup S_V$ v grafe $G$ a nech platí
+
+    $$ \forall i \in {1 \ldots k},\  \forall v \in S_V: f_i(v) = f_S(v) .$$
+
+    Potom zobrazenie $\omega: V(G) \to \mathbb{N}$ definované nasledovne:
+
+    \[ \omega(v) =
+    \begin{cases}
+        f_S(v), & v \in S_V \\
+        f_i(v), & v \in V(G_i) - S_V
+    \end{cases}
+    \]
+
+    tvorí $L(2,1)$-farbenie grafu $G$.
+
 \end{lema}
 
-\begin{defn}
+\begin{proof}
+    Zobrazenie $\omega$ je dobre definované, lebo každý vrchol patrí do práve jedného komponentu grafu
+    $G - S_E$, zároveň každému vrcholu v $G$ priradí hodnotu. Potrebujeme teda overiť podmienky $L(2,1)$-farbenia
+    pre každú dvojicu vrcholov $u, v \in V(G)$. Ďalej rozoberieme niekoľko prípadov podľa príslušnosti $u, v$:
 
-\end{defn}
+    \begin{description}
+        \item[Oba vrcholy patria do množiny $S_V$:] Z definície $\omega$ platí $\omega(u) = f_S(u), \omega(v) = f_S(v)$.
+        Keďže $f_S$ je čiastočné $L(2,1)$-farbenie množiny $S_V$, vrcholy $u, v$ musia spĺňať podmienky $L(2,1)$-farbenia.
+
+        \item[Vrchol $u$ patrí do $S_V$, vrchol $v$ do $V(G_i) - S_V$ pre niektoré $i$:] Z definície $\omega$ platí
+        $\omega(u) = f_S(u) = f_i(u)$ a $\omega(v) = f_i(v)$. Keďže $f_i$ je čiastočné $L(2, 1)$-farbenie, vrcholy
+        $u, v$ musia spĺňať podmienky $L(2,1)$-farbenia.
+        
+        \item[Oba vrcholy patria do toho istého komponentu $G_i$:] Z definície
+        $\omega$ platí $\omega(u) = f_i(u), \omega(v) = f_i(v)$. Keďže $f_i$ je čiastočné $L(2,1)$-farbenie, vrcholy
+        $u, v$ musia spĺňať podmienky $L(2,1)$-farbenia.
+
+        \item[Vrchol $u$ patrí do komponentu $G_i$, vrchol $v$ do komponentu $G_j$, $i \neq j$:] Keďže vrcholy patria
+        do rôznych komponentov grafu $G - S_E$, každá cesta medzi $u, v$ obsahuje aspoň jednu hranu z $S_E$. Špeciálne
+        to platí pre každú najkratšiu cestu medzi $u$ a $v$. Keďže $u, v \notin S_V$, každá najkratšia cesta medzi $u$
+        a $v$ musí pozostávať z neprázdnej cesty z $u$ do niektorého vrchola v $S_V$, hrany v $S_E$ a z neprázdnej
+        cesty z vrchola v $S_V$ do vrchola $v$. To znamená, že vrcholy $u$ a $v$ sú vzdialené aspoň $3$, teda spĺňajú
+        podmienky $L(2,1)$-farbenia.
+    \end{description}
+
+    Každá dvojica vrcholov spĺňa obmedzenia $L(2,1)$-farbenia, a preto $\omega$ je $L(2,1)$-farbením grafu $G$. \qedhere
+
+\end{proof}
+
+\begin{dosl}
+    Nech $e \in E(G)$ je most grafu $G$, nech $u, v$ sú vrcholy hrany $e$, nech graf $G - \{e\}$ pozostáva z dvoch
+    komponentov $G_1$ a $G_2$ veľkosti aspoň $2$. Potom je graf $G$ $k$-$L(2,1)$-zafarbiteľný práve vtedy, ak
+    existujú hodnoty $0 \leq a, b \leq k, \left| a - b \right| \ge 2$ a existujú $L(2,1)$-farbenia $f_1, f_2$ grafov
+    $G_1 \cup \{v, u, e\}$ a $G_2 \cup \{v, u, e\}$, pre ktoré platí $f_1(u) = f_2(u) = a \wedge f_1(v) = f_2(v) = b$.
+\end{dosl}
+
+Tento dôsledok nám vlastne dáva spôsob, ktorým vieme rozdeliť rozhodovanie
+problému $k$-$L(2,1)$-farbenia grafu $G$ na dve nezávislé časti v prípade,
+že $G$ obsahuje netriviálny most -- most, ktorého odstránením dostaneme
+dva komponenty súvislosti s aspoň dvomi vrcholmi.
+
+Pre každé možné ohodnotenie vrcholov mosta vyskúšame nezávisle ofarbiť oba
+komponenty (k obom pripojíme aj most a jeho druhý koniec, ale nič viac). Za cenu
+skúšania zhruba $k^2$ možností ofarbenia dvoch vrcholov teda dostaneme dva nezávislé
+problémy.
 
 \subsection{TODO}
 

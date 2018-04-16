@@ -4,21 +4,24 @@ V tejto kapitole si zavedieme pojmy a označenia, ktoré budeme používať
 vo zvyšku práce. Taktiež si podrobne popíšeme predošlé výsledky o
 $L(2,1)$-farbeniach grafov, ktoré budú dôležité pre túto prácu.
 
+\section{Základné pojmy}
+
 Pokiaľ nebude povedané inak, grafy spomínané v tejto práci budú neorientované,
 súvislé a jednoduché, bez slučiek a násobných hrán. Množinu vrcholov budeme
 označovať $V(G)$ a množinu hrán $E(G)$. Vzdialenosť dvoch vrcholov $u$ a $v$
-v grafe budeme označovať $d(u,v)$. 
+v grafe $G$ budeme označovať $d_G(u,v)$. Pokiaľ bude z kontextu jasné, o
+ktorý graf sa jedná, budeme vzdialenosť vrcholov $u, v$ značiť $d(u,v)$.
 
 Ako prvé si poriadne
 zadefinujeme $L(2,1)$-farbenie grafu a problémy s ním súvisiace.
 
 \begin{defn}
-    $L(2,1)$-farbenie grafu $G$ je zobrazenie $\omega$, ktoré každému vrcholu priradí
-    nezáporné celé číslo spĺňajúc nasledujúce podmienky:
+    $L(2,1)$-farbenie grafu $G$ je zobrazenie $\omega : V(G) \to \mathbb{N}$,
+    ktoré spĺňa nasledujúce podmienky:
 
     \begin{itemize}
-        \item $d(u, v) = 1 \Rightarrow \left| \omega(u) - \omega(v) \right| \ge 2$
-        \item $d(u, v) = 2 \Rightarrow \omega(u) \neq \omega(v)$
+        \item $\forall u, v \in V(G): d(u, v) = 1 \Rightarrow \left| \omega(u) - \omega(v) \right| \ge 2$,
+        \item $\forall u, v \in V(G): d(u, v) = 2 \Rightarrow \omega(u) \neq \omega(v)$.
     \end{itemize}
 \end{defn}
 
@@ -27,7 +30,7 @@ najmenší počet farieb potrebujeme pre platné ofarbenie daného grafu. Podobn
 si vieme pri $L(2,1)$-farbeniach všímať, aké najväčšie číslo používajú. Toto
 číslo budeme nazývať \emph{rozpätím $L(2,1)$-farbenia}. Najmenšie možné rozpätie
 $L(2,1)$-farbenia grafu $G$ budeme nazývať \emph{$L(2,1)$-farbiace číslo} a
-označovať $\lambda(G)$. Dôležité je všimnúť si, že $L(2,1)$-farbenie s
+označovať $\lambda(G)$. Všimnime si, že $L(2,1)$-farbenie s
 rozpätím $k$ môže používať až $k+1$ rôznych hodnôt.
 
 Pod problémom $k$-$L(2,1)$-farbenia budeme rozumieť problém existencie farbenia
@@ -35,6 +38,25 @@ s rozpätím nanajvýš $k$. Podobne vieme zadefinovať problém $L(2,1)$-farben
 hľadanie $\lambda(G)$. Keďže pre každý graf existuje triviálne ofarbenie
 používajúce párne čísla od $0$ po $2n - 2$, z hľadiska výpočtovej zložitosti
 sú tieto problémy takmer totožné.
+
+V práci budeme často používať pojem \emph{čiastočného $L(2,1)$-farbenia}, preto
+si ho poriadne zadefinujeme.
+
+\begin{defn}
+    Nech $G$ je graf, nech $S$ je podmnožina vrcholov grafu $G$. Pod pojmom
+    čiastočné $L(2,1)$-farbenie množiny $S$ v grafe $G$ budeme rozumieť zobrazenie
+    $\omega : S \to \mathbb{N}$, ktoré spĺňa nasledujúce podmienky:
+
+    \begin{itemize}
+        \item $\forall u, v \in S: d_G(u,v) = 1 \Rightarrow \left| \omega(u) - \omega(v) \right| \ge 2$,
+        \item $\forall u, v \in S: d_G(u,v) = 2 \Rightarrow \omega(u) \neq \omega(v)$.
+    \end{itemize}
+
+    Pojmom čiastočné $L(2,1)$-farbenie grafu $G$ budeme označovať čiastočné farbenie
+    niektorej podmnožiny jeho vrcholov.
+\end{defn}
+
+\section{Predošlé výsledky}
 
 Jedným z dôvodov, prečo je $L(2,1)$-farbeniam venovaná pozornosť, je ich uplatnenie
 pri prideľovaní frekvenčných pásiem vysielacím staniciam. Kvôli interferencii
