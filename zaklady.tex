@@ -203,8 +203,12 @@ viackrát potrebovať pri popise algoritmu.
     $$pp(G) = \sum_{\substack{S \in \mathcal{P}(V_G) \\ S \textrm{ je } 2 \textrm{-pakovanie}}} 2^{n - |S|}$$
 \end{pozn}
 
+Každý graf sa dá triviálne ofarbiť s použitím hodnôt ${0, 2, 4, \ldots, 2(n-2), 2(n-1)}$ tak, že každému
+vrcholu priradíme jedinečnú hodnotu. Keďže rozdiel každej dvojice hodnôt je aspoň $2$, žiadna dvojica
+vrcholov nemôže porušiť podmienky $L(2,1)$-farbenia.
+
 Základnou myšlienkou algoritmu je vytvárať všetky čiastočné $L(2,1)$-farbenia s obmedzeným rozpätím.
-Tieto čiastočné farbenia rozdelíme do tabuliek $T_0, T_1, \ldots T_{2n}$ a budeme kódovať pomocou
+Tieto čiastočné farbenia rozdelíme do tabuliek $T_0, T_1, \ldots T_{2n-2}$ a budeme kódovať pomocou
 $n$-znakových reťazcov nad abecedou $\{0, \bar{0}, 1, \bar{1}\}$. Tabuľka $T_k$ bude obsahovať
 reťazec $a$ práve vtedy, keď existuje čiastočné $L(2,1)$-farbenie $f$ s rozpätím $k$ a s nasledujúcimi vlastnosťami:
 
@@ -251,7 +255,7 @@ $$A \oplus B = \{ a \oplus b | a \in A \wedge b \in B \wedge a \oplus b \textrm{
 
 Pri počítaní $T_i$ teda najprv vypočítame $T_{i-1} \oplus P$, kde $P$ je množina všetkých $2$-pakovaní, kde
 každé $2$-pakovanie prirodzene reprezentujeme ako Booleovský reťazec dĺžky $n$. Nakoniec zmeníme $0$ na $\bar{0}$ pre
-všetky vrcholy, ktoré susedia s vrcholom farby $i$.
+všetky vrcholy, ktoré susedia s nejakým vrcholom farby $i$.
 
 Posledným stavebným kameňom algoritmu je spôsob, ako rýchlo počítať $A \oplus B$. Principiálne
 sa bude tento postup podobať na Strassenov algoritmus. Graf $G$ si rozdelíme na niekoľko podgrafov
