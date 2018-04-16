@@ -4,5 +4,31 @@ TODO: Zhrnutie
 
 \section{TODO: Orezavanie mostov}
 
+%Časová zložitosť algoritmu Junosza-Szaniawski je principiálne veľká na grafoch, v ktorých
+%existuje veľa rôznych čiastočných $L(2,1)$ ofarbení. Ako sme videli v predošlej kapitole,
+%spomedzi súvislých grafov majú najviac čiastočných ofarbení stromy. Na dostatočne jednoduchých
+%triedach grafov však existujú polynomiálne algoritmy, ktoré riešia problém $L(2,1)$-farbenia.
+
+Prvý typ ``jednoduchosti'' grafu, ktorú vieme využiť pri hľadaní rýchlejšieho algoritmu,
+zodpovedá hranovej súvislosti grafu. Vezmime si nejaký hranový separátor $S_E$ grafu $G$. 
+Všetkým vrcholom, ktoré sú incidentné s niektorou hranou separátora, zafixujeme nejaké farby.
+Ďalej si vezmime komponenty súvislosti grafu $G - S_E$. Každá dvojica vrcholov, ktoré sú
+v rôznych komponentoch a ešte nemajú priradenú farbu, má vzdialenosť aspoň $3$.
+
+Ak v každom komponente súvislosti nájdeme (nezávisle) nejaké $L(2,1)$-farbenie
+konzistentné s ohodnotením separátora, dostaneme tým nejaké správne $L(2,1)$ farbenie
+celého grafu $G$. Toto tvrdenie si formálne zhrnieme v nasledujúcej leme.
+
+\begin{lema}
+    FIXME: dopisat lemu %TODO!!!!
+    Nech $S_E \subseteq E(G)$ je hranový separátor grafu $G$,
+    nech $S_V \subseteq V(G)$ je množina všetkých vrcholov, ktoré sú incidentné s niektorou hranou
+    v $S_E$, nech $G_1, G_2, \cdots G_k$ sú komponenty súvislosti grafu $G - S_E$. 
+\end{lema}
+
+\begin{defn}
+
+\end{defn}
+
 \subsection{TODO}
 
