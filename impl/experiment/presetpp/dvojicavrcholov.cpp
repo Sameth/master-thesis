@@ -117,7 +117,7 @@ void generate(int next, int maxcycle, pii minadd) {
                 preset [i] = -1;
                 preset [j] = -1;
             }
-            najhorsiodhad = max(najhorsiodhad, 3*ress[0] + 2*(ress [1] + ress [2] + ress[3]) + ress[0] + ress[1] + ress[2] + ress[3]);
+            najhorsiodhad = max(najhorsiodhad, 3*ress[0] + 2*(ress [1] + ress [2] + ress[3]));
         }
 
         return;
@@ -127,7 +127,7 @@ void generate(int next, int maxcycle, pii minadd) {
     // Zaciname od nicoho
     if (next == 0) {
         // Musime si zvolit velkost prveho cyklu
-        for(int i = 3; i < n; i++) {
+        for(int i = 3; i <= n; i++) {
             // Nastavime cyklus
             For(j, i) {
                 adjmatrix [j][(j+1)%i] = true;

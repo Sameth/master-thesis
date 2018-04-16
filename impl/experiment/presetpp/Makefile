@@ -1,4 +1,4 @@
-all: presetratio.bin dvojicavrcholov.bin
+all: presetratio.bin dvojicavrcholov.bin dvojicavrcholovokolo.bin
 
 
 presetratio.bin: presetratio.cpp pp2p.cpp pp2p.hpp
@@ -6,3 +6,6 @@ presetratio.bin: presetratio.cpp pp2p.cpp pp2p.hpp
 
 dvojicavrcholov.bin: dvojicavrcholov.cpp pp2p.cpp pp2p.hpp
 	g++ -Wall -Wextra -O2 -g -std=c++11 -o dvojicavrcholov.bin dvojicavrcholov.cpp pp2p.cpp
+
+dvojicavrcholovokolo.bin: dvojicavrcholovokolo.cpp pp2p.cpp pp2p.hpp
+	g++ -Wall -Wextra -O2 -g -std=c++11 -o dvojicavrcholovokolo.bin dvojicavrcholovokolo.cpp pp2p.cpp
