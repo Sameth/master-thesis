@@ -74,9 +74,22 @@ $L(2,1)$-farbenie celého grafu $G$. Toto tvrdenie si formálne zhrnieme v nasle
 \begin{dosl}
     Nech $e \in E(G)$ je most grafu $G$, nech $u, v$ sú vrcholy hrany $e$, nech graf $G - \{e\}$ pozostáva z dvoch
     komponentov $G_1$ a $G_2$ veľkosti aspoň $2$. Potom je graf $G$ $k$-$L(2,1)$-zafarbiteľný práve vtedy, ak
-    existujú hodnoty $0 \leq a, b \leq k, \left| a - b \right| \ge 2$ a existujú $L(2,1)$-farbenia $f_1, f_2$ grafov
+    existujú hodnoty $a, b$ také, že $0 \leq a, b \leq k, \left| a - b \right| \ge 2$ a existujú $k$-$L(2,1)$-farbenia $f_1, f_2$ grafov
     $G_1 \cup \{v, u, e\}$ a $G_2 \cup \{v, u, e\}$, pre ktoré platí $f_1(u) = f_2(u) = a \wedge f_1(v) = f_2(v) = b$.
 \end{dosl}
+
+\begin{proof}
+    $\boxed{\Rightarrow}$
+        Ak je graf $G$ $k$-$L(2,1)$-zafarbiteľný, existuje jeho $k$-$L(2,1)$-farbenie $f$. Zobrazenia $f_1, f_2$ môžeme
+        definovať ako zúženie zobrazenia $f$ na príslušné množiny vrcholov. Hodnoty $a, b$ určíme ako $f(u)$, resp. $f(v)$.
+
+    $\boxed{\Leftarrow}$
+        Tvrdenie je inštanciou predošlej lemy: $S_E = \{e\},\ S_V = \{u,v\},\ f_S(u) = a,\ f_S(v) = b$. Keďže $f_1$
+        je $k$-$L(2,1)$-farbenie grafu $G_1 \cup \{v, u, e\}$, ide o čiastočné $L(2,1)$-farbenie v jeho nadgrafe $G$.
+        Inak povedané, ide o číastočné $L(2,1)$-farbenie množiny $V(G_1) \cup \{u, v\}$. Analogicky je $f_2$ čiastočné
+        farbenie množiny $V(G_2) \cup \{u,v\}$. Obe farbenia používajú hodnoty medzi $0$ a $k$ vrátane, čiže ich
+        spojením vznikne tiež $k$-$L(2,1)$-farbenie.
+\end{proof}
 
 Tento dôsledok nám vlastne dáva spôsob, ktorým vieme rozdeliť rozhodovanie
 problému $k$-$L(2,1)$-farbenia grafu $G$ na dve nezávislé časti v prípade,
@@ -84,9 +97,18 @@ problému $k$-$L(2,1)$-farbenia grafu $G$ na dve nezávislé časti v prípade,
 dva komponenty súvislosti s aspoň dvomi vrcholmi.
 
 Pre každé možné ohodnotenie vrcholov mosta vyskúšame nezávisle ofarbiť oba
-komponenty (k obom pripojíme aj most a jeho druhý koniec, ale nič viac). Za cenu
-skúšania zhruba $k^2$ možností ofarbenia dvoch vrcholov teda dostaneme dva nezávislé
+komponenty. K obom komponentom potrebujeme pripojiť aj most a jeho druhý koniec. Za cenu
+skúšania zhruba $k^2$ možností ofarbenia mostových vrcholov dostaneme dva nezávislé
 problémy.
 
-\subsection{TODO}
+Intuitívne platí, že rozdelenie na dva podproblémy
+najviac zlepší časovú zložitosť vtedy, keď majú oba komponenty zhruba rovnakú veľkosť.
+Ak bude jeden komponent príliš malý, môžeme si takýmto rozdelením časovú zložitosť zhoršiť:
+Za zanedbateľné zmenšenie problému zaplatíme tým, že ho budeme musieť riešiť viackrát.
+
+V ďalšej časti rozoberieme, ako sa vieme vysporiadať s problémom malých komponentov a
+aký výsledok z toho dostaneme.
+
+\subsection{Mostová veta}
+
 
