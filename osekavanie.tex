@@ -1,7 +1,7 @@
 \chapter{TODO: Kapitola o zmensovani a rozoberani "specialnych" pripadov}
 
-TODO: Zhrnutie
-
+FIXME: Zhrnutie
+FIXME: Pridať definíciu List-L(2,1)-farbenia, ukázať prispôsobenie J-S algoritmu na List-L(2,1)-farbenie
 \section{TODO: Orezavanie mostov}
 
 %Časová zložitosť algoritmu Junosza-Szaniawski je principiálne veľká na grafoch, v ktorých
@@ -91,9 +91,11 @@ $L(2,1)$-farbenie celého grafu $G$. Toto tvrdenie si formálne zhrnieme v nasle
         spojením vznikne tiež $k$-$L(2,1)$-farbenie.
 \end{proof}
 
+FIXME: Grafické znázornenie lemy a dôsledku? %TODO!!
+
 Tento dôsledok nám vlastne dáva spôsob, ktorým vieme rozdeliť rozhodovanie
 problému $k$-$L(2,1)$-farbenia grafu $G$ na dve nezávislé časti v prípade,
-že $G$ obsahuje netriviálny most -- most, ktorého odstránením dostaneme
+že $G$ obsahuje \emph{netriviálny most} -- most, ktorého odstránením dostaneme
 dva komponenty súvislosti s aspoň dvomi vrcholmi.
 
 Pre každé možné ohodnotenie vrcholov mosta vyskúšame nezávisle ofarbiť oba
@@ -111,4 +113,40 @@ aký výsledok z toho dostaneme.
 
 \subsection{Mostová veta}
 
+Na začiatok si zadefinujeme triedu grafov, ktorú môžeme opakovaným delením na menšie
+podproblémy dostať. Základnou triedou grafov, ktoré nevieme rozdeliť, sú súvislé
+bezmostové grafy. Tieto grafy sa inak nazývajú \emph{$2$-hranovo súvislé grafy}.
 
+Trieda grafov, ktoré nevieme podľa predošlého dôsledku rozdeliť, obsahuje aj grafy,
+v ktorých každý most spája jediný vrchol so zvyškom grafu. Príklady takýchto grafov sú
+uvedený na obrázku \ref{graf-2ec}.
+
+\begin{defn}
+    Graf $G$ budeme nazývať \emph{chlpatý $2$-hranovo súvislý graf}, ak je súvislý a pre
+    každú mostovú hranu $e \in E(G)$ platí, že jeden z komponentov súvislosti grafu
+    $G - \{e\}$ obsahuje jeden vrchol.
+\end{defn}
+
+Pripomeňme si, že každý graf, bez ohľadu na jeho štruktúru, má triviálne $L(2,1)$-farbenie
+s rozsahom $2n - 2$, kde každému vrcholu priradíme rôzne párne číslo. Pokiaľ pri rozdelení
+grafu na dva komponenty ostane jeden z nich dostatočne malý v porovnaní s hodnotou $k$,
+pre každé ohodnotenie mostových vrcholov vieme nájsť jeho triviálne $k$-$L(2,1)$-farbenie.
+Tento fakt zachytáva nasledujúce tvrdenie.
+
+\begin{lema}
+    Nech $e$ je mostová hrana grafu $G$, nech $u_1, u_2$ sú vrcholy incidentné s $e$,
+    nech $G_1, G_2$ sú komponenty grafu $G - e$, nech vrchol $u_1$ leží v komponente $G_1$ a vrchol $u_2$
+    v komponente $G_2$ a
+    nech $n_1$ je počet vrcholov komponentu $G_1$. Ak FIXME: $2n_1 < k$, tak $k$-$L(2,1)$-farbenie
+    grafu $G$ existuje práve vtedy, ak existuje $k$-$L(2,1)$-farbenie grafu $G_2 \cup \{e, u_1\}$.
+\end{lema}
+
+\begin{proof}
+    Implikácia $\boxed{\Rightarrow}$ triviálne platí, dokazovať budeme iba $\boxed{\Leftarrow}$.
+
+    Ukážeme, že ľubovoľné $k$-$L(2,1)$-farbenie $f$ grafu $G_2 \cup \{e, u_1\}$ vieme doplniť na
+    $k$-$L(2,1)$-farbenie grafu $G$ s tým, že použijeme iba hodnoty z množiny $\{0, 1, \ldots, 2n_1 + 1\}$.
+    Opäť rozoberieme niekoľko prípadov:
+
+    FIXME: Dokončiť! %TODO!
+\end{proof}
