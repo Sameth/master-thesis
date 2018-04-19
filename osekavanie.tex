@@ -197,9 +197,57 @@ $2$-hranovo súvislých grafoch, na algoritmus riešiaci tento problém
 na súvislých grafoch.
 
 \begin{veta}
-    Ak existuje algoritmus $\mathcal{B}$, ktorý rieši problém zoznamového $k$-$L(2,1)$-farbenia
-    na chlpatých $2$-hranovo-súvislých grafoch s časovou zložitosťou $O^*(\alpha^n)$ pre
+    Ak existuje algoritmus $\mathcal{B}$, ktorý rieši rozhodovací problém zoznamového $k$-$L(2,1)$-farbenia
+    na chlpatých $2$-hranovo-súvislých grafoch s časovou zložitosťou $O^*(\alpha^n)$, kde
     $\alpha \ge 2.5$, tak existuje algoritmus $\mathcal{A}$, ktorý rieši problém zoznamového $k$-$L(2,1)$-farbenia
     na súvislých grafoch s časovou zložitosťou $O^*(\alpha^n)$.
 \end{veta}
 
+\begin{proof}
+    Najprv skonštruujeme algoritmus $\mathcal{A}$, ktorý dostane hodnotu $k$, graf $G$ a zoznam
+    povolených hodnôt $c$. Algoritmus bude fungovať nasledovne:
+
+    \begin{enumerate}
+        \item Ak $k \leq 5$, spusti algoritmus od Haveta a kol.
+        \item Ak $G$ je chlpatý $2$-hranovo-súvislý graf, spusti a vráť výstup algoritmu $\mathcal{B}$.
+        \item Inak sa v grafe nachádza netriviálny most. Nájdi most $e$ s koncovými vrcholmi $u, v$.
+        Skonštruuj graf $G_1$ ako komponent súvislosti grafu $G - \{e\}$ obsahujúci $u$ a $G_2$ ako
+        komponent súvislosti obsahujúci $v$. Bez ujmy na všeobecnosti platí $|V(G_1)| \leq |V(G_2)|$.
+        \item Ak $\left |V(G_1) \right| \leq \frac{k}{2}$, rekurzívne spusti a vráť výstup algoritmu
+        $\mathcal{A}$ na grafe $G_2 \cup \{e, u\}$ s príslušne zúženým zoznamom hodnôt $c$.
+        \item Pre všetky prípustné (podľa $c$) ofarbenia $f$ vrcholov $u, v$ spusti rekurzívne
+        algoritmus $\mathcal{A}$ na grafe $G_1 \cup \{e, v\}$. V každom volaní je zoznam $c$ zúžený
+        na príslušnú množinu vrcholov a navyše $c(u) = \{f(u)\}$ a $c(v) = \{f(v)\}$. Zoznam dvojíc
+        $(f(u), f(v))$, pre ktoré výpočet akceptoval, označíme $Z$.
+        \item Pre všetky prípustné (podľa $c$) ofarbenie $f(u)$ vrchola $u$ spusti rekurzívne
+        algoritmus $\mathcal{A}$ na grafe $G_2 \cup \{e, u\}$. V každom volaní je zoznam $c$ zúžený
+        na príslušnú množinu vrcholov a navyše $c(u) = \{f(u)\}$ a $c(v) = \{x | (f(u), x) \in Z\}$.
+        \item Ak aspoň jedno z rekurzívnych volaní v 6. kroku akceptovalo, akceptuj. V opačnom prípade
+        zamietni.
+    \end{enumerate}
+
+    Overenie, či graf patrí do triedy chlpatých $2$-hranovo-súvislých grafov, vieme realizovať v čase
+    $O(|V(G)| + |E(G)|)$ nájdením všetkých mostov pomocou Tarjanovho
+    algoritmu \cite{tarjan_bridge}. Prehľadávaním do hĺbky vieme v čase $O(|V(G)| + |E(G)|)$ pre
+    každý most a pre každý komponent, ktorý jeho odstránenie indukuje, spočítať, koľko vrcholov obsahuje.
+
+    Pokiaľ platí podmienka v kroku 1, alebo v kroku 2, časová zložitosť algoritmu je nanajvýš
+    $T(n) \leq O(|V(G)| + E(G)|) + O^*(\alpha^n)$.
+
+    Pokiaľ sa vykoná krok 4, graf $G_2$ bude obsahovať nanajvýš $n-1$ vrcholov, z čoho dostávame
+    rekurentný vzťah pre časovú zložitosť $T(n) \leq O(|V(G)| + |E(G)|) + T(n-1)$.
+
+    Pre každú hodnotu $k \ge 6$ platí, že počet usporiadaných dvojíc farieb, ktorými môžeme
+    ofarbiť dva susedné vrcholy, je presne $k(k-1)$. Počet vrcholov grafu $G_1$ označíme $n_1$.
+
+    Krok 5 zahŕňa $k(k-1)$ spustení algoritmu na grafe $G_1 \cup \{e, v\}$, ktorý má $n_1 + 1$
+    vrcholov. Krok 6 zahŕňa nanajvýš $k+1$ spustení algoritmu na grafe $G_2 \cup \{e, u\}$, ktorý
+    má $n - n_1 + 1$ vrcholov. Časová zložitosť tejto vetvy výpočtu teda spĺňa rekurenciu $T(n) \leq O(|V(G)| + |E(G)|) + k(k-1)T(n_1+1) + (k+1)T(n - n_1 + 1)$.
+
+    Ďalej indukciou dokážeme, že pre vhodne zvolený polynóm $q(n)$ je časová zložitosť
+    algoritmu $\mathcal{A}$ nanajvýš $q(n) \alpha^n + O^*(1)$.
+
+    Nech $p$ je polynóm, pre ktorý platí, že časová zložitosť algoritmu $\mathcal{B}$ aj algoritmu
+    od Haveta a kol. je zhora ohraničená $p(n)\alpha^n$.
+
+\end{proof}
