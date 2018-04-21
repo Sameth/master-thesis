@@ -219,7 +219,7 @@ na súvislých grafoch.
         algoritmus $\mathcal{A}$ na grafe $G_1 \cup \{e, v\}$. V každom volaní je zoznam $c$ zúžený
         na príslušnú množinu vrcholov a navyše $c(u) = \{f(u)\}$ a $c(v) = \{f(v)\}$. Zoznam dvojíc
         $(f(u), f(v))$, pre ktoré výpočet akceptoval, označíme $Z$.
-        \item Pre všetky prípustné (podľa $c$) ofarbenie $f(u)$ vrchola $u$ spusti rekurzívne
+        \item Pre všetky prípustné (podľa $c$) ofarbenia $f(u)$ vrchola $u$ spusti rekurzívne
         algoritmus $\mathcal{A}$ na grafe $G_2 \cup \{e, u\}$. V každom volaní je zoznam $c$ zúžený
         na príslušnú množinu vrcholov a navyše $c(u) = \{f(u)\}$ a $c(v) = \{x | (f(u), x) \in Z\}$.
         \item Ak aspoň jedno z rekurzívnych volaní v 6. kroku akceptovalo, akceptuj. V opačnom prípade
@@ -283,6 +283,56 @@ na súvislých grafoch.
     Rozoberieme zopár prípadov. Ak $c \ge b + d$, stačí dokázať $a \ge 2c$. Inak platí $c < b + d$ a
     teda stačí dokázať $a \ge 2(b + d)$. Opäť rozoberieme prípady podľa veľkosti výrazov. Ak $b \ge 2d$,
     stačí dokázať $a \ge 3b$, v opačnom prípade stačí dokázať $a \ge 6d$. Ak teda platí
-    $a \ge 2c \wedge a \ge 3b \wedge a \ge 6d$, zaručene platí aj $a \ge b + c + d$.
+    $a \ge 2c \wedge a \ge 3b \wedge a \ge 6d$, zaručene platí aj $a \ge b + c + d$. Všetky
+    tri prípady rozoberieme:
+
+    \begin{description}
+    \item[$\boxed{a \ge 6d}$], čiže $q(n) \alpha^n \ge 6s(n)$. Keďže indukčný
+    krok dokazujeme pre $n \ge 20$, platí $q(n) \alpha^n \ge q(n) = r(n) + n\cdot s(n) \ge
+    20s(n) \ge 6s(n)$.
+
+    \item[$\boxed{a \ge 3b}$], čiže $q(n) \alpha^n \ge 3k(k-1)q(n_1 + 1)\alpha^{n_1 + 1}$.
+    Z algoritmu máme predpoklad, že komponent $G_1$ má nanajvýš toľko vrcholov, čo $G_2$, preto
+    $n_1 \leq \frac{n}{2}$. Z neklesajúcosti $q$ a exponenciálnej funkcie platí $q(n_1 + 1)\alpha^{n_1 + 1}
+    \leq q(n) \alpha^{\frac{n}{2} + 1}$. Nakoniec využijeme nerovnosť $k < 2n_1 \leq n$, ktorá musí platiť,
+    aby algoritmus $\mathcal{A}$ neskončil už v kroku 4.
+
+    $$3k(k-1)q(n_1 + 1)\alpha^{n_1 + 1} \leq 3k(k-1)q(n)\alpha^{\frac{n}{2} + 1} = \frac{3k(k-1)}{\alpha^{\frac{n}{2} - 1}}q(n)\alpha^n < \frac{3n(n-1)}{\alpha^{\frac{n}{2} - 1}}q(n)\alpha^n$$
+
+    Nakoniec potrebujeme dokázať $\frac{3n(n-1)}{\alpha^{\frac{n}{2}-1}} \leq 1$. Pre $n > 20$ je čitateľ aj
+    menovateľ kladný, preto stačí dokázať $3n(n-1) \leq \alpha^{\frac{n}{2} - 1}$. Keďže $\alpha \ge 2.5$,
+    stačí nám dokázať $3n(n-1) \leq 2.5^{\frac{n}{2} - 1}$. Pre $n = 20$ táto nerovnosť platí a navyše
+    pre $n \ge 20$ je derivácia funkcie na ľavej strane menšia, ako derivácia funkcie na pravej strane.
+    Z toho vyplýva nerovnosť $3n(n-1) \leq 2.5^{\frac{n}{2}-1}$ a aj dokazovaná nerovnosť.
+
+    \item[$\boxed{a \ge 2c}$], čiže $q(n) \alpha^n \ge 2(k+1)q(n - n_1 + 1)\alpha^{n - n_1 + 1}$.
+    Opäť využijeme fakt, že $k < 2n_1$. Z netriviálnosti komponentu $G_1$ vyplýva $n - n_1 + 1 < n$ 
+
+    $$2(k+1)q(n - n_1 + 1)\alpha^{n - n_1 + 1} \leq \frac{2(k+1)}{\alpha^{n_1 - 1}}q(n)\alpha^n < \frac{2k + 2}{\alpha^{\frac{k}{2} - 1}} q(n)\alpha^n$$
+
+    Aby platila nerovnosť, stačí teda dokázať $\frac{2k + 2}{\alpha^{\frac{k}{2} - 1}} \leq 1$. Keďže
+    $f(k) = 2k + 2$ aj $g(k) = \alpha^{\frac{k}{2} - 1}$ sú pre $k \ge 6$ kladné, stačí dokázať
+    $f(k) \leq g(k)$. Pre $k = 9$ nerovnosť platí a pre $k \ge 9$ platí $f'(x) \leq g'(x)$.
+
+    Pre $k \ge 9$ teda nerovnosť platí. Pre $k \in \{6, 7, 8\}$ musíme odhad robiť presnejšie.
+    Potrebujeme dobre odhadnúť zlomok $\frac{2k+2}{\alpha^{n_1 - 1}}$. Z nerovnosti $k < 2n_1$
+    vyplýva, že pre $k \in \{6, 7\}$ platí $n_1 \ge 4$ a pre $k = 8$ platí $n_1 \ge 5$.
+
+    Pre $k=6$ a $n_1 \ge 4$ je zlomok $\frac{2k+2}{n_1 - 1}$ zhora ohraničený hodnotou $\frac{14}{2.5^3} \leq 0.9$,
+    pre $k=8$ a $n_1 \ge 5$ je zlomok $\frac{2k+2}{n_1 - 1}$ zhora ohraničený hodnotou $\frac{18}{2.5^4} \leq 0.5$.
+
+    Pre $k=7$ potrebujeme odhad s $n_1 \ge 4$. Pre $n_1 = 4$ má ale zlomok $\frac{2k+2}{n_1 - 1}$ hodnotu
+    väčšiu ako $1$. Pre $n_1 \ge 5$ je zlomok $\frac{16}{2.5^{n_1}}$ zhora ohraničený hodnotou $\frac{16}{2.5^4} \leq 0.5$.
+
+    Pre všetky hodnoty $k \ge 6$ a $n_1 \ge \frac{k}{2}$ okrem dvojice $(7, 4)$ teda platí
+    $$q^n \alpha^n \ge 2(k+1)\alpha^{n - n_1 + 1}.$$
+
+    \end{description}
+
+    Pre takmer všetky možnosti $k$ a $n_1$, pre ktoré algoritmus $\mathcal{A}$ vykoná kroky 5, 6 a 7,
+    sme dokázali, že $q(n) \alpha^n$ je horným odhadom pre jeho časovú zložitosť. Jediná kombinácia
+    $k$ a $n_1$, pre ktorú sme to zatiaľ nedokázali, je $k=7$ a $n_1 = 4$. Špeciálne pre tieto hodnoty
+    teraz spravíme trochu presnejší odhad.
+
 
 \end{proof}
