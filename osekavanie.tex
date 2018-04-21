@@ -230,24 +230,59 @@ na súvislých grafoch.
     $O(|V(G)| + |E(G)|)$ nájdením všetkých mostov pomocou Tarjanovho
     algoritmu \cite{tarjan_bridge}. Prehľadávaním do hĺbky vieme v čase $O(|V(G)| + |E(G)|)$ pre
     každý most a pre každý komponent, ktorý jeho odstránenie indukuje, spočítať, koľko vrcholov obsahuje.
+    Zvyšné manipulácie s dátami vieme pri vhodnej reprezentácii robiť v polynomiálnom čase.
 
     Pokiaľ platí podmienka v kroku 1, alebo v kroku 2, časová zložitosť algoritmu je nanajvýš
-    $T(n) \leq O(|V(G)| + E(G)|) + O^*(\alpha^n)$.
+    $T(n) \leq O^*(1) + O^*(\alpha^n)$.
 
     Pokiaľ sa vykoná krok 4, graf $G_2$ bude obsahovať nanajvýš $n-1$ vrcholov, z čoho dostávame
-    rekurentný vzťah pre časovú zložitosť $T(n) \leq O(|V(G)| + |E(G)|) + T(n-1)$.
+    vzťah pre časovú zložitosť $T(n) \leq O^*(1) + T(n-1)$.
 
-    Pre každú hodnotu $k \ge 6$ platí, že počet usporiadaných dvojíc farieb, ktorými môžeme
-    ofarbiť dva susedné vrcholy, je presne $k(k-1)$. Počet vrcholov grafu $G_1$ označíme $n_1$.
+    Pre hodnotu $k \ge 6$ spočítame, koľkými spôsobmi môžeme ofarbiť dvojicu susedných vrcholov $u, v$.
+    Pokiaľ vrchol $u$ ofarbíme farbou $x$, vrchol $v$ môže dostať ľubovoľnú farbu okrem $x, x-1$ a $x + 1$.
+    To znamená, že ak vrchol $u$ ofarbíme farbou $0$ alebo $k$, ostane nám pre vrchol $k + 1 - 2$ možností.
+    Ak vrchol $u$ ofarbíme ktoroukoľvek zo zvyšných $k-1$ možností, pre vrchol $v$ nám vždy ostane $k + 1 - 3$
+    možností. Úpravou dostaneme, že počet ofarbení týchto vrcholov je $2(k-1) + (k-1)(k-2) = k(k-1)$.
 
+    Ďalej označíme $n_1$ ako počet vrcholov komponentu $G_1$. 
     Krok 5 zahŕňa $k(k-1)$ spustení algoritmu na grafe $G_1 \cup \{e, v\}$, ktorý má $n_1 + 1$
     vrcholov. Krok 6 zahŕňa nanajvýš $k+1$ spustení algoritmu na grafe $G_2 \cup \{e, u\}$, ktorý
-    má $n - n_1 + 1$ vrcholov. Časová zložitosť tejto vetvy výpočtu teda spĺňa rekurenciu $T(n) \leq O(|V(G)| + |E(G)|) + k(k-1)T(n_1+1) + (k+1)T(n - n_1 + 1)$.
+    má $n - n_1 + 1$ vrcholov. Časová zložitosť tejto vetvy výpočtu teda spĺňa vzťah 
+    $$T(n) \leq O^*(1) + k(k-1)T(n_1+1) + (k+1)T(n - n_1 + 1).$$
 
-    Ďalej indukciou dokážeme, že pre vhodne zvolený polynóm $q(n)$ je časová zložitosť
-    algoritmu $\mathcal{A}$ nanajvýš $q(n) \alpha^n + O^*(1)$.
+    Ďalej dokážeme, že pre vhodne zvolený polynóm $q$ je časová zložitosť
+    algoritmu $\mathcal{A}$ nanajvýš $q(n) \alpha^n$.
 
-    Nech $p$ je polynóm, pre ktorý platí, že časová zložitosť algoritmu $\mathcal{B}$ aj algoritmu
-    od Haveta a kol. je zhora ohraničená $p(n)\alpha^n$.
+    Nech $p$ je neklesajúci polynóm, pre ktorý platí, že časová zložitosť algoritmu $\mathcal{B}$ aj algoritmu
+    od Haveta a kol. je zhora ohraničená $p(n)\alpha^n$. Nech $s$ je neklesajúci polynóm, ktorý
+    zhora ohraničuje časovú zložitosť jedného volania algoritmu $\mathcal{A}$, bez započítania 
+    rekurzívnych volaní a volaní iných algoritmov. Nech $r$ je neklesajúci polynóm, ktorý spĺňa
+    $\forall n \in \mathbb{N}: r(n) \ge p(n)$ a navyše pre $n \leq 20$ je hodnota $r(n)$ horným
+    ohraničením na časovú zložitosť algoritmu $\mathcal{A}$ na grafe s $n$ vrcholmi.
+
+    Nakoniec polynóm $q$ určíme vzťahom $q(n) = r(n) + n \cdot s(n)$. Za zmienku stojí, že takto
+    definovaný polynóm $q$ je tiež neklesajúci. Ďalej matematickou indukciou
+    dokážeme, že časová zložitosť algoritmu $\mathcal{A}$ na grafe s $n$ vrcholmi je zhora ohraničená
+    funkciou $q(n) \alpha^n$. Bázou indukcie bude tvrdenie, že pre $n \leq 20$ ohraničenie platí. Toto
+    triviálne vyplýva z definície polynómov $r(n)$ a $q(n)$. Pre dôkaz indukčného kroku rozoberieme
+    všetky možnosti vetvenia algoritmu $\mathcal{A}$.
+
+    Pokiaľ platí podmienka v 1. alebo 2. kroku,
+    $q(n) \alpha^n \ge p(n) \alpha^n + s(n)$ vyplýva z nerovností $q(n) \ge r(n) + s(n) \ge p(n) + s(n)$.
+
+    Pokiaľ platí podmienka v 4. kroku, potrebujeme dokázať $q(n) \alpha^n \ge q(n-1) \alpha^{n-1} + s(n)$:
+    $$ q(n) \alpha^n \ge q(n) \alpha^{n-1} = \left(r(n) + n \cdot s(n) \right) \alpha^{n-1} \ge s(n) + \left(r(n) + (n-1)s(n) \right) \alpha^{n-1} \ge $$
+    $$ \ge s(n) + \left(r(n-1) + (n-1)s(n-1) \right) \alpha^{n-1} = s(n) + q(n-1) \alpha^{n-1}$$.
+
+    Pokiaľ sa vykoná 5. a 6. krok, potrebujeme dokázať
+
+    $$q(n) \alpha^n \ge k(k-1)q(n_1+1)\alpha^{n_1 + 1} + (k+1)q(n - n_1 + 1)\alpha^{n - n_1 + 1} + s(n).$$
+
+    Kvôli prehľadnosti zasubstituujeme členy v predošlej nerovnosti: $a := q(n) \alpha^n,\\ b :=  k(k-1)q(n_1+1)\alpha^{n_1 + 1},
+    c := (k+1)q(n - n_1 + 1)\alpha^{n - n_1 + 1}, d := s(n)$. Potrebujeme dokázať $a \ge b + c + d$.
+    Rozoberieme zopár prípadov. Ak $c \ge b + d$, stačí dokázať $a \ge 2c$. Inak platí $c < b + d$ a
+    teda stačí dokázať $a \ge 2(b + d)$. Opäť rozoberieme prípady podľa veľkosti výrazov. Ak $b \ge 2d$,
+    stačí dokázať $a \ge 3b$, v opačnom prípade stačí dokázať $a \ge 6d$. Ak teda platí
+    $a \ge 2c \wedge a \ge 3b \wedge a \ge 6d$, zaručene platí aj $a \ge b + c + d$.
 
 \end{proof}
