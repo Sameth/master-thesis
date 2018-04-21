@@ -332,7 +332,19 @@ na súvislých grafoch.
     Pre takmer všetky možnosti $k$ a $n_1$, pre ktoré algoritmus $\mathcal{A}$ vykoná kroky 5, 6 a 7,
     sme dokázali, že $q(n) \alpha^n$ je horným odhadom pre jeho časovú zložitosť. Jediná kombinácia
     $k$ a $n_1$, pre ktorú sme to zatiaľ nedokázali, je $k=7$ a $n_1 = 4$. Špeciálne pre tieto hodnoty
-    teraz spravíme trochu presnejší odhad.
+    spravíme presnejší odhad.
 
+    Potrebujeme teda dokázať $q(n) \alpha^n \ge 42 \cdot q(5) \alpha^5 + 8 \cdot q(n - 3) \alpha^{n-3} + s(n)$.
+    Keďže dokazujeme indukčný krok, môžeme predpokladať $n \ge 20$.
+
+    $$q(n) \alpha^n = \left(r(n) + n \cdot s(n) \right) \alpha^n \ge \left(r(n) + (n-1)s(n) \right) \alpha^n + s(n) \ge q(n-3) \alpha^n + s(n) \ge$$
+    $$\ge \left(\frac{2.5}{2} \right)^3 \cdot 8 \cdot q(n-3) \alpha^{n-3} + s(n) = \left( \frac{61}{64} + 1\right) \cdot 8 \cdot q(n-3)\alpha^{n-3} + s(n) \ge $$
+    $$\ge q(n-3) \alpha^{n-3} + 8 \cdot q(n-3) + s(n) \ge^{(*)} q(17) \alpha^{17} + 8 \cdot q(n-3)\alpha^{n-3} + s(n) \ge $$
+    $$\ge q(5)2^{12}\alpha^{5} + 8 \cdot q(n-3) + s(n) \ge 42 q(5)\alpha^5 + 8 \cdot q(n-3) + s(n)$$
+
+    Označená nerovnosť platí kvôli $n \ge 20$.
+
+    Týmto sme dokázali, že existuje polynóm $q(n)$ taký, že časová zložitosť algoritmu $\mathcal{A}$ je
+    zhora ohraničená funkciou $q(n)\alpha^n$. Preto časová zložitosť algoritmu je $O^*(\alpha^n)$. \qedhere
 
 \end{proof}
