@@ -1,13 +1,50 @@
 \chapter{TODO: Kapitola o zmensovani a rozoberani "specialnych" pripadov}
 
-FIXME: Zhrnutie
-FIXME: Pridať definíciu List-L(2,1)-farbenia, ukázať prispôsobenie J-S algoritmu na List-L(2,1)-farbenie
-\section{TODO: Orezavanie mostov}
+Časová zložitosť algoritmu Junosza-Szaniawski je principiálne veľká na grafoch, v ktorých
+existuje veľa rôznych čiastočných $L(2,1)$ ofarbení. Ako sme videli v predošlej kapitole,
+spomedzi súvislých grafov majú najviac čiastočných ofarbení, resp. vlastných párov, stromy.
+Na dostatočne jednoduchých triedach grafov však existujú polynomiálne algoritmy, ktoré
+riešia problém $L(2,1)$-farbenia.
 
-%Časová zložitosť algoritmu Junosza-Szaniawski je principiálne veľká na grafoch, v ktorých
-%existuje veľa rôznych čiastočných $L(2,1)$ ofarbení. Ako sme videli v predošlej kapitole,
-%spomedzi súvislých grafov majú najviac čiastočných ofarbení stromy. Na dostatočne jednoduchých
-%triedach grafov však existujú polynomiálne algoritmy, ktoré riešia problém $L(2,1)$-farbenia.
+Intuitívne platí, že pri jednoduchých grafoch vieme problém rozdeliť na viacero menších,
+menšie problémy vyriešiť nezávisle a nakoniec ich riešenia pospájať. V tejto kapitole
+sa pozrieme na spôsob, akým vieme túto intuíciu aplikovať.
+
+Aj keď v práci rozoberáme problém $L(2,1)$-farbenia, postupy z tejto kapitoly sa principiálne
+dajú aplikovať aj na všeobecnejšie $L(p,q)$-farbenia.
+
+\section{FIXME: nejaký názov}
+
+Ako sa ďalej v práci ukáže, aby sme vedeli problém dobre rozdeliť, potrebujeme riešiť
+o trochu všeobecnejší problém: Každému vrcholu grafu pridáme obmedzenie na hodnoty,
+ktorými môže byť ofarbený.
+
+FIXME: Zmenit problem a prepisat vsade. Nechceme zoznam povolenych hodnot, chceme mat nejake
+ciastocne ofarbenie a doplnit ho. Toto potom vie J-S riesit v case $a^n$ bez ohladu na ostatne
+veci.
+
+\begin{defn}
+    Rozhodovací problém \emph{zoznamového $L(2,1)$-farbenia} definujeme nasledovne: Inštanciou je
+    graf $G$, prirodzené číslo $k$ a zobrazenie $c: V(G) \to 2^{\{0 \ldots k\}}$. Inštancia je
+    riešiteľná práve vtedy, keď existuje $L(2,1)$ farbenie $f$ grafu $G$ s rozsahom $k$, pre ktoré platí
+    $\forall v \in V(G): f(v) \in c(v)$.
+
+    Zobrazenie $c$ budeme nazývať \emph{zoznam povolených hodnôt}.
+\end{defn}
+
+Ľubovoľné riešenie problému zoznamového $L(2,1)$-farbenia vieme prerobiť na riešenie
+problému $L(2,1)$-farbenia -- pre každý vrchol $v$ určíme $c(v) = \{0 \ldots k\}$. Taktiež sa
+však ukazuje, že mnohé riešenia problému $L(2,1)$-farbenia sa dajú prerobiť na riešenia problému
+zoznamového $L(2,1)$-farbenia. Ukážeme si to na príklade algoritmu Junosza-Szaniawski.
+
+Pripomenieme si, že algoritmus Junosza-Szaniawski počítal postupne tabuľky $T_0, T_1, \ldots T_{2n}$.
+Tabuľka $T_i$ obsahuje reprezentáciu všetkých čiastočných $i$-$L(2,1)$-farbení grafu. Pre každé
+čiastočné farbenie v tabuľke $T_i$ vieme povedať zoznam vrcholov, ktoré používajú farbu $i$.
+Úprava algoritmu teda bude spočívať v tom, že po vypočítaní tabuľky $T_i$ z nej odstránime
+všetky čiastočné farbenia, ktoré priradili farbu $i$ vrcholu, ktorý ju podľa zoznamu povolených
+hodnôt nemôže dostať. Kvôli obmedzeniu zoznamom povolených hodnôt nemusí platiť, že 
+
+\subsection{Rozdelenie na hranových separátoroch}
 
 Prvý typ ``jednoduchosti'' grafu, ktorú vieme využiť pri hľadaní rýchlejšieho algoritmu,
 zodpovedá hranovej súvislosti grafu. Vezmime si nejaký hranový separátor $S_E$ grafu $G$. 
@@ -94,7 +131,7 @@ $L(2,1)$-farbenie celého grafu $G$. Toto tvrdenie si formálne zhrnieme v nasle
 FIXME: Grafické znázornenie lemy a dôsledku? %TODO!!
 
 Tento dôsledok nám vlastne dáva spôsob, ktorým vieme rozdeliť rozhodovanie
-problému $k$-$L(2,1)$-farbenia grafu $G$ na dve nezávislé časti v prípade,
+problému $L(2,1)$-farbenia grafu $G$ na dve nezávislé časti v prípade,
 že $G$ obsahuje \emph{netriviálny most} -- most, ktorého odstránením dostaneme
 dva komponenty súvislosti s aspoň dvomi vrcholmi.
 
@@ -111,7 +148,7 @@ Za zanedbateľné zmenšenie problému zaplatíme tým, že ho budeme musieť ri
 V ďalšej časti rozoberieme, ako sa vieme vysporiadať s problémom malých komponentov a
 aký výsledok z toho dostaneme.
 
-\subsection{Mostová veta}
+\section{Mostová veta}
 
 Na začiatok si zadefinujeme triedu grafov, ktorú môžeme opakovaným delením na menšie
 podproblémy dostať. Základnou triedou grafov, ktoré nevieme rozdeliť, sú súvislé
@@ -187,19 +224,23 @@ Pokiaľ overujeme existenciu $k$-$L(2,1)$-farbenia pre dostatočne veľkú hodno
 nájdeme most, ktorého odstránením bude prvý komponent malý a druhý veľký, podľa tejto lemy
 môžeme malý komponent odignorovať. Pri takomto prístupe by nám mohli robiť problém malé
 hodnoty $k$. Tie môžeme vyriešiť s použitím algoritmu od Haveta a kol., ktorý rieši
-problém $k$-$L(2,1)$-farbenia pre $k \leq 5$ v čase $O^*(2.5^n)$ \cite{havet}. Tento
+problém $L(2,1)$-farbenia pre $k \leq 5$ v čase $O^*(2.5^n)$ \cite{havet}. Tento
 algoritmus principiálne prehľadáva všetky $k$-$L(2,1)$-farbenia grafu, preto sa dá
 priamočiaro prerobiť na algoritmus, ktorý rieši problém zoznamového $k$-$L(2,1)$-farbenia.
 
 Teraz máme všetky podklady pre to, aby sme vedeli upraviť algoritmus,
-ktorý rieši problém zoznamového $k$-$L(2,1)$-farbenia na chlpatých
-$2$-hranovo súvislých grafoch, na algoritmus riešiaci tento problém
-na súvislých grafoch.
+ktorý rieši problém zoznamového $L(2,1)$-farbenia na chlpatých
+$2$-hranovo súvislých grafoch, na algoritmus riešiaci problém $L(2,1)$-farbenia
+na súvislých grafoch. Do pozornosti dávame, že náš algoritmus nebude riešiť
+problém zoznamového $L(2,1)$-farbenia.
 
 \begin{veta}
-    Ak existuje algoritmus $\mathcal{B}$, ktorý rieši rozhodovací problém zoznamového $k$-$L(2,1)$-farbenia
+    FIXME: Toto v skutocnosti nefunguje. Rozbit na viacero pripadov, tato veta moze pokryvat pripad, ze
+    pseudobloky su dostatocne velke. Doriesit pripady, kedy mozu byt pseudobloky male.
+
+    Ak existuje algoritmus $\mathcal{B}$, ktorý rieši rozhodovací problém zoznamového $L(2,1)$-farbenia
     na chlpatých $2$-hranovo-súvislých grafoch s časovou zložitosťou $O^*(\alpha^n)$, kde
-    $\alpha \ge 2.5$, tak existuje algoritmus $\mathcal{A}$, ktorý rieši problém zoznamového $k$-$L(2,1)$-farbenia
+    $\alpha \ge 2.5$, tak existuje algoritmus $\mathcal{A}$, ktorý rieši problém $L(2,1)$-farbenia
     na súvislých grafoch s časovou zložitosťou $O^*(\alpha^n)$.
 \end{veta}
 
@@ -213,6 +254,8 @@ na súvislých grafoch.
         \item Inak sa v grafe nachádza netriviálny most. Nájdi most $e$ s koncovými vrcholmi $u, v$.
         Skonštruuj graf $G_1$ ako komponent súvislosti grafu $G - \{e\}$ obsahujúci $u$ a $G_2$ ako
         komponent súvislosti obsahujúci $v$. Bez ujmy na všeobecnosti platí $|V(G_1)| \leq |V(G_2)|$.
+        V prípade viacerých možností pre výber mostu $e$ vyber niektorý z tých, pre ktoré je počet
+        vrcholov v grafe $G_1$ najmenší.
         \item Ak $\left |V(G_1) \right| \leq \frac{k}{2}$, rekurzívne spusti a vráť výstup algoritmu
         $\mathcal{A}$ na grafe $G_2 \cup \{e, u\}$ s príslušne zúženým zoznamom hodnôt $c$.
         \item Pre všetky prípustné (podľa $c$) ofarbenia $f$ vrcholov $u, v$ spusti rekurzívne
@@ -348,3 +391,9 @@ na súvislých grafoch.
     zhora ohraničená funkciou $q(n)\alpha^n$. Preto časová zložitosť algoritmu je $O^*(\alpha^n)$. \qedhere
 
 \end{proof}
+
+Naším cieľom je vytvoriť rýchly algoritmus na riešenie problému $L(2,1)$-farbenia. Posledná veta
+nám hovorí, že nám stačí vyriešiť tento problém na chlpatých $2$-hranovo súvislých grafoch. V dôkaze
+máme aj návod, ako takéto špecifické riešenie prerobiť na algoritmus na všeobecných grafoch.
+
+
