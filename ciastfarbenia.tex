@@ -1,0 +1,46 @@
+\chapter{FIXME: Vymysliet nazov}
+
+FIXME: uvod
+
+\begin{defn}
+    Nech $f$ je čiastočné $L(2,1)$-farbenie grafu $G$ s rozsahom $k$. Pod pojmom \emph{charakteristika rádu $k$
+    zobrazenia $f$} budeme rozumieť dvojicu $(F_P, F_O)$, kde $F_P$ je množina vrcholov ofarbená
+    hodnotou $k$ a $F_O$ je množina ostatných ofarbených vrcholov.
+\end{defn}
+
+
+
+\section{Rozdelenie na vrcholových separátoroch}
+
+\begin{lema}
+    Nech $S_V$ je vrcholový separátor grafu $G$, nech $G_1, G_2, \ldots G_k$ sú komponenty
+    grafu $G - S_V$ a nech $H_1, H_2, \ldots, H_k$ sú grafy indukované množinami $V(G_1) \cup S_V,\ V(G_2) \cup S_V,\ \ldots,\ V(G_k) \cup S_V$.
+    Nech $f$ je čiastočné $L(2,1)$-farbenie nejakej podmnožiny $S \subseteq N[S_V]$ v grafe $G$ a nech $f_1, f_2, \ldots f_k$
+    sú čiastočné farbenia množín $S_1, S_2, \ldots, S_k$ v grafoch $H_1, H_2, \ldots, H_k$ (v tomto poradí), ktoré spĺňajú podmienku
+
+    $$ \forall i \in \{1 \ldots k\},\ \forall v \in V(H_i) \cap N[S_V]: (v \in S_i \Leftrightarrow v \in S) \wedge (v \in S_i \Rightarrow f_i(v) = f(v)).$$
+
+    Potom zobrazenie $\omega: \bigcup \limits_{i=1}^k S_i \to \mathbb{N}$ definované nasledovne:
+
+    \[ \omega(v) =
+    \begin{cases}
+        f(v), & v \in S \\
+        f_i(v), & v \in S_i - S
+    \end{cases}
+    \]
+
+    tvorí čiastočné farbenie grafu $G$.
+\end{lema}
+
+\begin{proof}
+    Dôkaz je veľmi podobný dôkazu lemy o hranových separátoroch \ref{hrsep-lema} v predošlej kapitole. Všetky
+    vrcholy ofarbené vrámci jedného grafu $H_i$ nemôžu porušiť podmienku čiastočného $L(2,1)$-farbenia. Podobne
+    pre dva vrcholy v $S$.
+    
+    Každá dvojica vrcholov, kde jeden patrí do $S_i - S$ a druhý do $S - S_i$ má vzdialenosť
+    aspoň $3$, lebo cesta medzi nimi musí obsahovať aspoň jeden úsek, ktorý tvorí hrana z $S_i - S$ do $N(S)$, hrana
+    z $N(S)$ do $S$ a hrana z $S$ do iného vrchola $N(S)$.
+
+    Nakoniec každá dvojica vrcholov, kde jeden patrí do $S_i - S$ a druhý do $S_j - S$, kde $i \neq j$, musí mať tiež
+    vzdialenosť aspoň $3$.
+\end{proof}
