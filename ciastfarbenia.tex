@@ -8,9 +8,27 @@ FIXME: uvod
     hodnotou $k$ a $F_O$ je množina ostatných ofarbených vrcholov.
 \end{defn}
 
+Z algoritmu Junosza-Szaniawski môžeme vidieť, že na reprezentáciu množiny čiastočných farbení
+s obmedzeným rozsahom nám stačí ukladať množinu charakteristík fixného rádu. Keď nepotrebujeme
+pre každý ofarbený vrchol ukladať jeho presnú farbu, môžeme si dovoliť reprezentovať aj
+vrcholové separátory a použiť ich na rozdelenie problému. O presnom spôsobe a aplikácií
+takéhoto rozdelenia si povieme v ďalšej časti.
 
+Predtým si ale stručne pripomenieme lemu o hranových separátoroch z predošlej kapitoly \ref{hrsep-lema}.
+Táto lema hovorí, že existencia $L(2,1)$-farbenia grafu $G$ vyplýva z existencie $L(2,1)$-farbení
+komponentov grafu $G-E$ pre hranový oddeľovač $E$. Tieto farbenia musia navyše farbiť všetky vrcholy
+z hranového oddeľovača a musia sa zhodovať v ich farbách.
+
+Podobné tvrdenie platí aj pre čiastočné farbenia. V tomto prípade je podmienkou, že všetky čiastočné
+farbenia farbia tú istú podmnožinu vrcholov z hranového oddeľovača a navyše im priradzujú rovnakú farbu.
+Keďže ide o takmer identické tvrdenie k leme o hranových separátoroch \ref{hrsep-lema}, nebudeme
+jeho presné znenie uvádzať.
 
 \section{Rozdelenie na vrcholových separátoroch}
+
+Základnou myšlienkou rozdelenia na vrcholových separátoroch je, že ak máme zafixované čiastočné
+farbenie separátora a všetkých jeho susedov, farbenie zvyšných vrcholov v rôznych komponentoch
+je nezávislé.
 
 \begin{lema}
     Nech $S_V$ je vrcholový separátor grafu $G$, nech $G_1, G_2, \ldots G_k$ sú komponenty
@@ -43,4 +61,17 @@ FIXME: uvod
 
     Nakoniec každá dvojica vrcholov, kde jeden patrí do $S_i - S$ a druhý do $S_j - S$, kde $i \neq j$, musí mať tiež
     vzdialenosť aspoň $3$.
+\end{proof}
+
+Okolie jedného vrchola môže byť pomerne veľké, napríklad vo hviezdach v ňom môžu byť všetky zvyšné vrcholy.
+Pri reprezentácii čiastočného farbenia cez jeho charakteristiku nám to však nevadí. Rôznych charakteristík,
+ktoré môžu mať čiastočné farbenia malého separátora a jeho okolia, je malý. Horný odhad pre počet rôznych
+charakteristík si zhrnieme v nasledujúcej leme.
+
+\begin{lema}
+    Nech $S$ je vrcholový separátor grafu $G$, nech $q = |S|$ a $r = |N[S]|$, nech $k \in \mathbb{N}$ je ľubovoľné
+    číslo, nech $F$ je množina všetkých čiastočných farbení s rozsahom $k$, ktoré ofarbujú nejakú podmnožinu $N[S]$,
+    nech $C$ je množina všetkých charakteristík rádu $k$ farbení v $F$. Potom $|S| \leq 2^r \cdot r^{q}$.
+\end{lema}
+\begin{proof}
 \end{proof}
