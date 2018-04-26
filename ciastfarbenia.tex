@@ -71,7 +71,35 @@ charakteristík si zhrnieme v nasledujúcej leme.
 \begin{lema}
     Nech $S$ je vrcholový separátor grafu $G$, nech $q = |S|$ a $r = |N[S]|$, nech $k \in \mathbb{N}$ je ľubovoľné
     číslo, nech $F$ je množina všetkých čiastočných farbení s rozsahom $k$, ktoré ofarbujú nejakú podmnožinu $N[S]$,
-    nech $C$ je množina všetkých charakteristík rádu $k$ farbení v $F$. Potom $|S| \leq 2^r \cdot r^{q}$.
+    nech $C$ je množina všetkých charakteristík rádu $k$ farbení v $F$. Potom $|S| \leq 2^r \cdot (r+1)^{q}$.
 \end{lema}
 \begin{proof}
+    Najprv zhora odhadneme počet rôznych množín vrcholov, ktoré majú priradenú farbu $k$. Pre každý vrchol
+    $v \in S$ platí, že v jeho okolí $N[v]$ je nanajvýš jeden vrchol, ktorý má farbu $k$. V opačnom prípade by totiž
+    mali dva vrcholy vo vzdialenosti nanajvýš $2$ priradenú tú istú farbu. Keďže celkový počet vrcholov
+    v $N[S]$ je $r$, pre každý z $q$ vrcholov separátora môžeme vybrať nanajvýš jednu z $r$ možností, alebo
+    nevybrať žiadny vrchol. Preto množín vrcholov, ktoré majú priradenú farbu $k$, je nanajvýš $(r+1)^q$.
+
+    Ďalej pre každú množinu vrcholou s farbou $k$ ostáva nanajvýš $r$ vrcholov, každý z nich nezávisle
+    patrí, alebo nepatrí do množiny ofarbených vrcholov. Pre každú možnosť množiny vrcholov s farbou $k$
+    máme teda nanajvýš $2^r$ možností, ako vyzerá množina ostatných ofarbených vrcholov. Charakteristík
+    je teda nanajvýš $2^r (r+1)^q$.
 \end{proof}
+
+Využitie rozdelenia na základe vrcholového a hranového separátora si ukážeme na planárnych grafoch.
+
+\subsection{Farbenie planárnych grafov}
+
+Dôležitými výsledkami pre farbenie planárnych grafov sú vety o separátoroch v planárnych grafoch \cite{tarjan_plansep},
+ktoré si uvedieme.
+
+\begin{veta}
+    Nech $G$ je planárny graf s $n$ vrcholmi. Potom sa dajú vrcholy grafu $G$ rozdeliť do troch množín $A, B, C$ tak,
+    že neexistuje hrana medzi žiadnym vrcholom v $A$ a žiadnym vrcholom v $B$, množiny $A$ aj $B$ majú nanajvýš $\frac{n}{2}$
+    vrcholov a množina $C$ má nanajvýš $\frac{2 \sqrt{2n}}{1 - \sqrt{\frac{2}{3}}}$ vrcholov.
+\end{veta}
+
+\begin{pozn}
+Hodnota výrazu $\frac{2 \sqrt{2}}{1 - \sqrt{\frac{2}{3}}}$ je menšia ako $16$, preto budeme kvôli prehľadnosti
+veľkosť množiny $C$ zhora odhadovať ako $16 \sqrt{n}$.
+\end{pozn}
