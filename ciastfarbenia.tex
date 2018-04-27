@@ -86,7 +86,14 @@ charakteristík si zhrnieme v nasledujúcej leme.
     je teda nanajvýš $2^r (r+1)^q$.
 \end{proof}
 
-Využitie rozdelenia na základe vrcholového a hranového separátora si ukážeme na planárnych grafoch.
+Rozdeľovanie pomocou vrcholového separátora budeme využívať na konštrukciu rýchlejších algoritmov
+pre problém $L(2,1)$-farbenia. Pre všetky možné charakteristiky separátora a okolia si budeme pamätať,
+aké charakteristiky môžu mať farbenia vo všetkých komponentoch.
+
+Podobne bude prebiehať pridanie novej
+farby. Vyskúšame pridanie všetkých farieb do separátora a jeho okolia. Pre každú takúto možnosť potom
+pridáme novú farbu do každého komponentu. Ako to bude presne vyzerať s postupom a s časovou zložitosťou,
+si ukážeme na príklade planárnych grafov.
 
 \subsection{Farbenie planárnych grafov}
 
@@ -103,3 +110,5 @@ ktoré si uvedieme.
 Hodnota výrazu $\frac{2 \sqrt{2}}{1 - \sqrt{\frac{2}{3}}}$ je menšia ako $16$, preto budeme kvôli prehľadnosti
 veľkosť množiny $C$ zhora odhadovať ako $16 \sqrt{n}$.
 \end{pozn}
+
+
