@@ -3,9 +3,18 @@
 FIXME: uvod
 
 \begin{defn}
-    Nech $f$ je čiastočné $L(2,1)$-farbenie grafu $G$ s rozsahom $k$. Pod pojmom \emph{charakteristika rádu $k$
-    zobrazenia $f$} budeme rozumieť dvojicu $(F_P, F_O)$, kde $F_P$ je množina vrcholov ofarbená
-    hodnotou $k$ a $F_O$ je množina ostatných ofarbených vrcholov.
+    Nech $f$ je čiastočné $L(2,1)$-farbenie množiny $S$ v grafe $G$ s rozsahom $k$. Pod pojmom \emph{charakteristika rádu $k$
+    zobrazenia $f$} budeme rozumieť zobrazenie $c_{S,f,k}: V(G) \to \{0, 1, \bar{1}\}$ definované nasledovne:
+
+    \[ c_{S,f,k} (v) =
+    \begin{cases}
+        0, & v \notin S \\
+        1, & v \in S \wedge f(v) \neq k \\
+        \bar{1}, & v \in S \wedge f(v) = k
+    \end{cases}
+    \]
+
+    Charakteristiky čiastočných farbení budeme ďalej v texte značiť $c$.
 \end{defn}
 
 Z algoritmu Junosza-Szaniawski môžeme vidieť, že na reprezentáciu množiny čiastočných farbení
@@ -95,12 +104,13 @@ farby. Vyskúšame pridanie všetkých farieb do separátora a jeho okolia. Pre 
 pridáme novú farbu do každého komponentu. Ako to bude presne vyzerať s postupom a s časovou zložitosťou,
 si ukážeme na príklade planárnych grafov.
 
-\subsection{Farbenie planárnych grafov}
+\section{Farbenie planárnych grafov}
 
 Dôležitými výsledkami pre farbenie planárnych grafov sú vety o separátoroch v planárnych grafoch \cite{tarjan_plansep},
 ktoré si uvedieme.
 
 \begin{veta}
+    \label{planarsep-veta}
     Nech $G$ je planárny graf s $n$ vrcholmi. Potom sa dajú vrcholy grafu $G$ rozdeliť do troch množín $A, B, C$ tak,
     že neexistuje hrana medzi žiadnym vrcholom v $A$ a žiadnym vrcholom v $B$, množiny $A$ aj $B$ majú nanajvýš $\frac{n}{2}$
     vrcholov a množina $C$ má nanajvýš $\frac{2 \sqrt{2n}}{1 - \sqrt{\frac{2}{3}}}$ vrcholov.
@@ -110,5 +120,40 @@ ktoré si uvedieme.
 Hodnota výrazu $\frac{2 \sqrt{2}}{1 - \sqrt{\frac{2}{3}}}$ je menšia ako $16$, preto budeme kvôli prehľadnosti
 veľkosť množiny $C$ zhora odhadovať ako $16 \sqrt{n}$.
 \end{pozn}
+
+Ďalej budeme vytvárať algoritmus, ktorý dokáže pre danú množinu charakteristík čiastočných $L(2,1)$-farbení
+s rozsahom $k$ vypočítať množinu charakteristík čiastočných $L(2,1)$-farbení s rozsahom $k+1$. Túto funkciu
+nad množinami charakteristík budeme ďalej označovať $\oplus$.
+Pre vysvetlenie nášho spôsobu počítania $\oplus(C)$ budeme potrebovať jednu ďalšiu definíciu.
+
+\begin{defn}
+    Nech $C$ je množina charakteristík čiastočných $L(2,1)$-farbení grafu $G$, nech $S = (s_1, s_2, \ldots, s_k)$ je nejaká postupnosť
+    rôznych vrcholov v $G$ dlhá $k$ a nech $O = (o_1, o_2, \ldots, o_k)$ je postupnosť dlhá $k$ zložená zo znakov $0, 1, \bar{1}$.
+    Potom pod symbolickým zápisom $C_{S=O}$ budeme rozumieť nasledujúcu množinu charakteristík:
+    
+    $$C_{S=O} = \{c \in C | \forall i \in \{1 \ldots k\}\ c(s_i) = o_i\}.$$
+\end{defn}
+
+
+FIXME:
+Najprv rozdelíme množinu $C$ na (disjunktné) podmnožiny podľa toho, aké hodnoty majú priradené vrcholy
+separátora $S$ a jeho okolia $N[S]$. 
+Formálny zápis výpočtu bude vyzerať nasledovne:
+
+$$ \oplus(C) = \oplus(\bigcup \limits_{}^{})$$
+
+Riešenie
+problému $L(2,1)$ farbenia potom niekoľkokrát aplikuje tento algoritmus, až kým nebude v množine
+charakteristík $C$ taká, ktorá zodpovedá $L(2,1)$-farbeniu. Keďže každý graf má triviálne farbenie
+s rozsahom $2n - 2$, tento algoritmus nám zaručene stačí spustiť najviac toľkokrát.
+
+Základom algoritmu bude nájsť separátor podľa vety o planárnom separátore \ref{planarsep-veta}. Tento
+krok stačí vykonať iba raz, preto si môžeme dovoliť jeho hľadanie tak, že prejdeme všetkých $2^n$ podmnožín
+vrcholov a pre každú v polynomiálnom čase overíme, či je dostatočne malá a či po jej odstránení bude mať
+každý komponent súvislosti nanajvýš $\frac{n}{2}$ vrcholov.
+
+Ďalej máme k dispozícii vrcholový separátor $S$. Podľa toho, koľko vrcholov je v okolí separátora, čiže
+v $N[S]$ budeme robiť rôzne veci. Najprv rozoberieme jednoduchší prípad, kde $|N[S]| \ge \frac{3n}{4}$,
+potom rozoberieme prípad $|N[S]| < \frac{3n}{4}$.
 
 
