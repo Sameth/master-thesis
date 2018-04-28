@@ -243,6 +243,30 @@ potrebovať nanajvýš $n$ nezávislých výpočtov. Tento faktor sa stratí v 
 
 Časová zložitosť tohto algoritmu teda bude $O^*(2^{\frac{3n}{8}} \cdot (\frac{3n}{8} + 16 \sqrt{n} + 1)^{32 \sqrt{n}} \cdot 2.65^{\frac{n}{2} + 16 \sqrt{n}}) = O^*(2.12^{n + o(n)})$.
 
-FIXME: Dokoncit odhad casovej zlozitosti
+\subsection{Vylepšenie a poznámky}
+
+Popísali sme si algoritmus, ktorý na základe veľkosti okolia separátora robil veľmi rôzne výpočty.
+Pri vysvetľovaní sme ako hranicu použili ľahko zapísateľnú, ale nie najoptimálnejšiu konštantu
+$\alpha = \frac{3}{4}$. Pre grafy, v ktorých má okolie separátora aspoň $\alpha n$ vrcholov
+sme používali algoritmus pre separátor s veľkým okolím, pre ostatné algoritmus pre separátor
+s malým okolím. Ďalej odhadneme lepšiu konštantu a časovú zložitosť, ktorá z jej použitia vyplýva.
+
+Časová zložitosť algoritmu pre separátor s veľkým okolím je pre ľubovoľnú konštantu $\alpha \in (0, 1)$
+v triede funkcií $O^*(2^{\alpha n + o(n)}4^{(1 - \alpha) n} = O^*(2^{n(2 - \alpha) + o(n)})$.
+
+Časová zložitosť algoritmu pre separátor s malým okolím je pre ľubovoľnú konštantu $\alpha \in (0,1)$
+v triede funkcií $O^*(2^{n\frac{\alpha}{2} + o(n)} 2.65^{\frac{n}{2} + o(n)})$.
+
+Zvyšovaním konštanty $\alpha$ teda zlepšujeme časovú zložitosť algoritmu pre separátor s malým
+okolím a zhoršujeme časovú zložitosť algoritmu pre separátor s veľkým okolím. Vyváženú časovú
+zložitosť dostaneme pre takú konštantu $\alpha$, kde $2 - \alpha = \frac{\alpha}{2} + \frac{\log_{2}(2.65)}{2}$.
+Vyriešením tejto rovnice dostávame hodnotu $\alpha \approx 0.865$, z ktorej vyplýva časová zložitosť
+$O^*(2.2^{n + o(n)})$ pre oba prípady.
+
+Uvedený algoritmus sa okrem existencie vrcholového rozdeľovača veľkosti $O(\sqrt{n})$ nespoliehal
+na žiadnu inú vlastnosť planárnych grafov. Preto uvedený algoritmus funguje pre všetky triedy grafov,
+v ktorých existuje vrcholový separátor veľkosti $O(\sqrt{n})$. Toto tvrdenie vieme dokonca mierne
+zosilniť na triedy grafov, v ktorých existuje vrcholový separátor veľkosti $O(n^{1 - \epsilon})$ pre
+ľubovoľnú hodnotu $\epsilon > 0$.
 
 FIXME: Napisat nejaky rozumny pseudokod. Ak ostane na taketo pompeznosti cas.
