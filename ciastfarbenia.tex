@@ -3,18 +3,24 @@
 FIXME: uvod
 
 \begin{defn}
+    Nech $G$ je graf s vrcholmi usporiadanými v postupnosti $v_1,v_2, \ldots, v_n$.
     Nech $f$ je čiastočné $L(2,1)$-farbenie množiny $S$ v grafe $G$ s rozsahom $k$. Pod pojmom \emph{charakteristika rádu $k$
-    zobrazenia $f$} budeme rozumieť zobrazenie $c_{S,f,k}: V(G) \to \{0, 1, \bar{1}\}$ definované nasledovne:
+    zobrazenia $f$} budeme rozumieť reťazec $r \in \{0, 1, \bar{1}\}^n$, ktorý spĺňa:
+    \begin{align*}
+        r_i = 0 & \Leftrightarrow v_i \notin S \\
+        r_i = 1 & \Leftrightarrow v_i \in S \wedge f(v_i) \neq k \\
+        r_i = \bar{1} & \Leftrightarrow v_i \in S \wedge f(v_i) = k
+    \end{align*}
 
-    \[ c_{S,f,k} (v) =
-    \begin{cases}
-        0, & v \notin S \\
-        1, & v \in S \wedge f(v) \neq k \\
-        \bar{1}, & v \in S \wedge f(v) = k
-    \end{cases}
-    \]
+    Ďalej pod pojmom \emph{rozšírená charakteristika rádu $k$ zobrazenia $f$} budeme rozumieť reťazec
+    $s \in \{0, \bar{0}, 1, \bar{1}\}^n$, ktorý spĺňa
+    \begin{align*}
+        s_i = 0 & \Leftrightarrow r_i = 0 \wedge (\forall j \in \{1 \dots n\}: v_j \in N(v_i) \Rightarrow t_j \neq 1 \\
+        s_i = \bar{0} & \Leftrightarrow r_i = 0 \wedge (\exists j \in \{1 \dots n\}: v_j \in N(v_i) \wedge t_j = 1 \\
+        s_i = r_i & \Leftrightarrow r_i \neq 0
+    \end{align*}
 
-    Charakteristiky čiastočných farbení budeme ďalej v texte značiť $c$.
+    Charakteristiky čiastočných farbení budeme ďalej v texte značiť $r$.
 \end{defn}
 
 Z algoritmu Junosza-Szaniawski môžeme vidieť, že na reprezentáciu množiny čiastočných farbení
@@ -78,21 +84,21 @@ ktoré môžu mať čiastočné farbenia malého separátora a jeho okolia, je m
 charakteristík si zhrnieme v nasledujúcej leme.
 
 \begin{lema}
-    Nech $S$ je vrcholový separátor grafu $G$, nech $q = |S|$ a $r = |N[S]|$, nech $k \in \mathbb{N}$ je ľubovoľné
+    Nech $S$ je vrcholový separátor grafu $G$, nech $q = |S|$ a $p = |N[S]|$, nech $k \in \mathbb{N}$ je ľubovoľné
     číslo, nech $F$ je množina všetkých čiastočných farbení s rozsahom $k$, ktoré ofarbujú nejakú podmnožinu $N[S]$,
-    nech $C$ je množina všetkých charakteristík rádu $k$ farbení v $F$. Potom $|S| \leq 2^r \cdot (r+1)^{q}$.
+    nech $R$ je množina všetkých charakteristík rádu $k$ farbení v $F$. Potom $|R| \leq 2^p \cdot (p+1)^{q}$.
 \end{lema}
 \begin{proof}
     Najprv zhora odhadneme počet rôznych množín vrcholov, ktoré majú priradenú farbu $k$. Pre každý vrchol
     $v \in S$ platí, že v jeho okolí $N[v]$ je nanajvýš jeden vrchol, ktorý má farbu $k$. V opačnom prípade by totiž
     mali dva vrcholy vo vzdialenosti nanajvýš $2$ priradenú tú istú farbu. Keďže celkový počet vrcholov
-    v $N[S]$ je $r$, pre každý z $q$ vrcholov separátora môžeme vybrať nanajvýš jednu z $r$ možností, alebo
-    nevybrať žiadny vrchol. Preto množín vrcholov, ktoré majú priradenú farbu $k$, je nanajvýš $(r+1)^q$.
+    v $N[S]$ je $p$, pre každý z $q$ vrcholov separátora môžeme vybrať nanajvýš jednu z $p$ možností, alebo
+    nevybrať žiadny vrchol. Preto množín vrcholov, ktoré majú priradenú farbu $k$, je nanajvýš $(p+1)^q$.
 
-    Ďalej pre každú množinu vrcholou s farbou $k$ ostáva nanajvýš $r$ vrcholov, každý z nich nezávisle
+    Ďalej pre každú množinu vrcholou s farbou $k$ ostáva nanajvýš $p$ vrcholov, každý z nich nezávisle
     patrí, alebo nepatrí do množiny ofarbených vrcholov. Pre každú možnosť množiny vrcholov s farbou $k$
-    máme teda nanajvýš $2^r$ možností, ako vyzerá množina ostatných ofarbených vrcholov. Charakteristík
-    je teda nanajvýš $2^r (r+1)^q$.
+    máme teda nanajvýš $2^p$ možností, ako vyzerá množina ostatných ofarbených vrcholov. Charakteristík
+    je teda nanajvýš $2^p (p+1)^q$.
 \end{proof}
 
 Rozdeľovanie pomocou vrcholového separátora budeme využívať na konštrukciu rýchlejších algoritmov
@@ -123,37 +129,30 @@ veľkosť množiny $C$ zhora odhadovať ako $16 \sqrt{n}$.
 
 Ďalej budeme vytvárať algoritmus, ktorý dokáže pre danú množinu charakteristík čiastočných $L(2,1)$-farbení
 s rozsahom $k$ vypočítať množinu charakteristík čiastočných $L(2,1)$-farbení s rozsahom $k+1$. Túto funkciu
-nad množinami charakteristík budeme ďalej označovať $\oplus$.
-Pre vysvetlenie nášho spôsobu počítania $\oplus(C)$ budeme potrebovať jednu ďalšiu definíciu.
+nad množinami charakteristík budeme ďalej označovať $\oplus$. Pre množinu charakteristík $R$ zadefinujeme
+množinu suffixov reťazca $w$ ako $R_w = \{u | wu \in R \}$.
 
-\begin{defn}
-    Nech $C$ je množina charakteristík čiastočných $L(2,1)$-farbení grafu $G$, nech $S = (s_1, s_2, \ldots, s_k)$ je nejaká postupnosť
-    rôznych vrcholov v $G$ dlhá $k$ a nech $O = (o_1, o_2, \ldots, o_k)$ je postupnosť dlhá $k$ zložená zo znakov $0, 1, \bar{1}$.
-    Potom pod symbolickým zápisom $C_{S=O}$ budeme rozumieť nasledujúcu množinu charakteristík:
-    
-    $$C_{S=O} = \{c \in C | \forall i \in \{1 \ldots k\}\ c(s_i) = o_i\}.$$
-\end{defn}
+Základný postup pri počítaní $\oplus(R)$ s využitím separátorov bude nasledovný:
+Vrcholy separátora a okolia označíme $S$, počet vrcholov v $S$ označíme $p$. Vrcholy grafu usporiadame tak, aby vrcholy $S$ boli na začiatku.
+Množinu (nerozšírených) charakteristík $R$ rozdelíme podľa ohodnotenia $S$. Pre každú možnosť ohodnotenia separátora
+a všetky možnosti ohodnotenia $S$ novou farbou nezávisle vypočítame všetky charakteristiky, ktoré môže dosahovať
+zvyšok vrcholov. Nakoniec tieto čiastočné výsledky pospájame a odstránime dupllikáty.
+Formálny zápis výpočtu a jeho odvodenia bude vyzerať nasledovne:
 
-
-FIXME:
-Najprv rozdelíme množinu $C$ na (disjunktné) podmnožiny podľa toho, aké hodnoty majú priradené vrcholy
-separátora $S$ a jeho okolia $N[S]$. 
-Formálny zápis výpočtu bude vyzerať nasledovne:
-
-$$ \oplus(C) = \oplus(\bigcup \limits_{}^{})$$
+$$ \oplus(R) = \bigcup \limits_{w \in R} \oplus(w) = \bigcup \limits_{w \in \{0, 1, \bar{1}\}^p} \oplus(R_w) = \bigcup \limits_{u \in \{0, 1, \bar{1}\}^p} \left(\bigcup \limits_{\substack{w \in \{0, 1, \bar{1}\}^p\\ \textrm{t.ž. } u \in \oplus(w)}} \oplus(R_w) \right)$$
 
 Riešenie
 problému $L(2,1)$ farbenia potom niekoľkokrát aplikuje tento algoritmus, až kým nebude v množine
 charakteristík $C$ taká, ktorá zodpovedá $L(2,1)$-farbeniu. Keďže každý graf má triviálne farbenie
-s rozsahom $2n - 2$, tento algoritmus nám zaručene stačí spustiť najviac toľkokrát.
+s rozsahom $2n - 2$, tento algoritmus nám zaručene stačí spustiť najviac $(2n - 2)$-krát.
 
 Základom algoritmu bude nájsť separátor podľa vety o planárnom separátore \ref{planarsep-veta}. Tento
 krok stačí vykonať iba raz, preto si môžeme dovoliť jeho hľadanie tak, že prejdeme všetkých $2^n$ podmnožín
 vrcholov a pre každú v polynomiálnom čase overíme, či je dostatočne malá a či po jej odstránení bude mať
 každý komponent súvislosti nanajvýš $\frac{n}{2}$ vrcholov.
 
-Ďalej máme k dispozícii vrcholový separátor $S$. Podľa toho, koľko vrcholov je v okolí separátora, čiže
-v $N[S]$ budeme robiť rôzne veci. Najprv rozoberieme jednoduchší prípad, kde $|N[S]| \ge \frac{3n}{4}$,
+Ďalej teda predpokladáme, že poznáme vrcholový separátor $S$. Podľa toho, koľko vrcholov je v okolí separátora, čiže
+v $N[S]$, budeme robiť rôzne veci. Najprv rozoberieme jednoduchší prípad, kde $|N[S]| \ge \frac{3n}{4}$,
 potom rozoberieme prípad $|N[S]| < \frac{3n}{4}$.
 
-
+\subsection{Separátor s veľkým okolím}
