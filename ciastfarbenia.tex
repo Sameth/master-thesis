@@ -229,6 +229,20 @@ Podobne, všetky komponenty, ktoré obsahujú nejaký vrchol v $A$, majú nanajv
 vrcholov, lebo množiny $A$ a $C$ majú dohromady najviac $\frac{n}{2} + 16 \sqrt{n}$ vrcholov a ich vrcholy
 nie sú spojené s vrcholmi v $B$.
 
+Počet charakteristík $S$ odhadneme podobne, ako pre vrcholové separátory: Pre každý vrchol v $C$ máme
+nanajvýš $p+1$ možností, ako vybrať nanajvýš jeden vrchol z jeho okolia. Výberov pre všetky vrcholy je
+teda nanajvýš $(p+1)^q$ a pre zvyšné vrcholy máme nanajvýš $2^p$ možností. Dohromady dostávame horný
+odhad $2^p (p+1)^q$ možností. Pre každú z týchto možností potom máme nanajvýš $(p+1)^q$ možností, ktoré
+vrcholy dostanú farbu $k+1$.
+
+Nakoniec pre každú možnosť starej charakteristiky a množiny vrcholov s novou farbou budeme počítať
+na každom komponente operáciu $\oplus$ pomocou algoritmu z článku Junosza-Szaniawskeho a kol. \cite{junosza_fast},
+ktorá na komponente s veľkosťou $x$ pracuje v čase $O^*(2.65^x)$. Každý komponent, na ktorom ju budeme
+spúšťať, má nanajvýš $\frac{n}{2} + 16\sqrt{n}$ vrcholov. Komponentov je nanajvýš $n$, teda budeme
+potrebovať nanajvýš $n$ nezávislých výpočtov. Tento faktor sa stratí v $O^*$ notácii.
+
+Časová zložitosť tohto algoritmu teda bude $O^*(2^{\frac{3n}{8}} \cdot (\frac{3n}{8} + 16 \sqrt{n} + 1)^{32 \sqrt{n}} \cdot 2.65^{\frac{n}{2} + 16 \sqrt{n}}) = O^*(2.12^{n + o(n)})$.
+
 FIXME: Dokoncit odhad casovej zlozitosti
 
 FIXME: Napisat nejaky rozumny pseudokod. Ak ostane na taketo pompeznosti cas.
