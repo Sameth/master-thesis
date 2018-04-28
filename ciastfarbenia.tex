@@ -156,3 +156,38 @@ v $N[S]$, budeme robiť rôzne veci. Najprv rozoberieme jednoduchší prípad, k
 potom rozoberieme prípad $|N[S]| < \frac{3n}{4}$.
 
 \subsection{Separátor s veľkým okolím}
+
+Popíšeme algoritmus, ktorý pre danú množinu charakteristík $R$ rádu $k$ spočíta novú množinu charakteristík
+rádu $k+1$. Základný postup sme už popísali, pre každú možnosť starej a novej charakteristiky separátora
+vyskúšame pridať novú farbu zvyšným vrcholom. Separátor označíme $S$, počet vrcholov v $N[S]$ označíme $p$, počet
+vrcholov $S$ označíme $q$, FIXME.
+
+Pre ľubovoľnú charakteristiku separátora a jeho okolia existuje najviac $(p+1)^q$ možností, ktoré
+vrcholy dostanú novú farbu $k+1$. Taktiež vieme všetky tieto možnosti generovať -- pre každý vrchol v separátore
+vyberieme niektorý z vrcholov jeho uzavretého okolia, alebo nevyberieme v jeho okolí žiadny vrchol. Pre
+každý takýto výber následne overíme, či sme nevybrali dva vrcholy vo vzdialenosti menšej, ako $3$, alebo
+či nejaký vybratý vrchol nesusedí s vrcholom farby $k$.
+
+Pre každú možnosť starej a novej charakteristiky separátora ostane nejaka množina charakteristík
+zvyšných $n-p \leq \frac{n}{4}$ vrcholov, pre ktorú potrebujeme vypočítať nové charakteristiky. Tu si môžeme
+dovoliť extrémne neefektívne riešenie, kde pre každú starú charakteristiku $r$ a každú podmnožinu $U$
+jej neofarbených vrcholov vyskúšame, či je povolené ofarbiť všetky vrcholy $U$ farbou $k+1$. Takýmto
+spôsobom budeme overovať nanajvýš $4^{n-p}$ možností -- keby boli vrcholy mimo separátora nezávislé,
+pre každý máme iba $4$ typy možností, v ktorých ho budeme skúšať: Neofarbený vrchol ostáva neofarbený,
+neofarbený vrchol farbíme $k+1$, vrchol ofarbený farbou $k$, vrchol ofarbený inou farbou.
+
+Overenie
+jedného výberu je polynomiálne, lebo stačí pre každú dvojicu vrcholov vo vzdialenosti nanajvýš
+$2$ skontrolovať, či by ich priradenie farieb neporušilo podmienky $L(2,1)$-farbenia.
+
+Pre každú z nanajvýš $2^p (p+1)^q$ možností ofarbenia $S$ vyskúšame nanajvýš $(p+1)^q$ možností pridania
+novej farby do $S$. Pre každú takúto možnosť následne vyskúšame nanajvýš $4^{n-p}$ možností pridania novej
+farby do množiny charakteristík a pre každú možnosť vykonáme polynomiálne veľa práce.
+
+Celková časová
+zložitosť teda bude $O^*(2^p (p+1)^{2q} 4^{n-p})$. Z vety o separátore v planárnych grafoch \ref{planarsep-veta}
+vieme, že veľkosť separátora, $q$, je nanajvýš $16\sqrt{n}$. Túto vetvu algoritmu spúšťame, keď $p \ge \frac{3n}{4}$.
+Funkcia $2^p 4^{n-p}$ klesá s $p$ a teda jeho najväčšia možná hodnota pre minimálne $p = \frac{3n}{4}$ je
+$2^{\frac{5n}{4}}$. Výraz $(p+1)^{2q}$ zhora odhadneme na $(n+1)^{32\sqrt{n}} \leq (2n)^{32\sqrt{n}}$.
+
+Dosadením horných odhadov dostaneme časovú zložitosť $O^*(2^{\frac{5n}{4} + 32\sqrt{n} + 32\lg{n}\sqrt{n}}) = O^*(2.38^{n + o(n)})$.
