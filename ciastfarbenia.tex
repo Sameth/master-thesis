@@ -221,6 +221,9 @@ Pre každý komponent a každú jeho (nerozšírenú) charakteristiku vieme vypo
 polynomiálnom čase: Pre každý vrchol s hodnotou $\bar{1}$ prečíslujeme všetkých susedov s hodnotou $0$
 na hodnotu $\bar{0}$.
 
+FIXME: Note o tom, ze cisto z algoritmu J-S nemame zarucenu konzistentnost s celym separatorom. Tuto
+spravime ako postprocessing.
+
 Všetky komponenty, ktoré obsahujú nejaký vrchol v $B$, majú nanajvýš $\frac{n}{2}$ vrcholov, lebo
 oddeľovač $E$ oddeľuje množinu $B$ a $C$. Množiny $A$ a $B$ sú oddelené podľa vety o separátore
 a množina $B$ má nanajvýš $\frac{n}{2}$ vrcholov.
@@ -270,3 +273,95 @@ zosilniť na triedy grafov, v ktorých existuje vrcholový separátor veľkosti 
 ľubovoľnú hodnotu $\epsilon > 0$.
 
 FIXME: Napisat nejaky rozumny pseudokod. Ak ostane na taketo pompeznosti cas.
+
+\section{Farbenie vyvážene rozdeliteľných grafov}
+
+Na príkade planárnych grafov sme ukázali spôsob, ako využiť existenciu dostatočne malého vrcholového
+separátora pre konštrukciu rýchlejšieho algoritmu na hľadanie minimálneho rozsahu $L(2,1)$-farbenia
+daného grafu. Už pri tejto konštrukcii sme potrebovali prejsť od vrcholového separátora k hranovému
+separátoru, ktorý má menej rôznych charakteristík. Ďalej túto myšlienku využijeme na konštrukciu
+algoritmu pre dobre rozdeliteľné grafy.
+
+\begin{defn}
+    Nech $G$ je jednoduchý graf s $n$ vrcholmi, nech $A, B$ sú podmnožiny $V(G)$,
+    nech $C = N(B)$ a $D = N(A)$. Dvojicu množín $(A,B)$ budeme volať \emph{vyvážené rozdelenie
+    grafu $G$}, ak platí:
+    \begin{enumerate}
+        \item $A \cup B = V(G) \wedge A \cap B = \emptyset$
+        \item $|A| \leq \frac{2n}{3}$
+        \item $|B| \leq \frac{2n}{3}$
+        \item $|C \cup D| \leq \frac{n}{4}$
+    \end{enumerate}
+
+    Triedu grafov, v ktorých existuje vyvážené rozdelenie, budeme volať \emph{vyvážene rozdeliteľné}.
+\end{defn}
+
+Pre ľubovoľný graf vieme overiť, či je vyvážene rozdeliteľný, v čase $O^*(2^n)$ a v prípade, že je
+vyvážene rozdeliteľný aj nájdeme jeho vyvážené rozdelenie. Pre každú z $2^n$ podmnožín vrcholov
+v polynomiálnom čase overíme, či môže byť množinou vo vyváženom rozdelení.
+
+Pre ľubovoľnú podmnožinu $X \subset V(G)$ naozaj vieme
+v polynomiálnom čase overiť, či môže byť množinou vyváženého rozdelenia: Skontrolujeme, či má
+nanajvýš $\frac{2n}{3}$ a aspoň $\lceil \frac{n}{3} \rceil$ vrcholov. Ďalej pre každý vrchol v $X$
+overíme, či nejaký z jeho susedov leží mimo $X$ a počet takýchto vrcholov označíme $c$. Podobne
+pre každý vrchol mimo $X$ overíme, či má suseda v $X$ a počet takýchto vrcholov označíme $d$. Ak
+platí $c + d \leq \frac{n}{4}$, tak dvojica $(X, V(G) - X)$ tvorí vyvážené rozdelenie grafu $G$.
+
+Algoritmus pre hľadanie farbiaceho čísla vyvážene rozdeliteľných grafov budeme konštruovať podobne, ako
+algoritmus pre planárne grafy (s malým okolím separátora). Separátor pre graf s vyváženým rozdelením
+$(A,B)$ tvorí množina $N(A) \cup N(B)$. Pre každú možnosť charakteristiky separátora,
+každú možnosť pridania novej farby do separátora a každý komponent (nezávisle) vypočítame, aká
+množina charakteristík v ňom môže byť po pridaní novej farby. Pre tento výpočet budeme používať
+postup z algoritmu Junosza-Szaniawski.
+
+Ďalej budeme odhadovať časovú zložitosť tohto algoritmu. Najzložitejšia časť odhadu sa bude týkať
+počtu rôznych prechodov v separátore, čiže počtu kombinácií starej a novej charakteristiky separátora.
+Najprv dokážeme, že separátor vieme pokryť hviezdami. Potom odvodíme počet prechodov v hviezde
+danej veľkosti a nakoniec tento počet zhora odhadneme jednoduchšou funkciou.
+
+\begin{defn}
+    Graf $G$ voláme \emph{hviezda}, ak v ňom existuje vrchol $v$, ktorý je spojený hranou s každým iným
+    vrcholom, a každá hrana v $G$ je incidentná s vrcholom $v$. Vrchol $v$ spĺňajúci tieto podmienky
+    budeme volať \emph{stred hviezdy}.
+
+    Graf $G$ voláme \emph{netriviálna hviezda}, ak má aspoň dva vrcholy a je hviezda.
+\end{defn}
+
+\begin{lema}
+    Nech $G$ je súvislý graf s aspoň dvomi vrcholmi. Potom existuje množina jeho podgrafov
+    $H_1, H_2, \ldots H_k$, ktorá spĺňa nasledujúce podmienky:
+    \begin{enumerate}
+        \item $\forall i, j \in \{1 \ldots k\}, i \neq j: V(H_i) \cap V(H_j) = \emptyset$,
+        \item $\forall v \in V(G) \exists i \in \{1 \ldots k\}: v \in V(H_i)$,
+        \item $\forall i \in \{1 \ldots k\}: H_i \textrm{ je netriviálna hviezda}$.
+    \end{enumerate}
+\end{lema}
+
+\begin{proof}
+    Dokážeme indukciou vzhľadom na počet vrcholov grafu, $n$.
+
+    Báza indukcie, $n = 2$: Existuje iba jeden dvojvrcholový súvislý
+    graf: obsahuje dva vrcholy prepojené hranou. Ľahko vidíme, že tento graf je hviezda a oba vrcholy
+    môžu byť jej stredom.
+
+    Indukčný krok, $n \to n+1$: V každom súvislom grafe $H$ existuje vrchol $u$ taký, že graf $H - u$ je súvislý.
+    Nech $v$ je takýto vrchol v našom grafe $G$ a nech $H_1 \ldots H_k$ sú podgrafy $G-v$, ktoré spĺňajú
+    podmienky lemy a ktorých existencia vyplýva z indukčného predpokladu. Keďže $G$ je súvislý graf s aspoň
+    tromi vrcholmi, musí v ňom existovať aspoň jedna hrana $e$ medzi vrcholom $v$ a nejakým iným vrcholom $u$.
+    Bez ujmy na všeobecnosti platí $u \in V(H_1)$.
+
+    Ďalej rozoberieme niekoľko možností podľa toho, ako vyzerá hviezda $H_1$:
+
+    \begin{description}
+        \item[$H_1$ má dva vrcholy:] V tomto prípade môže byť stredom hviezdy ľubovoľný z vrcholov $H_1$.
+        Preto graf $H_1 \cup \{e, v\}$ je hviezda s vrcholom $u$. Vyhovujúcou množinou pre lemu je teda
+        $H_1 \cup \{e, v\}, H_2, \ldots, H_k$.
+        \item[$H_1$ má aspoň tri vrcholy a $u$ je jeho stred:] Pokiaľ pripojíme k stredu hviezdy ďalší
+        vrchol, dostaneme opäť hviezdu, preto $H_1 \cup \{e, v\}, H_2, \ldots H_k$ je množina hviezd
+        spĺňajúca lemu.
+        \item[$H_1$ má aspoň tri vrcholy a $u$ nie je jeho stred:] Keď z hviezdy odoberieme vrchol, ktorý
+        nie je jej stredom, dostaneme opäť hviezdu. Keďže $H_1$ má aspoň tri vrcholy, $H_1 - u$ je netriviálna
+        hviezda. Zároveň graf $H$ tvorený vrcholmi $u, v$ a hranou $e$ je netriviálna hviezda. Preto množina
+        hviezd $H_1 - u, H_2, \ldots, H_k, H$ je množina hviezd spĺňajúca podmienky lemy.
+    \end{description}
+\end{proof}
