@@ -308,11 +308,20 @@ pre každý vrchol mimo $X$ overíme, či má suseda v $X$ a počet takýchto vr
 platí $c + d \leq \frac{n}{4}$, tak dvojica $(X, V(G) - X)$ tvorí vyvážené rozdelenie grafu $G$.
 
 Algoritmus pre hľadanie farbiaceho čísla vyvážene rozdeliteľných grafov budeme konštruovať podobne, ako
-algoritmus pre planárne grafy (s malým okolím separátora). Separátor pre graf s vyváženým rozdelením
-$(A,B)$ tvorí množina $N(A) \cup N(B)$. Pre každú možnosť charakteristiky separátora,
-každú možnosť pridania novej farby do separátora a každý komponent (nezávisle) vypočítame, aká
+algoritmus pre planárne grafy (s malým okolím separátora). Najprv si označíme objekty, s ktorými budeme
+pracovať. Graf budeme tradične označovať $G$, jeho počet vrcholov $n$. Množiny vyváženého rozdelenia $G$
+označíme $A$ a $B$. Množinu $N(B)$ označíme $C$ a množinu $N(A)$ označíme $D$. Do pozornosti dávame, že
+platí $N(B) \subset A$ a $N(A) \subset B$. Separátor bude tvorený vrcholmi $C \cup D$ a zodpovedá hranovému
+separátoru $\{(u,v) \in E(G) | u \in C \wedge v \in D\}$, ktorý označíme $E$. Komponenty grafu $G - E$ budeme
+označovať $K_1 \ldots K_m$.
+
+Základný postup bude nasledovný: Pre každú možnosť charakteristiky separátora $C \cup D$,
+každú možnosť pridania novej farby do $C \cup D$ a každý komponent (nezávisle) vypočítame, aká
 množina charakteristík v ňom môže byť po pridaní novej farby. Pre tento výpočet budeme používať
 postup z algoritmu Junosza-Szaniawski.
+
+FIXME: Opat poznamka o tom, ze Junosza-Szaniawski nebude pouzity na cely graf, od ktoreho zavisi
+a mnoziny budu prechadzat post-processingom.
 
 Ďalej budeme odhadovať časovú zložitosť tohto algoritmu. Najzložitejšia časť odhadu sa bude týkať
 počtu rôznych prechodov v separátore, čiže počtu kombinácií starej a novej charakteristiky separátora.
@@ -365,3 +374,22 @@ danej veľkosti a nakoniec tento počet zhora odhadneme jednoduchšou funkciou.
         hviezd $H_1 - u, H_2, \ldots, H_k, H$ je množina hviezd spĺňajúca podmienky lemy.
     \end{description}
 \end{proof}
+
+Ďalej budeme odvádzať vzťah pre počet možných prechodov medzi charakteristikami hviezd v závislosti od veľkosti hviezdy.
+Počet možných prechodov vieme zhora odhadnúť ako súčin medzi počtami pre jednotlivé hviezdy. Preto nás bude pre hviezdu
+s $h$ vrcholmi zaujímať hlavne $h$-ta odmnocnina z jeho počtu prechodov. Uvidíme, že najvyššiu odmocninu budú
+mať práve dvojvrcholové hviezdy. Najprv vypíšeme všetky prechody pre dvojvrcholové hviezdy a potom dokážeme všeobecný
+vzťah pre hviezdy s viacerými vrcholmi.
+
+Dvojvrcholová hviezda je tvorená dvomi vrcholmi, ktoré sú prepojené hranou. Charakteristiky budeme pre prehľadnosť
+vypisovať ako dvojice čísel.
+\begin{align*}
+    (0, 0) \to & (0, 0) \ | \ (0, \bar{1}) \ | \ (\bar{1}, 0) \\
+    (0, 1) \to & (0, 1) \ | \ (\bar{1}, 1) \\
+    (0, \bar{1}) \to & (0, 1) \\
+    (1, 0) \to & (1, 0) \ | \ (1, \bar{1}) \\
+    (1, 1) \to & (1, 1) \\
+    (1, \bar{1}) \to & (1, 1) \\
+    (\bar{1}, 0) \to & (1, 0) \\
+    (\bar{1}, 1) \to & (1, 1)
+\end{align*}
