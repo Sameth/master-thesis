@@ -29,6 +29,9 @@ pre každý ofarbený vrchol ukladať jeho presnú farbu, môžeme si dovoliť r
 vrcholové separátory a použiť ich na rozdelenie problému. O presnom spôsobe a aplikácií
 takéhoto rozdelenia si povieme v ďalšej časti.
 
+FIXME: Pridať nejakú poznámku o tom, ako môžu charakteristiky vyzerať (dve $\bar{1}$ musia byť
+dostatočne ďaleko).
+
 Predtým si ale stručne pripomenieme lemu o hranových separátoroch z predošlej kapitoly \ref{hrsep-lema}.
 Táto lema hovorí, že existencia $L(2,1)$-farbenia grafu $G$ vyplýva z existencie $L(2,1)$-farbení
 komponentov grafu $G-E$ pre hranový oddeľovač $E$. Tieto farbenia musia navyše farbiť všetky vrcholy
@@ -139,6 +142,10 @@ Množinu (nerozšírených) charakteristík $R$ rozdelíme podľa ohodnotenia $S
 a všetky možnosti ohodnotenia $S$ novou farbou nezávisle vypočítame všetky charakteristiky, ktoré môže dosahovať
 zvyšok vrcholov. Nakoniec tieto čiastočné výsledky pospájame a odstránime dupllikáty.
 Formálny zápis výpočtu a jeho odvodenia bude vyzerať nasledovne:
+
+FIXME: Zadefinovať niečo typu prechod a lepšie sa povyjadrovať, kde je to relevantné.
+FIXME: Charakterizovať povolené prechody
+FIXME: Opraviť vzorec dole, aby používal prechod
 
 $$ \oplus(R) = \bigcup \limits_{w \in R} \oplus(w) = \bigcup \limits_{w \in \{0, 1, \bar{1}\}^p} \oplus(R_w) = \bigcup \limits_{u \in \{0, 1, \bar{1}\}^p} \left(\bigcup \limits_{\substack{w \in \{0, 1, \bar{1}\}^p\\ \textrm{t.ž. } u \in \oplus(w)}} \oplus(R_w) \right)$$
 
@@ -325,13 +332,16 @@ a mnoziny budu prechadzat post-processingom.
 
 Ďalej budeme odhadovať časovú zložitosť tohto algoritmu. Najzložitejšia časť odhadu sa bude týkať
 počtu rôznych prechodov v separátore, čiže počtu kombinácií starej a novej charakteristiky separátora.
-Najprv dokážeme, že separátor vieme pokryť hviezdami. Potom odvodíme počet prechodov v hviezde
-danej veľkosti a nakoniec tento počet zhora odhadneme jednoduchšou funkciou.
+
+\subsection{Horný odhad počtu prechodov}
+
+Najprv dokážeme, že separátor vieme pokryť hviezdami. Potom odvodíme počet prechodov vo hviezde
+s $h$ vrcholmi a nakoniec zhora ohraničíme počet prechodov v našom separátore $C \cup D$.
 
 \begin{defn}
     Graf $G$ voláme \emph{hviezda}, ak v ňom existuje vrchol $v$, ktorý je spojený hranou s každým iným
     vrcholom, a každá hrana v $G$ je incidentná s vrcholom $v$. Vrchol $v$ spĺňajúci tieto podmienky
-    budeme volať \emph{stred hviezdy}.
+    budeme volať \emph{stred hviezdy}. Pre určený stred hviezdy budeme zvyšné vrcholy nazývať \emph{ramená}.
 
     Graf $G$ voláme \emph{netriviálna hviezda}, ak má aspoň dva vrcholy a je hviezda.
 \end{defn}
@@ -382,14 +392,71 @@ mať práve dvojvrcholové hviezdy. Najprv vypíšeme všetky prechody pre dvojv
 vzťah pre hviezdy s viacerými vrcholmi.
 
 Dvojvrcholová hviezda je tvorená dvomi vrcholmi, ktoré sú prepojené hranou. Charakteristiky budeme pre prehľadnosť
-vypisovať ako dvojice čísel.
+vypisovať ako dvojice čísel. Ešte neofarbený vrchol (s charakteristikou $0$), môže dostať novú farbu $k+1$
+(charakteristika $\bar{1}$), ak jeho sused doteraz nemal farbu $k$ (charakteristika $\bar{1}$).
+Sused, ktorý mal farbu $k$ (charakteristika $\bar{1}$) nebude mať najnovšiu farbu $k+1$, preto sa mu
+zmení charakteristika na $1$.
 \begin{align*}
-    (0, 0) \to & (0, 0) \ | \ (0, \bar{1}) \ | \ (\bar{1}, 0) \\
-    (0, 1) \to & (0, 1) \ | \ (\bar{1}, 1) \\
-    (0, \bar{1}) \to & (0, 1) \\
-    (1, 0) \to & (1, 0) \ | \ (1, \bar{1}) \\
-    (1, 1) \to & (1, 1) \\
-    (1, \bar{1}) \to & (1, 1) \\
-    (\bar{1}, 0) \to & (1, 0) \\
-    (\bar{1}, 1) \to & (1, 1)
+    (0, 0) \to &\ (0, 0) \ | \ (0, \bar{1}) \ | \ (\bar{1}, 0) \\
+    (0, 1) \to &\ (0, 1) \ | \ (\bar{1}, 1) \\
+    (0, \bar{1}) \to &\ (0, 1) \\
+    (1, 0) \to &\ (1, 0) \ | \ (1, \bar{1}) \\
+    (1, 1) \to &\ (1, 1) \\
+    (1, \bar{1}) \to &\ (1, 1) \\
+    (\bar{1}, 0) \to &\ (1, 0) \\
+    (\bar{1}, 1) \to &\ (1, 1)
 \end{align*}
+
+\begin{lema}
+    Nech $H$ je hviezda so stredom $u$ a s $x$ ramenami. Potom je počet prechodov medzi charakteristikami
+    na $H$ presne $2^{x+1}\left(2 + x + \frac{x(x-1)}{4}\right)$.
+\end{lema}
+\begin{proof}
+    Rozoberieme všetky možnosti. Pokiaľ má vrchol $u$ charakteristiku $\bar{1}$, žiadne z ramien nemohlo
+    mať charakteristiku $\bar{1}$ a tiež nemohlo dostať novú farbu. Preto z každej charakteristiky, v ktorej
+    má vrchol $u$ hodnotu $\bar{1}$, existuje len jeden prechod. Pre každé z $x$ ramien máme dve nezávislé
+    možnosti ich hodnoty v charakteristike: $1$ a $0$. Preto je takýchto možností $2^x$.
+
+    Pokiaľ má vrchol $u$ charakteristiku $1$, rozoberieme 4 prípady podľa toho, či má niektoré rameno
+    hodnotu v starej charakteristike $\bar{1}$ a či má niektoré rameno hodnotu v novej charakteristike $\bar{1}$.
+    Keďže vzdialenosť každej dvojice ramien je $2$, v žiadnej charakteristike nemôžu mať dve ramená priradenú
+    zároveň hodnotu $\bar{1}$. Rozoberanie možností:
+
+    \begin{description}
+        \item[Stará aj nová charakteristika obsahuje rameno s hodnotou $\bar{1}$:] Spomedzi ramien môžeme
+        nezávisle a usporiadane vybrať dve, jedno bude mať v starej charakteristike hodnotu $\bar{1}$ a jeden
+        v novej. Takýchto výberov je $x(x-1)$. Pre zvyšných $x-2$ ramien máme $2^{x-2}$ možností. $\leadsto x(x-1)2^{x-2}$
+        \item[Stará charakteristika obsahuje rameno s hodnotou $\bar{1}$, nová nie:] Máme $x$ možností, ktoré
+        rameno má charakteristiku $\bar{1}$. Pre zvyšných $x-1$ ramien máme $2^{x-1}$ možností. $\leadsto x2^{x-1}$
+        \item[Stará charakteristika neobsahuje, nová obsahuje rameno s hodnotou $\bar{1}$:] Rovnako ako v
+        predošlom prípade máme $x$ možností pre výber význačného ramena a $2^{x-1}$ možností pre zvyšné. $\leadsto x2^{x-1}$
+        \item[Ani jedna charakteristika neobsahuje rameno s hodnotou $\bar{1}$:] Máme $2^x$ možností pre farby
+        ramien. $\leadsto 2^x$.
+    \end{description}
+
+    Pokiaľ má vrchol $u$ charakteristiku $0$, máme dve základné možnosti. Ak má po prechode tiež charakteristiku $0$,
+    máme presne rovnako veľa možností, ako keď mal vrchol $u$ starú charakteristiku $1$. Ak má po prechode
+    charakteristiku $\bar{1}$, máme rovnako veľa možností, ako keď mal vrchol $u$ starú charakteristiku $\bar{1}$.
+
+    Sčítaním a úpravou dostaneme:
+    $$2(2^x + x(x-1)2^{x-2} + x2^{x-1} + x2^{x-1} + 2^x) = 2^{x+1}\left(2 + x + \frac{x(x-1)}{4}\right).$$
+\end{proof}
+\begin{dosl}
+    Nech $H$ je netriviálna hviezda s $m$ vrcholmi a nech $p$ je jej celkový počet prechodov. Potom platí $\sqrt[m]{p} \leq
+    \sqrt{12}$.
+\end{dosl}
+\begin{proof}
+    Podľa predošlej lemy má hviezda s $m$ vrcholmi presne $p = 2^m(2 + m-1 + \frac{(m-1)(m-2)}{4})$. Pre $m \ge 2$
+    platí $2 + m-1 + \frac{(m-1)(m-2)}{4} \leq m^2$. Zaujíma nás hodnota $\sqrt[m]{p}$, ktorej horný odhad je
+    $\sqrt[m]{2^m m^2} = 2 m^{\frac{2}{m}}$.
+
+    Funkcia $m^{\frac{2}{m}}$ je klesajúca pre $m \ge e$ a pre
+    $m = 8$ je hodnota výrazu $2m^{\frac{2}{m}}$ menšia ako $\sqrt{12}$. Pre $m=2$ je hodnota $p$ presne $12$, čiže
+    $\sqrt[m]{p} = \sqrt{12}$. Pre $2 \leq m \leq 7$ uvedieme tabuľku približných hodnôt pôvodnej funkcie
+    $\sqrt[m]{2 + m-1 + \frac{(m-1)(m-2)}{4}}$, čím zavŕšime dôkaz:
+
+    \begin{tabular}{| l | c | c | c | c | c | c |} \hline
+        $m =            $&$ 2 $&$ 3 $&$ 4 $&$ 5 $&$ 6 $&$ 7 $ \\ \hline
+        $\sqrt[m]{p} =  $&$ 3.4641 $&$ 3.30193 $&$ 3.19344 $&$ 3.10369 $&$ 3.02617 $&$ 2.95854$ \\ \hline
+    \end{tabular}
+\end{proof}
