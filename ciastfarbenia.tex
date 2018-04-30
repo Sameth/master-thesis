@@ -345,8 +345,11 @@ každú možnosť pridania novej farby do $C \cup D$ a každý komponent (nezáv
 množina charakteristík v ňom môže byť po pridaní novej farby. Pre tento výpočet budeme používať
 postup z algoritmu Junosza-Szaniawski.
 
-FIXME: Opat poznamka o tom, ze Junosza-Szaniawski nebude pouzity na cely graf, od ktoreho zavisi
-a mnoziny budu prechadzat post-processingom.
+Pre aplikovanie postupu z algoritmu Junosza-Szaniawski treba prerobiť charakteristiky na
+rozšírené charakteristiky. Rovnako treba pred spustením a po spustení algoritmu pre daný
+prechod separátora a daný komponent prefiltrovať množinu starých a nových charakteristík,
+aby sme odstránili tie, ktoré nie sú kompatibilné s prechodom separátora. Tento problém
+vyriešime rovnako, ako v prípade planárnych grafov, v ktorých má separátor malé okolie.
 
 Ďalej budeme odhadovať časovú zložitosť tohto algoritmu. Najzložitejšia časť odhadu sa bude týkať
 počtu rôznych prechodov v separátore, čiže počtu kombinácií starej a novej charakteristiky separátora.
