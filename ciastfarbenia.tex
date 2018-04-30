@@ -480,3 +480,18 @@ zmení charakteristika na $1$.
 
     $$ pr(G) \leq \prod \limits_{i=1}^{k} pr(H_i) \leq \prod \limits_{i=1}^{k} \sqrt{12}^{n_i} = \sqrt{12}\rule{0pt}{17pt}^{\left(\sum \limits_{i=1}^{k} n_i \right)} = \sqrt{12}^{n} = 12^{\frac{n}{2}}.$$
 \end{proof}
+
+\subsection{Časová zložitosť algoritmu}
+
+Z definície množín $C$ a $D$ v algoritme musí platiť, že každý vrchol v $C$ má suseda v $D$ a taktiež
+každý sused v $D$ má suseda v $C$. To znamená, že podgraf grafu $G$ indukovaný množinou $C \cup D$ nemá
+izolované vrcholy a teda má nanajvýš $12^{\frac{c+d}{2}}$ prechodov. Teraz máme pripravené podklady
+pre horný odhad časovej zložitosti algoritmu.
+
+Komponentov grafu $G - E$ je nanajvýš $n$ a každý z nich má nanajvýš $\frac{2n}{3}$ vrcholov. Pre každý
+z nanajvýš $12^{\frac{n}{8}}$ prechodov a pre každý z nanajvýš $n$ komponentov budeme počítať množinu
+charakteristík, ktorá vznikne pridaním novej farby v čase $O^*(2.65^{\frac{2n}{3}})$. Pri každej
+kombinácii prechodu a komponentu dostaneme množinu nanajvýš $O^*(2.65^{\frac{2n}{3}}$ charakteristík.
+Pre každú z nich v polynomiálnom čase overíme, či je konzistentná s prechodom separátora.
+
+Časová zložitosť tohto algoritmu je teda zhora ohraničená na $O^*(2.65^{\frac{2n}{3}} \cdot 12^{\frac{n}{8}}) = O^*(2.613^n)$.
