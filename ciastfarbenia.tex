@@ -1,7 +1,7 @@
 \chapter{FIXME: Vymysliet nazov}
 
 Pri všetkých významnejších algoritmoch na hľadanie farbiaceho čísla všeobecného grafu $G$
-sa uplatnila kompaktnejšia reprezentácia čiastočných farbení. V tejto kapitole sa pozrieme na to,
+sa uplatnila kompaktnejšia reprezentácia množiny čiastočných farbení. V tejto kapitole sa pozrieme na to,
 ako sa dá kompaktná reprezentácia použiť pri delení problému a ukážeme si algoritmy na
 rozdeliteľných grafoch, ktoré budú dosahovať lepšiu časovú zložitosť, ako algoritmus
 Junosza-Szaniawski.
@@ -27,7 +27,7 @@ Ako prvú si uvedieme definíciu našej kompaktnej reprezentácie čiastočných
         s_i = \bar{1} & \Leftrightarrow v_i \in S \wedge f(v_i) = k
     \end{align*}
 
-    Charakteristiky čiastočných farbení budeme ďalej v texte značiť $r$.
+    Charakteristiky čiastočných farbení budeme ďalej v texte označovať symbolom $r$.
 \end{defn}
 
 Podobne vieme zadefinovať charakteristiku (resp. rozšírenú charakteristiku) množiny $C$ vo
@@ -64,7 +64,6 @@ je nezávislé.
     grafu $G - S_V$ a nech $H_1, H_2, \ldots, H_k$ sú grafy indukované množinami $V(G_1) \cup S_V,\ V(G_2) \cup S_V,\ \ldots,\ V(G_k) \cup S_V$.
     Nech $f$ je čiastočné $L(2,1)$-farbenie nejakej podmnožiny $S \subseteq N[S_V]$ v grafe $G$ a nech $f_1, f_2, \ldots f_k$
     sú čiastočné farbenia množín $S_1, S_2, \ldots, S_k$ v grafoch $H_1, H_2, \ldots, H_k$ (v tomto poradí), ktoré spĺňajú podmienku
-
     $$ \forall i \in \{1 \ldots k\},\ \forall v \in V(H_i) \cap N[S_V]: (v \in S_i \Leftrightarrow v \in S) \wedge (v \in S_i \Rightarrow f_i(v) = f(v)).$$
 
     Potom zobrazenie $\omega: \bigcup \limits_{i=1}^k S_i \to \mathbb{N}$ definované nasledovne:
@@ -126,8 +125,8 @@ si ukážeme na príklade planárnych grafov.
 
 \section{Farbenie planárnych grafov}
 
-Dôležitými výsledkami pre farbenie planárnych grafov sú vety o separátoroch v planárnych grafoch \cite{tarjan_plansep},
-ktoré si uvedieme.
+Dôležitým výsledkom pre farbenie planárnych grafov je veta o separátoroch v planárnych grafoch \cite{tarjan_plansep},
+ktorú si uvedieme.
 
 \begin{veta}
     \label{planarsep-veta}
@@ -221,7 +220,7 @@ vieme, že veľkosť separátora, $q$, je nanajvýš $16\sqrt{n}$. Túto vetvu a
 Funkcia $2^p 4^{n-p}$ klesá s $p$ a teda jeho najväčšia možná hodnota pre minimálne $p = \frac{3n}{4}$ je
 $2^{\frac{5n}{4}}$. Výraz $(p+1)^{2q}$ zhora odhadneme na $(n+1)^{32\sqrt{n}} \leq (2n)^{32\sqrt{n}}$.
 
-Dosadením horných odhadov dostaneme časovú zložitosť $O^*(2^{\frac{5n}{4} + 32\sqrt{n} + 32\lg{n}\sqrt{n}}) = O^*(2.38^{n + o(n)})$.
+Dosadením horných odhadov dostaneme časovú zložitosť $O^*\left(2\strut^{\frac{5n}{4} + 32\sqrt{n} + 32\lg{n}\sqrt{n}}\right) = O^*\left(2.38\strut^{n + o(n)}\right)$.
 
 \subsection{Separátor s malým okolím}
 
@@ -238,11 +237,10 @@ označíme $p$, počet vrcholov v $C$ označíme $q$. FIXME: ďalšie označenia
 Z lemy o hranových separátoroch vieme, že pre zafixovanú charakteristiku vrcholov $S$ môžeme pre každý
 z komponentov $K_1 \ldots K_l$ ukladať množinu jeho charakteristík nezávisle. Množinu charakteristík
 celého grafu by sme vedeli zostrojiť ako karteziánsky súčin týchto dielčích charakteristík, zjednotený cez
-všetky charakteristiky množiny $S$.
+všetky charakteristiky množiny $S$. Explicitne to však robiť nebudeme.
 
-Postup počítania funkcie $\oplus$ bude podobný, ako pri separátore s veľkým okolím. Pre každú možnosť
-charakteristiky rádu $k$ vyskúšame všetky možnosti ofarbenia separátora $S$ farbou $k+1$. Pre každú
-možnosť starej charakteristiky, novej charakteristiky a komponentu $K_i$ skonštruujeme z jeho pôvodnej
+Postup počítania funkcie $\oplus$ bude podobný, ako pri separátore s veľkým okolím. Pre každý prechod nad $S$
+a každý komponent $K_i$ skonštruujeme z jeho pôvodnej
 množiny charakteristík $R_i$ novú množinu charakteristík $\oplus(R_i)$. Keďže každý komponent tvorí súvislý
 graf, môžeme na počítanie $\oplus(R_i)$ použiť postup z algoritmu Junosza-Szaniawski.
 
@@ -252,7 +250,11 @@ polynomiálnom čase: Pre každý vrchol s hodnotou $\bar{1}$ prečíslujeme vš
 na hodnotu $\bar{0}$.
 
 Pri počítaní operácie $\oplus$ na komponentoch $K_1, \ldots, K_l$ neberieme do úvahy celý separátor,
-vždy používame iba tú časť, ktorá sa nachádza v danom komponente. Toto vieme ale vyriešiť ľahko. Pre
+vždy používame iba tú časť, ktorá sa nachádza v danom komponente. Môže teda nastať situácia, že
+prechod na celom separátore nebude konzistentný s niektorými starými, alebo s niektorými novými
+charakteristikami v komponente.
+
+Toto vieme vyriešiť ľahko. Pre
 každý prechod separátora $S$ budeme pred vykonaním $\oplus$ na komponente $K_i$ filtrovať jeho
 charakteristiky, aby sme používali iba tie, pri ktorých môže daný prechod separátora nastať. Po vypočítaní
 $\oplus$ na komponente $K_i$ môžeme taktiež dostať nejaké charakteristiky, ktoré nie sú kompatibilné
@@ -260,7 +262,7 @@ s prechodom separátora. Aj v tomto prípade stačí tieto charakteristiky odfil
 operácie $\oplus$.
 
 V krátkosti si popíšeme, ako bude fungovať filtrovanie pred počítaním operácie $\oplus$ v komponente $K_i$.
-Filtrovanie po tomto výpočte sa dá zostrojiť analogicky.
+Filtrovanie po výpočte $\oplus$ sa dá zostrojiť analogicky.
 
 Zistiť, či je charakteristika kompatibilná s prechodom separátora, vieme v polynomiálnom čase. Pre
 každý vrchol $v$ v komponente $K_i$ a pre každý vrchol $u$ separátora skontrolujeme, či sú vzdialené
@@ -291,7 +293,7 @@ ktorá na komponente s veľkosťou $x$ pracuje v čase $O^*(2.65^x)$. Každý ko
 spúšťať, má nanajvýš $\frac{n}{2} + 16\sqrt{n}$ vrcholov. Komponentov je nanajvýš $n$, teda budeme
 potrebovať nanajvýš $n$ nezávislých výpočtov. Tento faktor sa stratí v $O^*$ notácii.
 
-Časová zložitosť tohto algoritmu teda bude $O^*\left(2^{\frac{3n}{8}} \cdot (\frac{3n}{8} + 16 \sqrt{n} + 1)^{32 \sqrt{n}} \cdot 2.65^{\frac{n}{2} + 16 \sqrt{n}}\right) = O^*\left(2.12^{n + o(n)}\right)$.
+Časová zložitosť tohto algoritmu teda bude $O^*\left(2\strut^{\frac{3n}{8}} \cdot (\frac{3n}{8} + 16 \sqrt{n} + 1)\strut^{32 \sqrt{n}} \cdot 2.65\strut^{\frac{n}{2} + 16 \sqrt{n}}\right) = O^*\left(2.12\strut^{n + o(n)}\right)$.
 
 \subsection{Vylepšenie a poznámky}
 
