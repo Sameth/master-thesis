@@ -144,6 +144,7 @@ zvyšok vrcholov. Nakoniec tieto čiastočné výsledky pospájame a odstránime
 Formálny zápis výpočtu a jeho odvodenia bude vyzerať nasledovne:
 
 FIXME: Zadefinovať niečo typu prechod a lepšie sa povyjadrovať, kde je to relevantné.
+FIXME: Pouzit nejaku funkciu na vyjadrenie poctu prechodov v grafe, napr. pr(G)
 FIXME: Charakterizovať povolené prechody
 FIXME: Opraviť vzorec dole, aby používal prechod
 
@@ -354,6 +355,8 @@ s $h$ vrcholmi a nakoniec zhora ohraničíme počet prechodov v našom separáto
         \item $\forall v \in V(G) \exists i \in \{1 \ldots k\}: v \in V(H_i)$,
         \item $\forall i \in \{1 \ldots k\}: H_i \textrm{ je netriviálna hviezda}$.
     \end{enumerate}
+
+    Množinu $H_1, H_2, \ldots, H_k$ budeme volať \emph{pokrytie grafu $G$ hviezdami}.
 \end{lema}
 
 \begin{proof}
@@ -442,6 +445,7 @@ zmení charakteristika na $1$.
     $$2(2^x + x(x-1)2^{x-2} + x2^{x-1} + x2^{x-1} + 2^x) = 2^{x+1}\left(2 + x + \frac{x(x-1)}{4}\right).$$
 \end{proof}
 \begin{dosl}
+    \label{hviezda-odhad}
     Nech $H$ je netriviálna hviezda s $m$ vrcholmi a nech $p$ je jej celkový počet prechodov. Potom platí $\sqrt[m]{p} \leq
     \sqrt{12}$.
 \end{dosl}
@@ -459,4 +463,20 @@ zmení charakteristika na $1$.
         $m =            $&$ 2 $&$ 3 $&$ 4 $&$ 5 $&$ 6 $&$ 7 $ \\ \hline
         $\sqrt[m]{p} =  $&$ 3.4641 $&$ 3.30193 $&$ 3.19344 $&$ 3.10369 $&$ 3.02617 $&$ 2.95854$ \\ \hline
     \end{tabular}
+\end{proof}
+\begin{dosl}
+    Ľubovoľný graf $G$ s $n$ vrcholmi a bez izolovaných vrcholov má nanajvýš $12^{\frac{n}{2}}$ prechodov.
+\end{dosl}
+\begin{proof}
+    Nech $K_1 \ldots K_m$ sú komponenty grafu $G$. Pre každý z nich existuje pokrytie hviezdami, ktoré
+    sa neprekrývajú. Keď zjednotíme pokrytie hviezdami pre každý komponent, dostaneme pokrytie hviezdami
+    grafu $G$. Hviezdy v tomto pokrytí označíme $H_1 \ldots H_k$ a ich počty vrcholov označíme $n_1 \ldots n_k$
+    v tomto poradí.
+
+    Keď z grafu odstránime nejakú hranu, všetky pôvodné prechody ostanú platné. To znamená, že graf zložený
+    z hviezd $H_1 \ldots H_k$ má aspoň toľko prechodov, ako graf $G$. Každá dvojica rôznych hviezd je nezávislá,
+    preto počet prechodov na grafe zloženom z hviezd $H_1 \ldots H_k$ je presne $\prod \limits_{i=1}^{k} pr(H_i)$.
+    Nakoniec s použitím predošlého dôsledku \ref{hviezda-odhad} odvodíme tvrdenie:
+
+    $$ pr(G) \leq \prod \limits_{i=1}^{k} pr(H_i) \leq \prod \limits_{i=1}^{k} \sqrt{12}^{n_i} = \sqrt{12}\rule{0pt}{17pt}^{\left(\sum \limits_{i=1}^{k} n_i \right)} = \sqrt{12}^{n} = 12^{\frac{n}{2}}.$$
 \end{proof}
