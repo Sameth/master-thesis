@@ -15,13 +15,18 @@ FIXME: uvod
     Ďalej pod pojmom \emph{rozšírená charakteristika rádu $k$ zobrazenia $f$} budeme rozumieť reťazec
     $s \in \{0, \bar{0}, 1, \bar{1}\}^n$, ktorý spĺňa
     \begin{align*}
-        s_i = 0 & \Leftrightarrow r_i = 0 \wedge (\forall j \in \{1 \dots n\}: v_j \in N(v_i) \Rightarrow t_j \neq 1 \\
-        s_i = \bar{0} & \Leftrightarrow r_i = 0 \wedge (\exists j \in \{1 \dots n\}: v_j \in N(v_i) \wedge t_j = 1 \\
-        s_i = r_i & \Leftrightarrow r_i \neq 0
+        s_i = 0 & \Leftrightarrow v_i \notin S \wedge (\forall j \in \{1 \dots n\}: v_j \in N(v_i) \Rightarrow t_j \neq 1 \\
+        s_i = \bar{0} & \Leftrightarrow v_i \notin S \wedge (\exists j \in \{1 \dots n\}: v_j \in N(v_i) \wedge t_j = 1 \\
+        s_i = 1 & \Leftrightarrow v_i \in S \wedge f(v_i) \neq k \\
+        s_i = \bar{1} & \Leftrightarrow v_i \in S \wedge f(v_i) = k
     \end{align*}
 
     Charakteristiky čiastočných farbení budeme ďalej v texte značiť $r$.
 \end{defn}
+
+Podobne vieme zadefinovať charakteristiku (resp. rozšírenú charakteristiku) množiny $C$ vo
+farbení $f$ ako podpostupnosť charakteristiky (resp. rozšírenej charakteristiky) zobrazenia
+$f$, ktorá obsahuje iba znaky zodpovedajúce vrcholom v $C$.
 
 Z algoritmu Junosza-Szaniawski môžeme vidieť, že na reprezentáciu množiny čiastočných farbení
 s obmedzeným rozsahom nám stačí ukladať množinu charakteristík fixného rádu. Keď nepotrebujeme
@@ -133,22 +138,33 @@ veľkosť množiny $C$ zhora odhadovať ako $16 \sqrt{n}$.
 Ďalej budeme vytvárať algoritmus, ktorý dokáže pre danú množinu charakteristík čiastočných $L(2,1)$-farbení
 s rozsahom $k$ vypočítať množinu charakteristík čiastočných $L(2,1)$-farbení s rozsahom $k+1$. Túto funkciu
 nad množinami charakteristík budeme ďalej označovať $\oplus$. Pre množinu charakteristík $R$ zadefinujeme
-množinu suffixov reťazca $w$ ako $R_w = \{u | wu \in R \}$.
+množinu suffixov reťazca $w$ ako $R_w = \{u | wu \in R \}$. Budeme potrebovať ešte jeden pojem:
 
-Základný postup pri počítaní $\oplus(R)$ s využitím separátorov bude nasledovný:
+\begin{defn}
+    Nech $G$ je graf. Dvojicu charakteristík $(r_1, r_2)$ budeme nazývať \emph{prechod rádu $k$}, ak existujú
+    čiastočné $L(2,1)$-farbenia $f_1, f_2$, ktoré spĺňajú nasledujúce podmienky:
+    \begin{enumerate}
+        \item $r_1$ je charakteristika $f_1$ a $f_2$ je charakteristika $r_2$,
+        \item $\forall i \leq k : \{v \ |\ f_1(v) = i\} = \{v \ |\ f_2(v) = i\}$.
+    \end{enumerate}
+
+    Dvojicu charakteristík $(s_1, s_2)$ množiny $S \subset V(G)$ budeme nazývať \emph{prechod rádu $k$ nad množinou $S$}, ak
+    sa $s_1$ a $s_2$ dajú doplniť na prechod grafu $G$.
+
+    Počet všetkých prechodov v $G$ označíme $pr(G)$. Podobne počet prechodov nad množinou $S$ v grafe $G$
+    označíme $pr_S(G)$.
+\end{defn}
+
 Vrcholy separátora a okolia (množinu $N[C]$, kde $C$ je množina z vety \ref{planarsep-veta})
 označíme $S$, počet vrcholov v $S$ označíme $p$. Vrcholy grafu usporiadame tak, aby vrcholy $S$ boli na začiatku.
-Množinu (nerozšírených) charakteristík $R$ rozdelíme podľa ohodnotenia $S$. Pre každú možnosť ohodnotenia separátora
-a všetky možnosti ohodnotenia $S$ novou farbou nezávisle vypočítame všetky charakteristiky, ktoré môže dosahovať
-zvyšok vrcholov. Nakoniec tieto čiastočné výsledky pospájame a odstránime dupllikáty.
+
+Základný postup pri počítaní $\oplus(R)$ s využitím separátorov bude nasledovný:
+Množinu (nerozšírených) charakteristík $R$ rozdelíme podľa ohodnotenia $S$. Pre každý prechod
+nad $S$ nezávisle vypočítame $\oplus$ na charakteristikách zvyšných vrcholov. Nakoniec tieto
+čiastočné výsledky pospájame a odstránime duplikáty.
 Formálny zápis výpočtu a jeho odvodenia bude vyzerať nasledovne:
 
-FIXME: Zadefinovať niečo typu prechod a lepšie sa povyjadrovať, kde je to relevantné.
-FIXME: Pouzit nejaku funkciu na vyjadrenie poctu prechodov v grafe, napr. pr(G)
-FIXME: Charakterizovať povolené prechody
-FIXME: Opraviť vzorec dole, aby používal prechod
-
-$$ \oplus(R) = \bigcup \limits_{w \in R} \oplus(w) = \bigcup \limits_{w \in \{0, 1, \bar{1}\}^p} \oplus(R_w) = \bigcup \limits_{u \in \{0, 1, \bar{1}\}^p} \left(\bigcup \limits_{\substack{w \in \{0, 1, \bar{1}\}^p\\ \textrm{t.ž. } u \in \oplus(w)}} \oplus(R_w) \right)$$
+$$ \oplus(R) = \bigcup \limits_{w \in R} \oplus(w) = \bigcup \limits_{w \in \{0, 1, \bar{1}\}^p} \oplus(R_w) = \bigcup \limits_{u \in \{0, 1, \bar{1}\}^p} u \cdot \left(\bigcup \limits_{\substack{w \in \{0, 1, \bar{1}\}^p\\ \textrm{t.ž. } u \in \oplus(w)}} \oplus(R_w) \right)$$
 
 Riešenie
 problému $L(2,1)$ farbenia potom niekoľkokrát aplikuje tento algoritmus, až kým nebude v množine
