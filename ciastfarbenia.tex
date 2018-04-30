@@ -229,8 +229,25 @@ Pre každý komponent a každú jeho (nerozšírenú) charakteristiku vieme vypo
 polynomiálnom čase: Pre každý vrchol s hodnotou $\bar{1}$ prečíslujeme všetkých susedov s hodnotou $0$
 na hodnotu $\bar{0}$.
 
-FIXME: Note o tom, ze cisto z algoritmu J-S nemame zarucenu konzistentnost s celym separatorom. Tuto
-spravime ako postprocessing.
+Pri počítaní operácie $\oplus$ na komponentoch $K_1, \ldots, K_l$ neberieme do úvahy celý separátor,
+vždy používame iba tú časť, ktorá sa nachádza v danom komponente. Toto vieme ale vyriešiť ľahko. Pre
+každý prechod separátora $S$ budeme pred vykonaním $\oplus$ na komponente $K_i$ filtrovať jeho
+charakteristiky, aby sme používali iba tie, pri ktorých môže daný prechod separátora nastať. Po vypočítaní
+$\oplus$ na komponente $K_i$ môžeme taktiež dostať nejaké charakteristiky, ktoré nie sú kompatibilné
+s prechodom separátora. Aj v tomto prípade stačí tieto charakteristiky odfiltrovať po vypočítaní
+operácie $\oplus$.
+
+V krátkosti si popíšeme, ako bude fungovať filtrovanie pred počítaním operácie $\oplus$ v komponente $K_i$.
+Filtrovanie po tomto výpočte sa dá zostrojiť analogicky.
+
+Zistiť, či je charakteristika kompatibilná s prechodom separátora, vieme v polynomiálnom čase. Pre
+každý vrchol $v$ v komponente $K_i$ a pre každý vrchol $u$ separátora skontrolujeme, či sú vzdialené
+aspoň $3$. Ak nie sú, môžu byť vzdialené $2$ alebo $1$. Ak sú vzdialené $2$, nesmie nastať situácia,
+že $v$ má charakteristiku $\bar{1}$ a $u$ má starú charakteristiku $\bar{1}$. Ak sú vzdialené $1$,
+nesmie nastať situácia, že $v$ má charakteristiku $\bar{1}$ a $u$ má starú, alebo novú charakteristiku
+$\bar{1}$.
+
+\subsubsection{Časová zložitosť}
 
 Všetky komponenty, ktoré obsahujú nejaký vrchol v $B$, majú nanajvýš $\frac{n}{2}$ vrcholov, lebo
 oddeľovač $E$ oddeľuje množinu $B$ a $C$. Množiny $A$ a $B$ sú oddelené podľa vety o separátore
@@ -252,7 +269,7 @@ ktorá na komponente s veľkosťou $x$ pracuje v čase $O^*(2.65^x)$. Každý ko
 spúšťať, má nanajvýš $\frac{n}{2} + 16\sqrt{n}$ vrcholov. Komponentov je nanajvýš $n$, teda budeme
 potrebovať nanajvýš $n$ nezávislých výpočtov. Tento faktor sa stratí v $O^*$ notácii.
 
-Časová zložitosť tohto algoritmu teda bude $O^*(2^{\frac{3n}{8}} \cdot (\frac{3n}{8} + 16 \sqrt{n} + 1)^{32 \sqrt{n}} \cdot 2.65^{\frac{n}{2} + 16 \sqrt{n}}) = O^*(2.12^{n + o(n)})$.
+Časová zložitosť tohto algoritmu teda bude $O^*\left(2^{\frac{3n}{8}} \cdot (\frac{3n}{8} + 16 \sqrt{n} + 1)^{32 \sqrt{n}} \cdot 2.65^{\frac{n}{2} + 16 \sqrt{n}}\right) = O^*\left(2.12^{n + o(n)}\right)$.
 
 \subsection{Vylepšenie a poznámky}
 
@@ -393,6 +410,8 @@ Počet možných prechodov vieme zhora odhadnúť ako súčin medzi počtami pre
 s $h$ vrcholmi zaujímať hlavne $h$-ta odmnocnina z jeho počtu prechodov. Uvidíme, že najvyššiu odmocninu budú
 mať práve dvojvrcholové hviezdy. Najprv vypíšeme všetky prechody pre dvojvrcholové hviezdy a potom dokážeme všeobecný
 vzťah pre hviezdy s viacerými vrcholmi.
+
+\subsubsection{Prechody nad hviezdami}
 
 Dvojvrcholová hviezda je tvorená dvomi vrcholmi, ktoré sú prepojené hranou. Charakteristiky budeme pre prehľadnosť
 vypisovať ako dvojice čísel. Ešte neofarbený vrchol (s charakteristikou $0$), môže dostať novú farbu $k+1$
