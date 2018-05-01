@@ -153,7 +153,7 @@ množinu suffixov reťazca $w$ ako $R_w = \{u | wu \in R \}$. Budeme potrebovať
         \item $\forall i \leq k : \{v \ |\ f_1(v) = i\} = \{v \ |\ f_2(v) = i\}$.
     \end{enumerate}
 
-    Dvojicu charakteristík $(s_1, s_2)$ množiny $S \subset V(G)$ budeme nazývať \emph{prechod rádu $k$ nad množinou $S$}, ak
+    Dvojicu charakteristík $(s_1, s_2)$ množiny $S \subseteq V(G)$ budeme nazývať \emph{prechod rádu $k$ nad množinou $S$}, ak
     sa $s_1$ a $s_2$ dajú doplniť na prechod grafu $G$.
 
     Počet všetkých prechodov v $G$ označíme $pr(G)$. Podobne počet prechodov nad množinou $S$ v grafe $G$
@@ -325,11 +325,11 @@ FIXME: Napisat nejaky rozumny pseudokod. Ak ostane na taketo pompeznosti cas.
 
 \section{Farbenie vyvážene rozdeliteľných grafov}
 
-Na príkade planárnych grafov sme ukázali spôsob, ako využiť existenciu dostatočne malého vrcholového
-separátora pre konštrukciu rýchlejšieho algoritmu na hľadanie minimálneho rozsahu $L(2,1)$-farbenia
-daného grafu. Už pri tejto konštrukcii sme potrebovali prejsť od vrcholového separátora k hranovému
-separátoru, ktorý má menej rôznych charakteristík. Ďalej túto myšlienku využijeme na konštrukciu
-algoritmu pre dobre rozdeliteľné grafy.
+Na príkade planárnych grafov sme ukázali spôsob, ako využiť existenciu malého vrcholového
+separátora pre konštrukciu rýchlejšieho algoritmu na hľadanie farbiaceho čísla grafu.
+Už pri tejto konštrukcii sme potrebovali prejsť od vrcholového separátora k hranovému
+separátoru, ktorý má menej vrcholov a teda aj rôznych charakteristík, resp. prechodov.
+Ďalej túto myšlienku využijeme na konštrukciu algoritmu pre dobre rozdeliteľné grafy.
 
 \begin{defn}
     Nech $G$ je jednoduchý graf s $n$ vrcholmi, nech $A, B$ sú podmnožiny $V(G)$,
@@ -349,7 +349,7 @@ Pre ľubovoľný graf vieme overiť, či je vyvážene rozdeliteľný, v čase $
 vyvážene rozdeliteľný aj nájdeme jeho vyvážené rozdelenie. Pre každú z $2^n$ podmnožín vrcholov
 v polynomiálnom čase overíme, či môže byť množinou vo vyváženom rozdelení.
 
-Pre ľubovoľnú podmnožinu $X \subset V(G)$ naozaj vieme
+Pre ľubovoľnú podmnožinu $X \subseteq V(G)$ naozaj vieme
 v polynomiálnom čase overiť, či môže byť množinou vyváženého rozdelenia: Skontrolujeme, či má
 nanajvýš $\frac{2n}{3}$ a aspoň $\lceil \frac{n}{3} \rceil$ vrcholov. Ďalej pre každý vrchol v $X$
 overíme, či nejaký z jeho susedov leží mimo $X$ a počet takýchto vrcholov označíme $c$. Podobne
@@ -360,12 +360,12 @@ Algoritmus pre hľadanie farbiaceho čísla vyvážene rozdeliteľných grafov b
 algoritmus pre planárne grafy (s malým okolím separátora). Najprv si označíme objekty, s ktorými budeme
 pracovať. Graf budeme tradične označovať $G$, jeho počet vrcholov $n$. Množiny vyváženého rozdelenia $G$
 označíme $A$ a $B$. Množinu $N(B)$ označíme $C$ a množinu $N(A)$ označíme $D$. Do pozornosti dávame, že
-platí $N(B) \subset A$ a $N(A) \subset B$. Separátor bude tvorený vrcholmi $C \cup D$ a zodpovedá hranovému
-separátoru $\{(u,v) \in E(G) | u \in C \wedge v \in D\}$, ktorý označíme $E$. Komponenty grafu $G - E$ budeme
+platí $N(B) \subseteq A$ a $N(A) \subseteq B$. Separátor bude tvorený vrcholmi $C \cup D$ a zodpovedá hranovému
+separátoru $\{(u,v) \in E(G) \ |\  u \in C \wedge v \in D\}$, ktorý označíme $E$. Komponenty grafu $G - E$ budeme
 označovať $K_1 \ldots K_m$.
 
-Základný postup bude nasledovný: Pre každú možnosť charakteristiky separátora $C \cup D$,
-každú možnosť pridania novej farby do $C \cup D$ a každý komponent (nezávisle) vypočítame, aká
+Základný postup bude nasledovný: Pre každú možnosť prechodu nad separátorom $C \cup D$
+a každý komponent (nezávisle) vypočítame, aká
 množina charakteristík v ňom môže byť po pridaní novej farby. Pre tento výpočet budeme používať
 postup z algoritmu Junosza-Szaniawski.
 
@@ -434,7 +434,7 @@ s $h$ vrcholmi a nakoniec zhora ohraničíme počet prechodov v našom separáto
 
 Ďalej budeme odvádzať vzťah pre počet možných prechodov medzi charakteristikami hviezd v závislosti od veľkosti hviezdy.
 Počet možných prechodov vieme zhora odhadnúť ako súčin medzi počtami pre jednotlivé hviezdy. Preto nás bude pre hviezdu
-s $h$ vrcholmi zaujímať hlavne $h$-ta odmnocnina z jeho počtu prechodov. Uvidíme, že najvyššiu odmocninu budú
+s $h$ vrcholmi zaujímať hlavne $h$-ta odmnocnina z jeho počtu prechodov. Uvidíme, že najvyššiu $h$-tu odmocninu budú
 mať práve dvojvrcholové hviezdy. Najprv vypíšeme všetky prechody pre dvojvrcholové hviezdy a potom dokážeme všeobecný
 vzťah pre hviezdy s viacerými vrcholmi.
 
@@ -457,7 +457,7 @@ zmení charakteristika na $1$.
 \end{align*}
 
 \begin{lema}
-    Nech $H$ je hviezda so stredom $u$ a s $x$ ramenami. Potom je počet prechodov medzi charakteristikami
+    Nech $H$ je netriviálna hviezda so stredom $u$ a s $x$ ramenami. Potom je počet prechodov medzi charakteristikami
     na $H$ presne $2^{x+1}\left(2 + x + \frac{x(x-1)}{4}\right)$.
 \end{lema}
 \begin{proof}
@@ -473,8 +473,8 @@ zmení charakteristika na $1$.
 
     \begin{description}
         \item[Stará aj nová charakteristika obsahuje rameno s hodnotou $\bar{1}$:] Spomedzi ramien môžeme
-        nezávisle a usporiadane vybrať dve, jedno bude mať v starej charakteristike hodnotu $\bar{1}$ a jeden
-        v novej. Takýchto výberov je $x(x-1)$. Pre zvyšných $x-2$ ramien máme $2^{x-2}$ možností. $\leadsto x(x-1)2^{x-2}$
+        nezávisle a usporiadane vybrať dve, jedno rameno bude mať v starej charakteristike hodnotu $\bar{1}$ a jedno rameno
+        v novej charakteristike. Takýchto výberov je $x(x-1)$. Pre zvyšných $x-2$ ramien máme $2^{x-2}$ možností. $\leadsto x(x-1)2^{x-2}$
         \item[Stará charakteristika obsahuje rameno s hodnotou $\bar{1}$, nová nie:] Máme $x$ možností, ktoré
         rameno má charakteristiku $\bar{1}$. Pre zvyšných $x-1$ ramien máme $2^{x-1}$ možností. $\leadsto x2^{x-1}$
         \item[Stará charakteristika neobsahuje, nová obsahuje rameno s hodnotou $\bar{1}$:] Rovnako ako v
@@ -498,10 +498,10 @@ zmení charakteristika na $1$.
 \begin{proof}
     Podľa predošlej lemy má hviezda s $m$ vrcholmi presne $p = 2^m(2 + m-1 + \frac{(m-1)(m-2)}{4})$. Pre $m \ge 2$
     platí $2 + m-1 + \frac{(m-1)(m-2)}{4} \leq m^2$. Zaujíma nás hodnota $\sqrt[m]{p}$, ktorej horný odhad je
-    $\sqrt[m]{2^m m^2} = 2 m^{\frac{2}{m}}$.
+    $\sqrt[m]{2^m m^2} = 2 m\strut^{\frac{2}{m}}$.
 
-    Funkcia $m^{\frac{2}{m}}$ je klesajúca pre $m \ge e$ a pre
-    $m = 8$ je hodnota výrazu $2m^{\frac{2}{m}}$ menšia ako $\sqrt{12}$. Pre $m=2$ je hodnota $p$ presne $12$, čiže
+    Funkcia $m\strut^{\frac{2}{m}}$ je klesajúca pre $m \ge e$ a pre
+    $m = 8$ je hodnota výrazu $2m\strut^{\frac{2}{m}}$ menšia ako $\sqrt{12}$. Pre $m=2$ je hodnota $p$ presne $12$, čiže
     $\sqrt[m]{p} = \sqrt{12}$. Pre $2 \leq m \leq 7$ uvedieme tabuľku približných hodnôt pôvodnej funkcie
     $\sqrt[m]{2 + m-1 + \frac{(m-1)(m-2)}{4}}$, čím zavŕšime dôkaz:
 
@@ -511,7 +511,7 @@ zmení charakteristika na $1$.
     \end{tabular}
 \end{proof}
 \begin{dosl}
-    Ľubovoľný graf $G$ s $n$ vrcholmi a bez izolovaných vrcholov má nanajvýš $12^{\frac{n}{2}}$ prechodov.
+    Ľubovoľný graf $G$ s $n$ vrcholmi a bez izolovaných vrcholov má nanajvýš $12\strut^{\frac{n}{2}}$ prechodov.
 \end{dosl}
 \begin{proof}
     Nech $K_1 \ldots K_m$ sú komponenty grafu $G$. Pre každý z nich existuje pokrytie hviezdami, ktoré
@@ -531,13 +531,13 @@ zmení charakteristika na $1$.
 
 Z definície množín $C$ a $D$ v algoritme musí platiť, že každý vrchol v $C$ má suseda v $D$ a taktiež
 každý sused v $D$ má suseda v $C$. To znamená, že podgraf grafu $G$ indukovaný množinou $C \cup D$ nemá
-izolované vrcholy a teda má nanajvýš $12^{\frac{c+d}{2}}$ prechodov. Teraz máme pripravené podklady
+izolované vrcholy a teda má nanajvýš $12\strut^{\frac{c+d}{2}}$ prechodov. Teraz máme pripravené podklady
 pre horný odhad časovej zložitosti algoritmu.
 
 Komponentov grafu $G - E$ je nanajvýš $n$ a každý z nich má nanajvýš $\frac{2n}{3}$ vrcholov. Pre každý
-z nanajvýš $12^{\frac{n}{8}}$ prechodov a pre každý z nanajvýš $n$ komponentov budeme počítať množinu
-charakteristík, ktorá vznikne pridaním novej farby v čase $O^*(2.65^{\frac{2n}{3}})$. Pri každej
-kombinácii prechodu a komponentu dostaneme množinu nanajvýš $O^*(2.65^{\frac{2n}{3}}$ charakteristík.
+z nanajvýš $12\strut^{\frac{n}{8}}$ prechodov a pre každý z nanajvýš $n$ komponentov budeme počítať množinu
+charakteristík, ktorá vznikne pridaním novej farby v čase $O^*\left(2.65\strut^{\frac{2n}{3}}\right)$. Pri každej
+kombinácii prechodu a komponentu dostaneme množinu nanajvýš $O^*\left(2.65\strut^{\frac{2n}{3}}\right)$ charakteristík.
 Pre každú z nich v polynomiálnom čase overíme, či je konzistentná s prechodom separátora.
 
-Časová zložitosť tohto algoritmu je teda zhora ohraničená na $O^*(2.65^{\frac{2n}{3}} \cdot 12^{\frac{n}{8}}) = O^*(2.613^n)$.
+Časová zložitosť tohto algoritmu je teda zhora ohraničená na $O^*\left(2.65\strut^{\frac{2n}{3}} \cdot 12\strut^{\frac{n}{8}}\right) = O^*(2.613^n)$.
