@@ -13,7 +13,7 @@ sa pozrieme na spôsob, akým vieme túto intuíciu aplikovať.
 Aj keď v práci rozoberáme problém $L(2,1)$-farbenia, postupy z tejto kapitoly sa principiálne
 dajú aplikovať aj na všeobecnejšie $L(p,q)$-farbenia.
 
-\section{FIXME: nejaký názov}
+\section{Teoretické základy rozdelenia problému}
 
 Ako sa ďalej v práci ukáže, aby sme vedeli problém dobre rozdeliť, potrebujeme riešiť
 o trochu všeobecnejší problém: Každému vrcholu grafu pridáme obmedzenie na hodnoty,
@@ -24,25 +24,52 @@ ciastocne ofarbenie a doplnit ho. Toto potom vie J-S riesit v case $a^n$ bez ohl
 veci.
 
 \begin{defn}
-    Rozhodovací problém \emph{zoznamového $L(2,1)$-farbenia} definujeme nasledovne: Inštanciou je
-    graf $G$, prirodzené číslo $k$ a zobrazenie $c: V(G) \to 2^{\{0 \ldots k\}}$. Inštancia je
-    riešiteľná práve vtedy, keď existuje $L(2,1)$ farbenie $f$ grafu $G$ s rozsahom $k$, pre ktoré platí
-    $\forall v \in V(G): f(v) \in c(v)$.
+    Rozhodovací problém \emph{doplnenia $L(2,1)$-farbenia} definujeme nasledovne: Inštanciou je
+    graf $G$, prirodzené číslo $k$ a čiastočné $L(2,1)$-farbenie $f$ množiny $S \subseteq V(G)$
+    v grafe $G$, kde rozsah $f$ je nanajvýš $k$.
 
-    Zobrazenie $c$ budeme nazývať \emph{zoznam povolených hodnôt}.
+    Inštancia je riešiteľná práve vtedy, keď existuje $L(2,1)$ farbenie
+    $f'$ grafu $G$ s rozsahom $k$, pre ktoré platí: $\forall v \in S: f'(v) = f(v)$.
 \end{defn}
 
-Ľubovoľné riešenie problému zoznamového $L(2,1)$-farbenia vieme prerobiť na riešenie
-problému $L(2,1)$-farbenia -- pre každý vrchol $v$ určíme $c(v) = \{0 \ldots k\}$. Taktiež sa
-však ukazuje, že mnohé riešenia problému $L(2,1)$-farbenia sa dajú prerobiť na riešenia problému
-zoznamového $L(2,1)$-farbenia. Ukážeme si to na príklade algoritmu Junosza-Szaniawski.
+Ľubovoľné riešenie problému doplnenia $L(2,1)$-farbenia vieme prerobiť na riešenie
+problému $L(2,1)$-farbenia, ak za čiastočné farbenie $f$ vezmeme prázdne farbenie.
+Mnohé riešenia problému $L(2,1)$-farbenia sa dajú prerobiť na riešenia problému
+doplnenia $L(2,1)$-farbenia bez výrazného zhoršenia časovej zložitosti.
+Ukážeme si to na príklade algoritmu Junosza-Szaniawski.
 
-Pripomenieme si, že algoritmus Junosza-Szaniawski počítal postupne tabuľky $T_0, T_1, \ldots T_{2n}$.
-Tabuľka $T_i$ obsahuje reprezentáciu všetkých čiastočných $i$-$L(2,1)$-farbení grafu. Pre každé
+Najprv si pripomenieme, ako funguje algoritmus Junosza-Szaniawski.
+Tento algoritmus postupne počíta tabuľky $T_0, T_1, \ldots T_{2n}$.
+Tabuľka $T_i$ obsahuje reprezentáciu všetkých čiastočných $L(2,1)$-farbení grafu s rozsahom $i$. Pre každé
 čiastočné farbenie v tabuľke $T_i$ vieme povedať zoznam vrcholov, ktoré používajú farbu $i$.
+
 Úprava algoritmu teda bude spočívať v tom, že po vypočítaní tabuľky $T_i$ z nej odstránime
-všetky čiastočné farbenia, ktoré priradili farbu $i$ vrcholu, ktorý ju podľa zoznamu povolených
-hodnôt nemôže dostať. Kvôli obmedzeniu zoznamom povolených hodnôt nemusí platiť, že 
+všetky čiastočné farbenia, ktoré nejakému vrcholu $v \in S$ priradili inú hodnotu, ako $f(v)$.
+
+Pozor si však treba dať na počet tabuliek, ktoré potrebujeme vypočítať. Keďže niektoré vrcholy
+majú predpísanú farbu, nemusí existovať triviálne farbenie s rozsahom $2n$. Ďalej však dokážeme,
+že všetky vrcholy mimo množiny $S$ vieme triviálne ofarbiť farbami veľkosti nanajvýš $3n$.
+
+\begin{lema}
+    Nech $f$ je čiastočné $L(2,1)$-farbenie množiny $S$ v grafe $G$. Potom existuje
+    $L(2,1)$-farbenie $f'$ grafu $G$, ktoré dopĺňa $f$ a pre ktoré platí $\ \forall v \in V(G) - S: f(v) < 3n$.
+\end{lema}
+\begin{proof}
+    Základná myšlienka dôkazu je nasledovná. Vezmeme množinu farieb, ktoré sú priradené vrcholom v $S$
+    a označíme ju $F$. Ak nájdeme množinu farieb $F'$, ktorá má veľkosť (aspoň) $|V(G) - S|$,
+    každá dvojica farieb v nej má rozdiel aspoň $2$ a každá dvojica farieb $(c_1, c_2) \in F \times F'$ má
+    rozdiel aspoň $2$, tak neofarbeným vrcholom môžeme ľubovoľne priradiť farby z $F'$ a dostneme
+    $L(2,1)$-farbenie.
+
+    V každej trojici čísel $(3x, 3x + 1, 3x+2)$, kde $0 \leq x < n$, buď existuje vrchol
+    v množine $S$, ktorý má priradenú jednu z týchto farieb, alebo sa farba $3x + 1$ môže nachádzať v
+    množine $F'$. Ak má množina $S$ presne $m$ vrcholov, nájdeme takto $n - m$ farieb, ktoré
+    môžeme priradiť vrcholom vo $V(G) - S$.
+\end{proof}
+\begin{dosl}
+    Nech $(G, k, f)$ je inštancia problému doplnenia $L(2,1)$-farbenia. Ak $k \ge 3n$, tak
+    je inštancia riešiteľná.
+\end{dosl}
 
 \subsection{Rozdelenie na hranových separátoroch}
 
