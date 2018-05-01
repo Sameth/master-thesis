@@ -178,7 +178,8 @@ Za zanedbateľné zmenšenie problému zaplatíme tým, že ho budeme musieť ri
 Rýchly algoritmus pre problém $L(2,1)$-farbenia môžeme skonštruovať napríklad z dvoch menších
 algoritmov. Jeden z nich bude riešiť problém $L(2,1)$-farbenia na grafoch bez triviálnych mostov.
 Druhý bude redukovať problém $L(2,1)$-farbenia na všeobecných grafoch na niekoľko inštancií
-problému na grafoch bez triviálnych mostov. V ďalšej časti ukážeme druhý typ algoritmu.
+problému na grafoch bez triviálnych mostov. V ďalšej časti ukážeme druhý typ algoritmu a odhadneme
+jeho časovú zložitosť v závislosti od časovej zložitosti prvého typu algoritmu.
 
 \section{Mostová veta}
 
@@ -287,6 +288,7 @@ V každom strome $T$ existuje vrchol $v$ taký, že každý komponent grafu $T-
 vrcholov z $T$. Podobné tvrdenie platí aj pre ohodnotené stromy:
 
 \begin{lema}
+    \label{stromsep_lema}
     Nech $T$ je $n$-vrcholový strom s kladným ohodnotením vrcholov, nech $s$ je súčet hodnotení jeho vrcholov.
     Potom existuje vrchol $v \in V(T)$ taký, že súčet hodnotení vrcholov v každom komponente
     grafu $T - v$ je nanajvýš $\frac{s}{2}$.
@@ -326,6 +328,43 @@ Nakoniec budeme potrebovať ešte dva stavebné algoritmy k našej redukcii. Jed
 viackrát spomínaný algoritmus Junosza-Szaniawski, ktorý vie riešiť problém doplnenia $L(2,1)$-farbenia
 v ľubovoľnom súvislom grafe v čase $O^*(2.6488^n)$ \cite{junosza_fast}. Druhým z nich je algoritmus od Haveta
 a kol., ktorý vie riešiť problém $L(2,1)$-farbenia pre rozsah $k \leq 5$ v čase $O^*(2.5^n)$ \cite{havet}.
+
+\subsection{Algoritmus na rozdelenie problému}
+
+Nakoniec ukážeme, ako môžeme ľubovoľný algoritmus $\mathcal{B}$, ktorý rieši problém doplnenia
+$L(2,1)$-farbenia na chlpatých $2$-hranovo súvislých grafoch, prerobiť na algoritmus $\mathcal{A}$, ktorý
+rieši problém $L(2,1)$-farbenia na všeobecných grafoch. Ak je časová zložitosť $\mathcal{B}$
+$O^*(\alpha^n)$ pre nejaké $\alpha \ge 2.55$, bude časová zložitosť algoritmu $\mathcal{A}$ tiež
+$O^*(\alpha^n)$.
+
+Algoritmus $\mathcal{A}$ dostane na vstupe súvislý graf $G$ a číslo $k$ a akceptuje práve vtedy,
+keď existuje $L(2,1)$-farbenie grafu $G$ s rozsahom $k$. Popis algoritmu:
+
+\begin{enumerate}
+    \item Ak $k \ge 2n$, akceptuj. $O^*(1)$
+    \item Ak $k \leq 5$, spusti a vráť výsledok algoritmu od Haveta a kol. $O^*(2.5^n)$
+    \item Nájdi všetky netriviálne mosty grafu $G$. $O^*(1)$
+    \item Ak $G$ nemá netriviálne mosty, spusti a vráť výsledok algoritmu $\mathcal{B}$. $O^*(\alpha^n)$
+    \item Vytvor pseudoblokovo-mostový strom $T$ grafu $G$. $O^*(1)$
+    \item Kým $T$ obsahuje listový vrchol $l$ s hodnotou nanajvýš $\frac{k}{2}$, odstráň
+          z $T$ vrchol $l$ a zvýš rodičovi $l$ hodnotu o $1$. V grafe $G$ odstráň podgraf
+          zodpovedajúci vrcholu $l$ okrem hrany a vrcholu, ktorý ho pripájajú ku zvyšku grafu. $O^*(1)$
+    \item Ak je $G$ po predošlom kroku chlpatý $2$-hranovo súvislý graf, spusti algoritmus $\mathcal{B}$. $O^*(\alpha^n)$
+    \item Nájdi vrchol $v$ grafu $T$, ktorý
+          spĺňa lemu o rovnovážnom rozdelení stromu \ref{stromsep-lema}. $O^*(1)$
+    \item Pre každý komponent $K_i$ grafu $T - v$ spočítaj súčet jeho hodnôt $s_i$. $O^*(1)$
+    \item Ak pre niektorý komponent $K_i$ je hodnota $s_i$ väčšia ako $\frac{n}{10}$,
+          nájdi hranu $e'$, ktorá pripája $K_i$ k $v$ v grafe $T$ a zodpovedajúci most
+          $e = (uw)$ v grafe $G$. Pre každé ohodnotenie vrcholov $u, w$ spusti upravený
+          algoritmus Junosza-Szaniawski na komponentoch grafu $G - e$. Akceptuj, ak pre
+          niektoré ohodnotenie vrcholov $u, w$ algoritmus Junosza-Szaniawski akceptoval
+          na oboch komponentoch grafu $G-e$ zároveň. V opačnom prípade zamietni. $O^*(2.6488^{\frac{9n}{10}})$
+    \item Nájdi všetky hrany $e_i$ v grafe $G$, ktoré zodpovedajú hranám v $T$ incidentným s
+          vrcholom $v$. Vyskúšaj všetky možné priradenia hodnôt vrcholom incidentným s
+          niektorou hranou $e_i$. Pre každé priradenie hodnôt spusti algoritmus $\mathcal{B}$ na podgrafe
+          v $G$ zodpovedajúcemu vrcholu $v$ v $T$ a prispôsobený algoritmus Junosza-Szaniawski na podgrafoch
+          $G$, ktoré zodpovedajú komponentom grafu $T - v$.
+\end{enumerate}
 
 ======================= Pod tymto vsetko zmazat? ============================================
 
