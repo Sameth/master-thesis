@@ -48,7 +48,9 @@ všetky čiastočné farbenia, ktoré nejakému vrcholu $v \in S$ priradili in�
 
 Pozor si však treba dať na počet tabuliek, ktoré potrebujeme vypočítať. Keďže niektoré vrcholy
 majú predpísanú farbu, nemusí existovať triviálne farbenie s rozsahom $2n$. Ďalej však dokážeme,
-že všetky vrcholy mimo množiny $S$ vieme triviálne ofarbiť farbami veľkosti nanajvýš $3n$.
+že všetky vrcholy mimo množiny $S$ vieme triviálne ofarbiť farbami veľkosti nanajvýš $3n$. Keďže
+časová zložitosť počítania tabuľku $T_i$ z tabuľky $T_{i-1}$ je $O^*(2.6488^n)$ a tento výpočet
+spravíme najviac $(3n)$-krát, časová zložitosť tohto algoritmu bude $O^*(2.6488^n)$.
 
 \begin{lema}
     Nech $f$ je čiastočné $L(2,1)$-farbenie množiny $S$ v grafe $G$. Potom existuje
@@ -173,8 +175,10 @@ najviac zlepší časovú zložitosť vtedy, keď majú oba komponenty zhruba ro
 Ak bude jeden komponent príliš malý, môžeme si takýmto rozdelením časovú zložitosť zhoršiť:
 Za zanedbateľné zmenšenie problému zaplatíme tým, že ho budeme musieť riešiť viackrát.
 
-V ďalšej časti rozoberieme, ako sa vieme vysporiadať s problémom malých komponentov a
-aký výsledok z toho dostaneme.
+Rýchly algoritmus pre problém $L(2,1)$-farbenia môžeme skonštruovať napríklad z dvoch menších
+algoritmov. Jeden z nich bude riešiť problém $L(2,1)$-farbenia na grafoch bez triviálnych mostov.
+Druhý bude redukovať problém $L(2,1)$-farbenia na všeobecných grafoch na niekoľko inštancií
+problému na grafoch bez triviálnych mostov. V ďalšej časti ukážeme druhý typ algoritmu.
 
 \section{Mostová veta}
 
@@ -204,8 +208,8 @@ znázornených na obrázku \ref{graf:ec2}.
 Pripomeňme si, že každý graf, bez ohľadu na jeho štruktúru, má triviálne $L(2,1)$-farbenie
 s rozsahom $2n - 2$, kde každému vrcholu priradíme rôzne párne číslo. Pokiaľ pri rozdelení
 grafu na dva komponenty ostane jeden z nich dostatočne malý v porovnaní s hodnotou $k$,
-pre každé ohodnotenie mostových vrcholov vieme nájsť jeho triviálne $k$-$L(2,1)$-farbenie.
-Tento fakt zachytáva nasledujúce tvrdenie.
+pre každé ohodnotenie mostových vrcholov vieme nájsť jeho triviálne $L(2,1)$-farbenie s
+rozsahom $k$. Tento fakt zachytáva nasledujúce tvrdenie.
 
 \begin{lema}
     Nech $e$ je mostová hrana grafu $G$, nech $u_1, u_2$ sú vrcholy incidentné s $e$,
@@ -248,19 +252,84 @@ Tento fakt zachytáva nasledujúce tvrdenie.
     \end{description}
 \end{proof}
 
+Pokiaľ overujeme existenciu $L(2,1)$-farbenia s rozsahom $k$ pre dostatočne veľké $k$ a v grafe
+nájdeme most, ktorého odstránením bude prvý komponent malý a druhý veľký, podľa tejto lemy
+môžeme malý komponent odignorovať.
+
+Keď v grafe objavíme most, ktorý delí graf na dve podobne veľké časti, môžeme si dovoliť
+obe vyriešiť pomocou algoritmu Junosza-Szaniawski. Najväčší problém teda budú spôsobovať
+grafy, v ktorých bude veľa mostov oddeľovať stredne veľké podgrafy od zvyšku.
+
+\subsection{Pseudoblokovo-mostový strom}
+
+Pri skúmaní grafov vzhľadom na bloky sa uplatnil pojem blokovo-artikulačného stromu.
+Podobný pojem vzhľadom na chlpaté $2$-hranovo súvislé grafy nám pomôže pri konštrukcii
+algoritmu a zdôvodnení jeho zložitosti.
+
+\begin{defn}
+    Nech $G$ je graf, nech $E$ je množina všetkých netriviálnych mostov v $G$, nech
+    $K_1, K_2 \ldots K_m$ sú komponenty súvislosti grafu $G - E$. Pod pojmom \emph{pseudoblokovo-mostový
+    strom grafu $G$} budeme rozumieť graf s ohodnotenými vrholmi $v_1, v_2, \ldots, v_m$, kde
+    vrchol $v_i$ má priradenú hodnotu $|V(K_i)|$ a vrcholy $v_i$ a $v_j$ sú spojené hranou
+    práve vtedy, keď existuje hrana $e \in E$, ktorá prepája nejaký vrchol v komponente $K_i$
+    s nejakým vrcholom v komponente $K_j$.
+\end{defn}
+
+Medzi všeobecne známe vlastnosti stromov patrí aj existencia vyváženého vrcholového separátora:
+V každom strome $T$ existuje vrchol $v$ taký, že každý komponent grafu $T-v$ má nanajvýš polovicu
+vrcholov z $T$. Podobné tvrdenie platí aj pre ohodnotené stromy:
+
+\begin{lema}
+    Nech $T$ je $n$-vrcholový strom s kladným ohodnotením vrcholov, nech $s$ je súčet hodnotení jeho vrcholov.
+    Potom existuje vrchol $v \in V(T)$ taký, že súčet hodnotení vrcholov v každom komponente
+    grafu $T - v$ je nanajvýš $\frac{s}{2}$.
+\end{lema}
+\begin{proof}
+    Dôkaz sporom. Pre každý vrchol $v \in V(T)$ existuje komponent grafu $T - v$, ktorý
+    má súčet ohodnotení viac ako $\frac{s}{2}$. Pre každý vrchol môže byť takýto komponent nanajvýš
+    jeden, lebo dva komponenty so súčtom hodnotení viac ako $\frac{s}{2}$ sú v spore so súčtom
+    hodnotení v $T$.
+
+    Pre každý vrchol $v$ teda existuje práve jeden komponent $K$ súvislosti grafu
+    $T - v$, ktorý má súčet hodnotení viac ako $\frac{s}{2}$. Vrchol $v$ je hranou spojený
+    s práve jedným vrcholom v každom komponente $T - v$, čiže je spojený s presne identifikovaným
+    vrcholom $u$ v komponente $K$. Na hranu $(uv)$ nakreslíme šípku od $v$ k $u$. Tento postup
+    vykonáme pre každý vrchol v grafe $T$, čiže $n$-krát.
+
+    Hrán v $n$-vrcholovom strome je $n-1$, teda aspoň na jednu hranu sme nakreslili dve šípky.
+    Nech táto hrana spája vrcholy $u$ a $v$. Komponent grafu $T - u$, ktorý obsahuje vrchol $v$,
+    označíme $K_v$ a podobne komponent grafu $T - v$ obsahujúci vrchol $u$ označíme $K_v$. Kedže
+    hrana $(uv)$ dostala dve šípky, komponenty $K_u$ aj $K_v$ musia mať súčet ohodnotení viac ako
+    $\frac{s}{2}$. Komponenty $K_u$ a $K_v$ však majú disjunktné množiny vrcholov, čo je v spore
+    s faktom, že súčet hodnotení vrcholov v $T$ je $s$. \qedhere
+\end{proof}
+
+Z dôkazu predošlej lemy nám taktiež vyplýva algoritmus, ktorým vieme v polynomiálnom čase
+nájsť takýto vrchol $v$. Najprv v čase $O(n)$ spočítame súčet hodnotení vrcholov. Potom začneme
+v nejakom vrchole $u$, spočítame súčet hodnotení v každom komponente grafu $G - u$ (v lineárnom čase).
+Ak má niektorý komponent priveľký súčet, nájdeme v ňom vrchol, ktorý susedí s $u$ a proces opakujeme.
+V opačnom prípade sme našli vrchol $v$ spĺňajúci lemu.
+
+Tento proces sa musí zastaviť, ináč by sme dostali buď spor s acyklickosťou stromu $T$, alebo by sme
+dostali podobný spor, ako na konci dôkazu. Algoritmus na hľadanie vrcholu $v$ sa dá dokonca spraviť
+v lineárnom čase od počtu vrcholov $T$, ale nám stačí ľubovoľný polynomiálny čas.
+
+
+======================= Pod tymto vsetko zmazat? ============================================
+
 Pokiaľ overujeme existenciu $k$-$L(2,1)$-farbenia pre dostatočne veľkú hodnotu $k$ a v grafe
 nájdeme most, ktorého odstránením bude prvý komponent malý a druhý veľký, podľa tejto lemy
 môžeme malý komponent odignorovať. Pri takomto prístupe by nám mohli robiť problém malé
 hodnoty $k$. Tie môžeme vyriešiť s použitím algoritmu od Haveta a kol., ktorý rieši
 problém $L(2,1)$-farbenia pre $k \leq 5$ v čase $O^*(2.5^n)$ \cite{havet}. Tento
 algoritmus principiálne prehľadáva všetky $k$-$L(2,1)$-farbenia grafu, preto sa dá
-priamočiaro prerobiť na algoritmus, ktorý rieši problém zoznamového $k$-$L(2,1)$-farbenia.
+priamočiaro prerobiť na algoritmus, ktorý rieši problém doplnenia $L(2,1)$-farbenia.
 
 Teraz máme všetky podklady pre to, aby sme vedeli upraviť algoritmus,
-ktorý rieši problém zoznamového $L(2,1)$-farbenia na chlpatých
+ktorý rieši problém doplnenia $L(2,1)$-farbenia na chlpatých
 $2$-hranovo súvislých grafoch, na algoritmus riešiaci problém $L(2,1)$-farbenia
 na súvislých grafoch. Do pozornosti dávame, že náš algoritmus nebude riešiť
-problém zoznamového $L(2,1)$-farbenia.
+problém doplnenia $L(2,1)$-farbenia.
 
 \begin{veta}
     FIXME: Toto v skutocnosti nefunguje. Rozbit na viacero pripadov, tato veta moze pokryvat pripad, ze
