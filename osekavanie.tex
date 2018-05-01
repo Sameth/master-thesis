@@ -267,13 +267,20 @@ Podobný pojem vzhľadom na chlpaté $2$-hranovo súvislé grafy nám pomôže p
 algoritmu a zdôvodnení jeho zložitosti.
 
 \begin{defn}
-    Nech $G$ je graf, nech $E$ je množina všetkých netriviálnych mostov v $G$, nech
+    Nech $G$ je súvislý graf, nech $E$ je množina všetkých netriviálnych mostov v $G$, nech
     $K_1, K_2 \ldots K_m$ sú komponenty súvislosti grafu $G - E$. Pod pojmom \emph{pseudoblokovo-mostový
     strom grafu $G$} budeme rozumieť graf s ohodnotenými vrholmi $v_1, v_2, \ldots, v_m$, kde
     vrchol $v_i$ má priradenú hodnotu $|V(K_i)|$ a vrcholy $v_i$ a $v_j$ sú spojené hranou
     práve vtedy, keď existuje hrana $e \in E$, ktorá prepája nejaký vrchol v komponente $K_i$
     s nejakým vrcholom v komponente $K_j$.
 \end{defn}
+
+Z daného grafu $G$ s $n$ vrcholmi a $m$ hranami vieme zostrojiť jeho pseudoblokovo-mostový graf 
+v čase $O(n+m) = O(n^2)$. Pre všetky hrany grafu zistíme, či sú mostové pomocou Tarjanovho
+algoritmu \cite{tarjan_bridge}. Pre ľubovoľný most $e$ vieme v konštantnom čase overiť, či je
+netriviálny: Pre oba koncové vrcholy $e$ skontrolujeme, či sú incidentné aj s inou hranou, ako $e$.
+Keď poznáme netriviálne mosty, vhodným prehľadaním grafu, ktoré nebude môcť prejsť cez netriviálny most,
+vieme zistiť aj ohodnotenie vrcholov v pseudoblokovo-mostovom grafe v čase $O(n+m)$.
 
 Medzi všeobecne známe vlastnosti stromov patrí aj existencia vyváženého vrcholového separátora:
 V každom strome $T$ existuje vrchol $v$ taký, že každý komponent grafu $T-v$ má nanajvýš polovicu
@@ -310,10 +317,15 @@ v nejakom vrchole $u$, spočítame súčet hodnotení v každom komponente grafu
 Ak má niektorý komponent priveľký súčet, nájdeme v ňom vrchol, ktorý susedí s $u$ a proces opakujeme.
 V opačnom prípade sme našli vrchol $v$ spĺňajúci lemu.
 
-Tento proces sa musí zastaviť, ináč by sme dostali buď spor s acyklickosťou stromu $T$, alebo by sme
-dostali podobný spor, ako na konci dôkazu. Algoritmus na hľadanie vrcholu $v$ sa dá dokonca spraviť
-v lineárnom čase od počtu vrcholov $T$, ale nám stačí ľubovoľný polynomiálny čas.
+Pri tomto procese nemôžeme navštíviť žiaden vrchol viackrát, ináč by sme dostali buď spor s
+acyklickosťou stromu $T$, alebo by sme dostali podobný spor, ako na konci dôkazu. Algoritmus
+na hľadanie vrcholu $v$ sa dá dokonca spraviť v lineárnom čase od počtu vrcholov $T$, ale nám
+stačí ľubovoľný polynomiálny čas.
 
+Nakoniec budeme potrebovať ešte dva stavebné algoritmy k našej redukcii. Jedným z nich je
+viackrát spomínaný algoritmus Junosza-Szaniawski, ktorý vie riešiť problém doplnenia $L(2,1)$-farbenia
+v ľubovoľnom súvislom grafe v čase $O^*(2.6488^n)$ \cite{junosza_fast}. Druhým z nich je algoritmus od Haveta
+a kol., ktorý vie riešiť problém $L(2,1)$-farbenia pre rozsah $k \leq 5$ v čase $O^*(2.5^n)$ \cite{havet}.
 
 ======================= Pod tymto vsetko zmazat? ============================================
 
