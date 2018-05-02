@@ -142,8 +142,8 @@ $c$, ktorý bude popisovať najväčší cyklus, ktorý sa môže nachádzať v 
 
 Pri pridávaní $H$-cyklu môžeme pridať nanajvýš $c - 1$ nových vrcholov, ináč vyrobíme väčší
 cyklus, ako $c$. Pri pridávaní $H$-cesty medzi vrcholy $u, v$ môžeme pridať iba $c - l(u,v) - 1$ nových
-vrcholov, kde $l(u,v)$ označuje dĺžku ľubovoľnej cesty medzu $u, v$. Pri prvom zlepšení budeme
-ako $l(u,v)$ používať vzdialenosť $d(u,v)$, lebo sa dá rozumne rýchlo počítať.
+vrcholov, kde $l(u,v)$ označuje dĺžku ľubovoľnej cesty medzi $u, v$. Pri prvom zlepšení budeme
+ako $l(u,v)$ používať vzdialenosť $d(u,v)$, lebo sa dá rýchlo počítať.
 
 V každom behu rekurzívnej funkcie teda pre každu dvojicu už existujúcich vrcholov spočítame
 ich vzdialenosť Floyd-Warshallovym algoritmom, ktorý na grafe s $n$ vrcholmi pracuje v čase
@@ -179,7 +179,7 @@ môžeme reprezentovať ako dvojicu čísel $(u,u)$.
 
 Pri ľubovoľnom postupe vytvárania grafu môžeme vymeniť dve operácie s reprezentáciami (v poradí)
 $X = (x_1,x_2)$ a $Y = (y_1, y_2)$ vymeniť, ak je $Y$ lexikograficky menšia ako $X$. Ak pri
-vykonávaní operácie $X$ existoval vrchol $x_1$, tak musí existovať aj menší (rovný) vrchol $y_1$
+vykonávaní operácie $X$ graf obsahoval vrchol $x_1$, tak musel obsahovať aj menší (rovný) vrchol $y_1$
 a menší (rovný) vrchol $y_2$.
 
 Týmto sme zavŕšili popis štvrtého algoritmu.
@@ -188,4 +188,9 @@ FIXME: Dá sa dokázať, že každý označený graf vygenerujeme najviac raz?
 
 \subsection{Najväčší cyklus v grafe znova}
 
+Ďalšie zlepšenie sa bude opäť týkať najväčšieho cyklu. Pre vopred stanovené $c$ môžeme medzi vrcholy
+pridať nanajvýš $c - l(u,v) - 1$ nových vrcholov, kde $l(u,v)$ označuje dĺžku nejakej cesty. Pri
+tomto zlepšení budeme budeme $l(u,v)$ počítať ako dĺžku najdlhšej cesty medu $u$ a $v$.
 
+Zisťovanie dĺžky najdlhšej cesty medzi dvomi vrcholmi je NP-ťažký problém. Popíšeme riešenie
+v čase $O(n^32^n)$, ktoré používa dynamické programovanie.
