@@ -83,7 +83,8 @@ viackrát. Pri skúmaní počtu vlastných párov nás nezaujíma označenie vrc
 ak každý neoznačený $2$-hranovo súvislý graf skonštruujeme aspoň raz.
 
 V ďalšej časti si popíšeme viacero spôsobov, ktorými vieme zredukovať množstvo vygenerovaných
-grafov.
+grafov. Postupne tak načrtneme základný algoritmus a $5$ zlepšení, ktoré nakoniec medzi
+sebou porovnáme.
 
 \section{Redukcia počtu grafov}
 
@@ -129,5 +130,62 @@ leme.
     spĺňa definíciu hranovej $2$-súvislosti.
 \end{proof}
 
+Obe tieto zlepšenia implementujeme už v základnom programe. Ďalej budeme redukovať symetrie na základe
+najväčšieho cyklu.
+
+\subsection{Najväčší cyklus v grafe}
+
+Prvý spôsob odstraňovania symetrií sa bude týkať najväčšieho cyklu v grafe. Ľubovoľný $2$-hranovo
+súvislý graf $G$ môžeme našim postupom vypestovať tak, že najväčší cyklus v $G$ bude zodpovedať
+cyklu, ku ktorému pridávame $H$-cesty a $H$-kružnice. Našej funkcii teda pridáme číselný parameter
+$c$, ktorý bude popisovať najväčší cyklus, ktorý sa môže nachádzať v pestovanom grafe.
+
+Pri pridávaní $H$-cyklu môžeme pridať nanajvýš $c - 1$ nových vrcholov, ináč vyrobíme väčší
+cyklus, ako $c$. Pri pridávaní $H$-cesty medzi vrcholy $u, v$ môžeme pridať iba $c - l(u,v) - 1$ nových
+vrcholov, kde $l(u,v)$ označuje dĺžku ľubovoľnej cesty medzu $u, v$. Pri prvom zlepšení budeme
+ako $l(u,v)$ používať vzdialenosť $d(u,v)$, lebo sa dá rozumne rýchlo počítať.
+
+V každom behu rekurzívnej funkcie teda pre každu dvojicu už existujúcich vrcholov spočítame
+ich vzdialenosť Floyd-Warshallovym algoritmom, ktorý na grafe s $n$ vrcholmi pracuje v čase
+$O(n^3)$.
+
+Ako poznámku pridáme, že v skutočnosti náš druhý algoritmus nebol tesný, lebo pri pridávaní $H$-cyklu
+sme mohli pridať až $c$ vrcholov a pri pridaní $H$-cesty medzi vrcholy až $c - d(u,v)$ vrcholov.
+
+\subsection{Minimálne $2$-hranovo súvislý graf}
+
+V treťom algoritme naplno využijeme vlastnosť, že odstránenie hrany nezmenšuje počet vlastných
+párov. Zaujímať nás budú teda také grafy $H$, v ktorých platí, že graf $H - e$ nie je $2$-hranovo
+súvislý. Takéto grafy sa nazývajú \emph{minimálne $2$-hranovo súvislé}.
+
+Ak niektorý $2$-hranoco súvislý podgraf $G \subseteq H$ nie je minimálne $2$-hranovo súvislý,
+tak ani graf $H$ nemôže byť $2$-hranovo súvislý \cite{min2con}. Ak teda v ktoromkoľvek volaní
+rekurzívnej funkcie dostaneme graf $H$, ktorý nie je minimálne $2$-súvislý, nemá zmysel s ním
+naďalej pracovať.
+
+Overovať, či je graf minimálne $2$-hranovo súvislý, budeme nasledovne: Pre každú hranu $e \in E(H)$
+pomocou Tarjanovho algoritmu overíme, či graf $H - e$ obsahuje most. Ak pre niektorú hranu graf $H - e$
+neobsahuje most, tak $H$ nie je $2$-hranovo súvislý. Časová zložitosť kontroly je $O(m^2)$.
+
+Toto zlepšenie výrazne zredukovalo počet vytvorených grafov, ako uvidíme v tabuľke.
+
+\subsection{Usporiadané pridávanie ciest a cyklov}
+
+V ľubovoľnom postupe vytvárania $2$-hranovo súvislého grafu môžeme operácie pridávania $H$-ciest
+a $H$-kružníc vhodne usporiadať. Využijeme, že v našej reprezentácii máme vrcholy očíslované
+číslami $0 \ldots n-1$. Pridanie $H$-cesty medzi vrcholy s číslami $u, v$, kde $u > v$, vieme symbolicky
+reprezentovať ako dvojicu čísel $(u,v)$. Podobne pridanie $H$-cyklu pripojeného k vrcholu s číslom $u$
+môžeme reprezentovať ako dvojicu čísel $(u,u)$.
+
+Pri ľubovoľnom postupe vytvárania grafu môžeme vymeniť dve operácie s reprezentáciami (v poradí)
+$X = (x_1,x_2)$ a $Y = (y_1, y_2)$ vymeniť, ak je $Y$ lexikograficky menšia ako $X$. Ak pri
+vykonávaní operácie $X$ existoval vrchol $x_1$, tak musí existovať aj menší (rovný) vrchol $y_1$
+a menší (rovný) vrchol $y_2$.
+
+Týmto sme zavŕšili popis štvrtého algoritmu.
+
+FIXME: Dá sa dokázať, že každý označený graf vygenerujeme najviac raz?
+
+\subsection{Najväčší cyklus v grafe znova}
 
 
