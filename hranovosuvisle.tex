@@ -87,4 +87,47 @@ grafov.
 
 \section{Redukcia počtu grafov}
 
+Pripomeňme si viackrát využitý fakt: odobratím ľubovoľnej hrany z grafu sa jeho počet vlastných
+párov nezníži. Ak nás teda zaujímajú grafy s najväčším počtom vlastných párov, môžeme sa obmedziť
+na také, ktoré nemajú hrany navyše. Z pohľadu nášho algoritmu na vytváranie $2$-hranovo súvislých
+grafov to znamená, že stačí pridávať iba také $H$-cesty, ktoré obsahujú aspoň jeden nový vrchol.
+
+Ďalší jednoduchý spôsob, ako vieme zmenšiť počet vygenerovaných grafov je nasledovný: $H$-cestu
+medzi vrcholy $u, v$ pridáme iba vtedy, ak nejde o susedné vrcholy. Dôvod si zhrnieme v nasledujúcej
+leme.
+
+\begin{lema}
+    Nech $H$ je $2$-hranovo súvislý graf, nech $u, v$ sú vrcholy v $H$ spojené hranou $e$.
+    Nech graf $H'$ vznikne z $H$ pridaním cesty $P$ medzi vrcholy $u, v$. Potom $H' - e$ je
+    $2$-hranovo súvislý graf.
+\end{lema}
+\begin{proof}
+    Dokážeme, že pre ľubovoľnú hranu $f \in E(H - e)$ platí, že graf $H' - \{e, f\}$ je súvislý.
+    Graf $H$ je $2$-hranovo súvislý, čiže $H - e$ je súvislý. Zároveň je $H - e$ podgrafom
+    $H' - e$.
+    
+    Pokiaľ vezmeme hranu $f$ z cesty $P$, tvrdenie platí, lebo pre každý nový vrchol v $P$
+    existujú dve hranovo disjunktné cesty do grafu $H - e$ a graf $H - e$ je súvislý. 
+    
+    Pre hrany v grafe $H - e$ použijeme Mengerovu vetu. Pre každú dvojicu vrcholov
+    v $2$-hranovo súvislom grafe existujú dve hranovo disjunktné cesty \cite{diestel_graph}.
+
+    Vezmime ľubovoľné dva vrcholy $u, v$ a dve hranovo disjunktné cesty $P_1, P_2$ medzi nimi.
+    Nanajvýš jedna z ciest obsahuje hranu $e$.
+    Ak žiadna z nich neobsahuje hranu $e$, tak $P_1$ a $P_2$ je dvojica hranovo disjunktných ciest
+    medzi $u, v$. Ak jedna z nich hranu obsahuje, bez ujmy na všeobecnosti je to $P_1$, tak túto hranu
+    nahradíme cestou $P$.
+
+    Pre ľubovoľnú dvojicu vrcholov $u, v \in V(H)$ teda platí, že existuje dvojica hranovo disjunktných
+    ciest medzi $u$ a $v$ v grafe $H' - e$. Ak pre súvislý graf platí, že $G - (xy)$ je nesúvislý, vrcholy
+    $x$ a $y$ musia ležať v rôznych komponentoch súvislosti $G - (xy)$. Keďže ľubovoľná dvojica vrcholov
+    vo $V(H)$ je spojená dvomi hranovo disjunktnými cestami v $H' - e$, hrana $(xy) \in E(H) - \{e\}$ patrí
+    nanajvýš do jednej z týchto ciest. Vrcholy $x, y$ teda ležia v tom istom komponente súvislosti grafu
+    $H' - \{e, (xy)\}$ a teda graf $H' - \{e, (xy)\}$ je súvislý.
+
+    Nech zvolíme ľubovoľnú hranu $e' \in E(H' - e)$, graf $H' - \{e, e'\}$ je súvislý. Graf $H' - e$ teda
+    spĺňa definíciu hranovej $2$-súvislosti.
+\end{proof}
+
+
 
