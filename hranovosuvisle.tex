@@ -1,0 +1,90 @@
+\chapter{Experiment na $2$-hranovo súvislých grafoch}
+
+V prvej kapitole sme sa venovali konštrukcii algoritmu, ktorý dokáže z efektívneho riešenia
+problému $L(2,1)$-farbenia na chlpatých $2$-hranovo-súvislých grafoch vyskladať efektívne
+riešenie problému $L(2,1)$-farbenia na všeobecných grafoch.
+
+Najefektívnejšie riešenie problému $L(2,1)$-farbenia má časovú zložitosť zhora ohraničenú
+počtom vlastných párov na súvislých grafoch. V tejto kapitole sa budeme venovať
+experimentálnemu odhadu počtu vlastných párov na $2$-hranovo súvislých grafoch.
+
+Cieľom experimentu bolo odhaliť, aký typ $2$-hranovo súvislých grafov má najviac
+vlastných párov.
+
+\section{Konštrukcia $2$-hranovo súvislých grafov}
+
+Najprv popíšeme a dokážeme spôsob, ktorým vieme skonštruovať všetky $2$-hranovo
+súvislé grafy. Bude sa nápadne ponášať na konštrukciu $2$-súvislých grafov. Každý
+$2$-hranovo súvislý graf sa dá vytvoriť z kružnice pridávaním $H$-ciest do existujúceho
+grafu \cite{diestel_graph}. Tento postup vieme rozšíriť na $2$-hranovo súvislé grafy, ak
+dovolíme okrem $H$-ciest pridávať aj $H$-kružnice.
+
+\begin{defn}
+    Nech $H$ je graf. Cestu $P$ budeme nazývať $H$-cesta, ak prienik $P$ a $H$ tvoria
+    práve koncové vrcholy $P$.
+
+    Kružnicu $C$ budeme nazývať $H$-kružnica, ak prienik $C$ a $H$ tvorí
+    práve jeden vrchol v $C$.
+\end{defn}
+
+\begin{veta}
+    Každý $2$-hranovo súvislý graf $G$ sa dá vytvoriť z kružnice postupným pridávaním
+    $H$-ciest a $H$-kružníc do grafov $H$, ktoré sme už skonštruovali.
+\end{veta}
+\begin{proof}
+    Najprv dokážeme, že $G$ obsahuje kružnicu ako podgraf. Graf $G$ je $2$-hranovo súvislý,
+    preto pre ľubovoľnú hranu $(uv) = e \in E(G)$ platí, že graf $G - e$ je súvislý. Nájdeme
+    cestu $P$ medzi vrcholmi $u$ a $v$ v grafe $G - E$. Cesta $P$ doplnená o hranu $e$ tvorí
+    kružnicu.
+
+    Ďalej budeme postupovať sporom, graf $G$ sa nedá zostrojiť popísaným spôsobom. Graf $G$
+    obsahuje kružnicu a teda existuje nejaký podgraf $G$, ktorý sa dá týmto spôsobom
+    skonštruovať. Označme $H$ ako najväčší (vzhľadom na inklúziu) takýto podgraf.
+
+    Ak by existovala hrana $(uv) \in E(G) - E(H)$, ktorej koncové vrcholy $u, v$ ležia v
+    $H$, tak $(uv)$ tvorí $H$-cestu a teda je v spore s maximálnosťou $H$. To znamená, že
+    $H$ je indukovaný podgraf.
+    
+    Graf $G$ je súvislý a teda v ňom musí existovať hrana
+    medzi nejakou dvojicou vrcholov $u, v$, kde $u \in V(G) - V(H)$ a $v \in V(H)$.
+    Z predpokladu, že $G$ je $2$-hranovo súvislý vieme, že $G - (uv)$ je súvislý a teda
+    v ňom existuje nejaká cesta $P$ medzi vrcholom $u$ a $v$. Nech $w$ je posledný vrchol
+    na ceste $P$ z množiny $V(G) - V(H)$ a $P_w$ je časť cesty $P$ od vrchola $w$ do $v$.
+    Cesta $P_w$ s hranou $(uv)$ tvorí $H$-cestu, ak $w \neq u$, alebo $H$-kružnicu, ak $w = u$.
+
+    To znamená, že pridaním cesty $P_w$ s hranou $(uv)$ do grafu $H$ dostaneme väčší graf,
+    ktorý vieme skonštruovať popísaným postupom. To je však v spore s predpokladom, že $H$ je
+    maximálny podgraf, ktorý vieme týmto postupom skonštruovať.
+\end{proof}
+
+Za zmienku stojí fakt, že dôkaz vety nám dáva spôsob, ako pre ľubovoľný graf určiť
+postupnosť operácií, ktorými ho vieme vytvoriť.
+
+Množinu všetkých $2$-hranovo súvislých grafov s daným počtom vrcholov teda vieme skonštruovať
+nasledovne: Najprv určíme, aký veľký je prvý cyklus a pre každú túto možnosť spustíme
+rekurzívnu procedúru, ktorá pridáva $H$-kružnice a $H$-cesty.
+
+Rekurzívna procedúra dostane ako parameter nejaký $2$-hranovo súvislý graf $H$ a počet
+vrcholov $k$, ktoré treba ešte do grafu pridať.
+
+Pridávanie $H$-ciest bude fungovať nasledovne: Pre každý možný výber dvojice rôznych
+vrcholov $u, v$ a každú možnosť počtu nových vrcholov $p \leq k$ vytvorí graf $H'$,
+Graf $H'$ vznikne z grafu $H$ pridaním cesty s $p$ novými vrcholmi medzi vrcholy $u, v$.
+Nakoniec rekurzívne spustí túto procedúru s parametrami $H'$ a $k - p$.
+
+Pridávanie $H$-cyklov bude fungovať podobne: Pre každý vrchol $v$ a pre každý možný
+počet nových vrcholov $2 \leq p \leq k$ skonštruujeme graf $H'$. Graf $H'$ vznikne z
+grafu $H'$ pridaním cyklu s $p+1$ vrcholmi, kde jeden z nich je $v$. Na graf $H'$
+rekurzívne spustíme procedúru s parametrami $H'$ a $k - p$.
+
+Takto popísaný algoritmus pre konštrukciu $2$-hranovo súvislých grafov je nepraktický,
+lebo väčšinu $2$-hranovo súvislých grafov vieme podľa predošlého postupu skonštruovať
+viackrát. Pri skúmaní počtu vlastných párov nás nezaujíma označenie vrcholov. Preto stačí,
+ak každý neoznačený $2$-hranovo súvislý graf skonštruujeme aspoň raz.
+
+V ďalšej časti si popíšeme viacero spôsobov, ktorými vieme zredukovať množstvo vygenerovaných
+grafov.
+
+\section{Redukcia počtu grafov}
+
+
