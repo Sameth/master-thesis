@@ -288,7 +288,7 @@ V každom strome $T$ existuje vrchol $v$ taký, že každý komponent grafu $T-
 vrcholov z $T$. Podobné tvrdenie platí aj pre ohodnotené stromy:
 
 \begin{lema}
-    \label{stromsep_lema}
+    \label{stromsep-lema}
     Nech $T$ je $n$-vrcholový strom s kladným ohodnotením vrcholov, nech $s$ je súčet hodnotení jeho vrcholov.
     Potom existuje vrchol $v \in V(T)$ taký, že súčet hodnotení vrcholov v každom komponente
     grafu $T - v$ je nanajvýš $\frac{s}{2}$.
@@ -359,11 +359,16 @@ keď existuje $L(2,1)$-farbenie grafu $G$ s rozsahom $k$. Popis algoritmu:
           algoritmus Junosza-Szaniawski na komponentoch grafu $G - e$. Akceptuj, ak pre
           niektoré ohodnotenie vrcholov $u, w$ algoritmus Junosza-Szaniawski akceptoval
           na oboch komponentoch grafu $G-e$ zároveň. V opačnom prípade zamietni. $O^*(2.6488^{\frac{9n}{10}})$
-    \item Nájdi všetky hrany $e_i$ v grafe $G$, ktoré zodpovedajú hranám v $T$ incidentným s
-          vrcholom $v$. Vyskúšaj všetky možné priradenia hodnôt vrcholom incidentným s
-          niektorou hranou $e_i$. Pre každé priradenie hodnôt spusti algoritmus $\mathcal{B}$ na podgrafe
-          v $G$ zodpovedajúcemu vrcholu $v$ v $T$ a prispôsobený algoritmus Junosza-Szaniawski na podgrafoch
-          $G$, ktoré zodpovedajú komponentom grafu $T - v$.
+    \item Pre každý z komponentov $K_i$ nájdi hranu $e_i'$, ktorá prepája vrchol $v$ a vrchol
+          v komponente $K_i$ a jej zodpovedajúcu hranu $e_i$ v grafe $G$. Pre komponent $K_i$ zostroj
+          $G_i$ ako podgraf $G$, ktorý zodpovedá grafu $K_i$ v $T$ s hranou $e_i$. 
+    \item Pre každý z grafov $G_i$ a každé ohodnotenie vrcholov $u_i, w_i$ hrany $e_i$ spusti
+          prispôsobený algoritmus Junosza-Szaniawski. Zoznam ohodnotení vrcholov $u_i, w_i$,
+          pre ktoré algoritmus akceptoval, označíme $Z_i$. $O^*(k^2n \cdot 2.6488^{\frac{n}{10}})$
+    \item Skonštruuj graf $G_v$ ako podgraf $G$, ktorý zodpovedá vrcholu $v$ v $T$, spolu so
+          všetkými hranami $e_i$. Pre každú hranu $e_i$ a každý spôsob ofarbenia hrany $e_i$ zo zoznamu $Z_i$
+          spusti algoritmus $\mathcal{B}$ na $G_v$. Ak aspoň jeden z behov akceptoval, akceptuj.
+          V opačnom prípade zamietni.
 \end{enumerate}
 
 ======================= Pod tymto vsetko zmazat? ============================================
