@@ -76,7 +76,11 @@ void compute_maxdists(vvi& result) {
     int actn = result.size();
     For(i, actn) {
         vvi memo(actn, vi(1<<actn, -1));
-        For(j, actn) result [i][j] = recursive_maxdist(j, i, 1<<j, memo, actn);
+        For(j, i) {
+            result [i][j] = recursive_maxdist(j, i, 1<<j, memo, actn);
+            result [j][i] = result [i][j];
+        }
+
     }
 }
 
