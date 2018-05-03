@@ -193,4 +193,39 @@ pridať nanajvýš $c - l(u,v) - 1$ nových vrcholov, kde $l(u,v)$ označuje dĺ
 tomto zlepšení budeme budeme $l(u,v)$ počítať ako dĺžku najdlhšej cesty medu $u$ a $v$.
 
 Zisťovanie dĺžky najdlhšej cesty medzi dvomi vrcholmi je NP-ťažký problém. Popíšeme riešenie
-v čase $O(n^32^n)$, ktoré používa dynamické programovanie.
+v čase $O(n^32^n)$, ktoré používa dynamické programovanie. Pre každý z $n$ vrcholov spočítame
+najdlhšiu cestu z neho do každého iného vrchola. Ďalej popíšeme, ako vyzerá hľadanie najdlhšej
+cesty z vrchola $u$ do ostatných.
+
+Podproblém bude vyzerať nasledovne: Pre daný vrchol $v$ a nejakú podmnožinu dovolených
+vrcholov $S$, aká je najdlhšia cesta z $v$ do $u$, ak môžeme použiť iba vrcholy v $S$?
+
+Pre $v = u$ je odpoveď $0$. Pre $v \neq u$ sa pozrieme na všetkých susedov $w$ vrcholu $v$,
+ktorí sú v množine $S$. Pre každého z nich spočítame najdlhšiu cestu z vrcholu $w$ do vrcholu
+$u$, ktorá môže použiť iba vrcholy v $S - \{v\}$. Nech najväčšiu hodnotu nadobúdal nejaký vrchol
+$w_{max}$. Potom odpoveď pre $v, S$, je o jedna väčšia, ako odpoveď pre $w_{max}, S - \{v\}$.
+Najdlhšia cesta z vrcholu $x$ do $u$ potom zodpovedá riešeniu problému $x, 2^{V(G)}$.
+
+Stavov je $n2^n$, pre každý z nich vyskúšame $O(n)$ možností. Celé riešenie s dynamickým
+programovaním budeme spúšťať $n$-krát. Preto je časová zložitosť $O(n^32^n)$.
+
+Všetky doteraz popísané zlepšenia sme vedeli vypočítať v polynomiálnom čase od veľkosti grafu.
+Toto zlepšenie má však exponenciálnu časovú zložitosť od počtu vrcholov. Ukázalo sa,
+že ho nie je dobré aplikovať úplne v každom kroku výpočtu. Čas, ktorý strávime počítaním
+najdlhšej cesty v grafe, preváži čas, ktorý ušetríme orezaním niektorých vetiev výpočtu.
+
+Ukázalo sa však, že ak budeme hľadať najdlhšiu cestu pre všetky grafy $H$, ktoré potrebujú
+doplniť aspoň $3$ nové vrcholy a pre zvyšné, veľké grafy, budeme používať najkratšie cesty,
+celkovo ušetríme zhruba polovicu času. Tento empirický fakt je, pochopiteľne, závislý od
+časovej náročnosti operácie, ktorú na grafoch vykonávame. Pre rôzne výpočty nad grafmi
+teda môže byť výhodnejšie počítať najdlhšie cesty na menších, alebo aj väčších grafoch.
+
+\subsection{Symetria prvého cyklu}
+
+Posledné vylepšenie sa bude týkať úplne prvej kružnice. Prvé pridanie $H$-cesty alebo $H$-kružnice
+sa musí vykonať na niektorom vrchole, resp. dvojici vrcholov z prvej kružnice.
+Nech je postupnosť pridávania $H$-ciest a $H$-cyklov ľubovoľná, môžeme ju otočiť tak, aby jeden
+z vrcholov bol vrchol s číslom $0$. To znamená, že prvé pridanie $H$-cesty, alebo $H$-cyklu,
+musí byť vykonané nad vrcholom číslo $0$.
+
+\section{Počítanie vlastných párov}
