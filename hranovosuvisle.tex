@@ -84,6 +84,9 @@ lebo väčšinu $2$-hranovo súvislých grafov vieme podľa predošlého postupu
 viackrát. Pri skúmaní počtu vlastných párov nás nezaujíma označenie vrcholov. Preto stačí,
 ak každý neoznačený $2$-hranovo súvislý graf skonštruujeme aspoň raz.
 
+Na reprezentáciu vrcholov používame čísla $0 \ldots n-1$, na reprezentáciu hrán používame
+maticu susednosti.
+
 V ďalšej časti si popíšeme viacero spôsobov, ktorými vieme zredukovať množstvo vygenerovaných
 grafov. Postupne tak načrtneme základný algoritmus a $5$ zlepšení, ktoré nakoniec medzi
 sebou porovnáme.
@@ -310,7 +313,7 @@ by tvorili analogické konštrukcie. Zdá sa teda, že najviac vlastných párov
 grafov majú kružnice, navyše s nezanedbateľným odstupom.
 
 \begin{figure}
-\centerline{\includegraphics[width=0.9\textwidth]{images/best_ec2.pdf}}
+\centerline{\includegraphics[width=0.8\textwidth]{images/best_ec2.pdf}}
 
 \caption[$2$-hranovo súvislé grafy s najviac vlastnými pármi]{Ukážka štyroch pätnásťvrcholových
 grafov, ktoré mali najviac vlastných párov.}
@@ -329,7 +332,7 @@ algoritmami. Niektoré hodnoty nie sú vyplnené, lebo ich výpočet by trval pr
         7       & $1\,256$        & $1\,213$          & $153$           & $53$            & $53$            & $21$            \\ \hline
         8       & $30\,392$       & $28\,227$         & $751$           & $148$           & $143$           & $53$            \\ \hline
         9       & $1\,041\,728$     & $922\,767$        & $4\,611$          & $597$           & $526$           & $200$           \\ \hline
-        10      & $48\,272\,012$    & $40\,511\,279$      & $29\,943$         & $2\,077$          & $\,1638$          & $601$           \\ \hline
+        10      & $48\,272\,012$    & $40\,511\,279$      & $29\,943$         & $2\,077$          & $1\,638$          & $601$           \\ \hline
         11      & $2\,915\,065\,368$  & $2\,310\,399\,982$    & $219\,390$        & $8\,434$          & $5\,989$          & $2\,228$          \\ \hline
         12      & ---           & ---             & $1\,738\,810$       & $32\,980$         & $20\,176$         & $7\,372$          \\ \hline
         13      & ---           & ---             & $15\,188\,850$      & $137\,670$        & $74\,175$         & $27\,132$         \\ \hline
@@ -344,4 +347,17 @@ algoritmami. Niektoré hodnoty nie sú vyplnené, lebo ich výpočet by trval pr
     \end{tabular}
 }
 
+Jedno z najvýraznejších zlepšení nastalo, keď sme začali priebežne kontrolovať, či sú naše už
+vytvorené grafy minimálne $2$-hranovo súvislé. Ďalšie výrazné zlepšenie nastalo, keď sme
+vynútili usporiadané pridávanie $H$-ciest a $H$-cyklov.
 
+Pre každý počet vrcholov do $20$ bola grafom s najväčším počtom vlastných párov práve
+kružnica. Ďalšie skúmanie problému $L(2,1)$-farbenia sa teda môže zaoberať práve
+$2$-hranovo súvislými grafmi a chlpatými $2$-hranovo súvislými grafmi. Z nášho experimentu
+vyplývajú dva možné smery ďalšej práce na probléme $L(2,1)$-farbenia.
+
+Jedným smerom by
+bola práca na dôkaze, že pre každý počet vrcholov má spomedzi $2$-hranovo súvislých grafov
+najviac vlastných párov práve kružnica. Alternatívnym smerom skúania môže byť horný odhad
+maximálneho počtu vlastných párov na $2$-hranovo súvislých grafov, ktorý by mohol byť
+pre $n$-vrcholový graf práve $O(2.5944^n)$.
