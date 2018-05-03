@@ -300,7 +300,14 @@ $c_n \in O(2.5944^n)$.
 
 Otestovali sme grafy, ktoré majú nanajvýš $20$ vrcholov. Pre každý počet vrcholov do $20$ mala
 najviac vlastných párov kružnica. Štyri pätnásťvrcholové grafy s najväčším počtom vlastných
-párov sú znázornené na obrázku \ref{graf:bestec2}.
+párov sú znázornené na obrázku \ref{graf:bestec2}. Najväčší rozdiel v počte vlastných párov
+bol medzi kružnicou a druhým grafom v poradí, zhruba $9\%$ z počtu vlastných párov kružnice.
+Rozdiel medzi druhým a tretím grafom v poradí tvoril zhruba $2\%$ z počtu druhého grafu. U poslednej
+dvojice bol takýto rozdiel na úrovni $0.2\%$.
+
+Ak by sme sa pozreli na ostatné veľkosti grafov, niekoľko grafov s najväčším počtom vlastných párov
+by tvorili analogické konštrukcie. Zdá sa teda, že najviac vlastných párov spomedzi $2$-hranovo súvislých
+grafov majú kružnice, navyše s nezanedbateľným odstupom.
 
 \begin{figure}
 \centerline{\includegraphics[width=0.9\textwidth]{images/best_ec2.pdf}}
@@ -310,4 +317,31 @@ grafov, ktoré mali najviac vlastných párov.}
 
 \label{graf:bestec2}
 \end{figure}
+
+Ďalej uvedieme ešte tabuľku s počtami grafov, ktoré boli vygenerované postupne sa zlepšujúcimi
+algoritmami. Niektoré hodnoty nie sú vyplnené, lebo ich výpočet by trval príliš dlho.
+
+\scalebox{0.8}{
+    \begin{tabular}{| c | r | r | r | r | r | r |} \hline
+        $n =$   & 1. algoritmus & 2. algoritmus & 3. algoritmus & 4. algoritmus & 5. algoritmus & 6. algoritmus   \\ \hline
+        5       & $8$           & $8$             & $8$             & $6$             & $6$             & $3$             \\ \hline
+        6       & $78$          & $78$            & $30$            & $12$            & $12$            & $5$             \\ \hline
+        7       & $1\,256$        & $1\,213$          & $153$           & $53$            & $53$            & $21$            \\ \hline
+        8       & $30\,392$       & $28\,227$         & $751$           & $148$           & $143$           & $53$            \\ \hline
+        9       & $1\,041\,728$     & $922\,767$        & $4\,611$          & $597$           & $526$           & $200$           \\ \hline
+        10      & $48\,272\,012$    & $40\,511\,279$      & $29\,943$         & $2\,077$          & $\,1638$          & $601$           \\ \hline
+        11      & $2\,915\,065\,368$  & $2\,310\,399\,982$    & $219\,390$        & $8\,434$          & $5\,989$          & $2\,228$          \\ \hline
+        12      & ---           & ---             & $1\,738\,810$       & $32\,980$         & $20\,176$         & $7\,372$          \\ \hline
+        13      & ---           & ---             & $15\,188\,850$      & $137\,670$        & $74\,175$         & $27\,132$         \\ \hline
+        14      & ---           & ---             & $145\,265\,192$     & $574\,765$        & $263\,028$        & $94\,977$         \\ \hline
+        15      & ---           & ---             & ---             & $2\,479\,948$       & $971\,402$        & $348\,777$        \\ \hline
+        16      & ---           & ---             & ---             & $10\,829\,224$      & $3\,542\,688$       & $1\,257\,944$       \\ \hline
+        17      & ---           & ---             & ---             & $48\,283\,823$      & $13\,173\,428$      & $4\,642\,477$       \\ \hline
+        18      & ---           & ---             & ---             & $218\,323\,671$     & $48\,852\,235$      & $17\,043\,272$      \\ \hline
+        19      & ---           & ---             & ---             & $1\,003\,214\,946$    & $183\,037\,711$     & $63\,331\,223$      \\ \hline
+        20      & ---           & ---             & ---             & $4\,674\,538\,111$    & $686\,891\,813$     & $235\,416\,186$     \\ \hline
+
+    \end{tabular}
+}
+
 
