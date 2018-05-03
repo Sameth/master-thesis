@@ -24,7 +24,7 @@ dovolíme okrem $H$-ciest pridávať aj $H$-kružnice.
     práve koncové vrcholy $P$.
 
     Kružnicu $C$ budeme nazývať $H$-kružnica, ak prienik $C$ a $H$ tvorí
-    práve jeden vrchol v $C$.
+    práve jeden vrchol.
 \end{defn}
 
 \begin{veta}
@@ -225,7 +225,28 @@ teda môže byť výhodnejšie počítať najdlhšie cesty na menších, alebo a
 Posledné vylepšenie sa bude týkať úplne prvej kružnice. Prvé pridanie $H$-cesty alebo $H$-kružnice
 sa musí vykonať na niektorom vrchole, resp. dvojici vrcholov z prvej kružnice.
 Nech je postupnosť pridávania $H$-ciest a $H$-cyklov ľubovoľná, môžeme ju otočiť tak, aby jeden
-z vrcholov bol vrchol s číslom $0$. To znamená, že prvé pridanie $H$-cesty, alebo $H$-cyklu,
-musí byť vykonané nad vrcholom číslo $0$.
+z vrcholov kružnice, ku ktorej pridávame $H$-cestu alebo $H$-kružnicu,
+bol vrchol s číslom $0$.
 
 \section{Počítanie vlastných párov}
+
+Na počítanie vlastných párov využijeme vzorec $pp(G) = \sum \limits_{\substack{S \in \mathcal{P}(V_G) \\ S \textrm{ je } 2 \textrm{-pakovanie}}} 2^{n - |S|}$.
+Pre každé $x$ vypočítame počet $2$-pakovaní, ktoré majú presne $x$ vrcholov.
+
+Najrv pre každý vrchol $v \in V(G)$ vypočítame zoznam vrcholov, ktoré sú od neho vzdialené
+nanajvýš $2$. Tento zoznam pre vrchol $v$ označíme $N^2[v]$.
+Ďalej budeme generovať všetky $2$-pakovania grafu $G$ rekurzívnou funkciou.
+
+Naša rekurzívna funkcia bude mať dva parametre, číslo aktuálneho vrcholu $i$ a zoznam zakázaných
+vrcholov $S$. Naša funkcia sa vždy rekurzívne zavolá s parametrami $i+1$ a $S$, čo zodpovedá
+situácii, keď vrchol $i$ nepridáme do $2$-pakovania. Ak vrchol $i$ nie je v ozname $S$, tak
+navyše rekurzívne spustíme funkciu s parametrom $i$ a $S \cup N^2[i]$.
+
+Každé volanie rekurzívnej funkcie vedie k nejakému $2$-pakovaniu. Pozrime sa, koľko operácií sme
+spravili pri postupnosti výpočtov, ktoré viedli k danému $2$-pakovaniu. V každom z presne $n$
+rekurzívnych volaní sme vykonali buď $O(1)$ operácií, ak sme daný vrchol nevzali do $2$-pakovania,
+alebo $O(n)$ operácií, ak sme daný vrchol zobrali do $2$-pakovania a pridávali jeho okolie do
+zoznamu $S$. Časová zložitosť hľadania všetkých $2$-pakovaní grafu $G$ je teda $O(n^3 + n^2P(G))$,
+kde $P(G)$ je počet $2$-pakovaní v grafe $G$.
+
+
