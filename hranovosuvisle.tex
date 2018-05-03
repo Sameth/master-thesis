@@ -5,8 +5,10 @@ problému $L(2,1)$-farbenia na chlpatých $2$-hranovo-súvislých grafoch vyskla
 riešenie problému $L(2,1)$-farbenia na všeobecných grafoch.
 
 Najefektívnejšie riešenie problému $L(2,1)$-farbenia má časovú zložitosť zhora ohraničenú
-počtom vlastných párov na súvislých grafoch. V tejto kapitole sa budeme venovať
-experimentálnemu odhadu počtu vlastných párov na $2$-hranovo súvislých grafoch.
+počtom vlastných párov na súvislých grafoch. Pripomenieme, že vlastný pár grafu $G$ je
+dvojica $(S, X)$ podmnožín vrcholov grafu $G$, kde $S$ je $2$-pakovanie a $S \cap X = \emptyset$.
+V tejto kapitole sa budeme venovať experimentálnemu odhadu počtu vlastných párov na
+$2$-hranovo súvislých grafoch.
 
 Cieľom experimentu bolo odhaliť, aký typ $2$-hranovo súvislých grafov má najviac
 vlastných párov.
@@ -249,4 +251,50 @@ alebo $O(n)$ operácií, ak sme daný vrchol zobrali do $2$-pakovania a pridáva
 zoznamu $S$. Časová zložitosť hľadania všetkých $2$-pakovaní grafu $G$ je teda $O(n^3 + n^2P(G))$,
 kde $P(G)$ je počet $2$-pakovaní v grafe $G$.
 
+\subsection{Vlastné páry na cestách a kružniciach}
+
+Pre dostatočne jednoduché triedy grafov vieme počet vlastných párov v závislosti
+od veľkosti grafu vyjadriť cez rekurentný vzťah. Najprv ukážeme, ako sa dá vypočítať počet
+vlastných párov na ceste s $n$ vrcholmi a následne pomocou neho vyjadríme počet vlastných
+párov na kružnici s $n$ vrcholmi. Z rekurentného vzťahu nakoniec odvodíme asymptotický odhad
+pre počet vlastných párov na cestách a kružniciach.
+
+Počet vlastných párov cesty s $n$ vrcholmi označíme $p_n$. Pre $n > 3$ vieme rekurentný
+vzťah vyrobiť nasledovne: Pozrieme sa na koncový vrchol $v$ cesty $P$. Vlastné páry $(S,X)$ rozdelíme
+na tie, v ktorých vrchol $v$ patrí do $2$-pakovania $S$ a tie, v ktorých nepatrí.
+
+Všetky vlastné páry
+prvého druhu majú nasledovný tvar: Sused $u$ vrchola $v$ ani sused $w$ vrchola $u$ nemôžu
+patriť do $2$-pakovania $S$ a môžu nezávisle od seba patriť do $X$. Každú z týchto štyroch
+možností môžeme nezávisle doplniť vlastnými pármi na kratšej ceste $P - \{u, v, w\}$.
+Vlastných párov, kde $v$ patrí do $S$, je teda $4p_{n-3}$.
+
+Všetky vlastné páry druhého druhu rozdelíme na tie, kde $v$ patrí do množiny $X$ a tie, kde $v$ do množiny
+nepatrí. Každú z týchto možností možeme nezávisle doplniť ľubovoľným vlastným párom na ceste $P - v$.
+Vlastných párov, kde $v$ nepatrí do $S$, je teda $2p_{n-1}$.
+
+Počet vlastných párov kružnice s $n$ vrcholmi označíme $c_n$. Pre $n > 5$ použijeme nasledovný odhad:
+Nech $v$ je ľubovoľný vrchol na kružnici $C$, $u_1$ a $u_2$ sú susedia $v$ a $w_1$ je sused $u_1$ rôzny od $v$.
+Postupovať budeme podobne, ako pri cestách. Všetky vlastné páry $(S,X)$ si rozdelíme na tri disjunktné
+typy. Prvý typ spĺňa $v \in S$, druhý typ spĺňa $u_1 \in S$ a tretí typ spĺňa $v \notin S \wedge u_1 \notin S$.
+
+Pre cyklus s aspoň piatimi vrcholmi platí, že pre ľubovoľný vrchol existujú práve štyri ďalšie, ktoré
+sú od neho vo vzdialenosti nanajvýš $2$. Pri prvom aj druhom type vlastných párov teda ostanú
+štyri vrcholy, ktoré nemôžu patriť do $S$ a môžu nezávisle od seba patriť, alebo nepatriť do $X$.
+Pre každú možnosť ostane cesta s $n - 5$ vrcholmi, ktorej koncové vrcholy sú vzdialené viac ako $2$
+a teda sú nezávislé. To znamená, že vlastných párov prvého aj druhého typu je $2 \cdot 2^4 \cdot p_{n-5}$.
+
+Pre každý z vlastných párov tretieho typu môžemú vrcholy $v$ a $u_1$ nezávisle patriť, alebo nepatriť
+do množiny $X$. Vrcholy $w_1$ a $u_2$ sú vo vzdialenosti $3$, a teda pre každú možnosť môžeme
+doplniť nezávisle $p_{n-2}$ vlastnými pármi cesty $C - \{v, u_1\}$.
+
+Počet vlastných párov na cestách teda spĺňa rekurenciu $p_n = 2p_{n-1} + 4p_{n-3}$ pre $n \ge 4$
+a počet vlastných párov na kružniciach spĺňa vzťah $c_n = 32 p_{n-5} + 4p_{n-2}$.
+
+Charakteristický polynóm rekurencie $p_n$ je $p(x) = x^3 - 2x^2 - 4$. Polynóm $p$ má tri rôzne
+korene, z ktorých najväčší má hodnotu zhruba $2.5944$. Veľkosť $p_n$ teda je v triede funkcií
+$O(2.5944^n)$. Podobne hodnota $c_n$ je zhora ohraničená konštantným násobkom $p_n$, preto
+$c_n \in O(2.5944^n)$.
+
+\section{Výsledky experimentu}
 
