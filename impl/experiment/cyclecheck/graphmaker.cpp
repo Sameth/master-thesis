@@ -14,6 +14,7 @@ vector<vector<int> > neighborlist_from_adjmatrix(const vector<vector<bool> >& ad
 void save_graph(const vector<vector<int> >& edges, const string name){
     ofstream fout (name, ofstream::out);
     fout << "strict graph " << name << " {\n";
+    fout << "node[label=\"\"];\n";
     for(int i = 0; i < (int) edges.size(); i++) {
         for (auto e : edges [i]) if (e > i) fout << i << " -- " << e << ";\n";
     }

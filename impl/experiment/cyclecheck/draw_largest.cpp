@@ -124,7 +124,7 @@ void generate(int next, int maxcycle, pii minadd) {
     // Zaciname od nicoho
     if (next == 0) {
         // Musime si zvolit velkost prveho cyklu
-        for(int i = 3; i < n; i++) {
+        for(int i = 3; i <= n; i++) {
             // Nastavime cyklus
             For(j, i) {
                 adjmatrix [j][(j+1)%i] = true;
