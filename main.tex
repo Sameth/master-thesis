@@ -157,13 +157,13 @@ $L(2,1)$-farbenie grafu je očíslovanie jeho vrcholov prirodzenými číslami t
 že čísla susedných vrcholov sa líšia aspoň o $2$ a čísla vrcholov vo vzdialenosti
 $2$ sa líšia aspoň o $1$. Rozpätie $L(2,1)$ farbenia je najväčšie číslo, ktoré
 používa. Minimálne rozpätie $L(2,1)$-farbenia grafu $G$ označujeme $\lambda(G)$.
-Najlepší algoritmus na hľadanie $\lambda(G)$ na všeobecných grafoch má
+Najlepší doterajší algoritmus na hľadanie $\lambda(G)$ na všeobecných grafoch má
 časovú zložitosť $O^*(2.6488^n)$.
 
 V práci popisujeme metódy rozdelenia problému na menšie časti, pomocou
 ktorých vytvárame efektívnejšie algoritmy pre hľadanie $\lambda(G)$.
 Vytvoríme algoritmus na hľadanie rozpätia $L(2,1)$-farbenia na planárnych
-grafoch v čase $O^*(2.2^{n + o(n)}$ a v čase $O^*(2.613^n)$ na grafoch s malým
+grafoch v čase $O^*(2.2^{n + o(n)})$ a v čase $O^*(2.613^n)$ na grafoch s malým
 vrcholovým separátorom. Nakoniec popisujeme postup generovania všetkých neoznačených
 minimálne $2$-hranovo súvislých grafov. Experimentálne overujeme, že spomedzi $2$-hranovo
 súvislých grafov majú najväčší počet kombinatorickej štruktúry, ktorá sa
@@ -189,7 +189,7 @@ time complexity of $O^*(2.6488^n)$.
 
 We describe methods for splitting the problem into independent smaller parts
 and use them to develop faster algorithms for determining $\lambda(G)$.
-We showcase our method for the planar graphs, for which we create an $O^*(2.2^{n + o(n)}$
+We showcase our method for the planar graphs, for which we create an $O^*(2.2^{n + o(n)})$
 algorithm. We create an algorithm for graphs with small cuts having time complexity
 $O^*(2.613^n)$. Last, we develop an algorithm for generating all the minimally $2$-edge-connected
 graphs. Using this, we experimentally verify that cycles have the most proper pairs from
