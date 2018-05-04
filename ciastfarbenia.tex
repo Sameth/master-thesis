@@ -1,4 +1,4 @@
-\chapter{FIXME: Vymysliet nazov}
+\chapter{Rozdelenie pri čiastočných farbeniach}
 
 Pri všetkých významnejších algoritmoch na hľadanie farbiaceho čísla všeobecného grafu $G$
 sa uplatnila kompaktnejšia reprezentácia množiny čiastočných farbení. V tejto kapitole sa pozrieme na to,
@@ -39,9 +39,6 @@ s obmedzeným rozsahom nám stačí ukladať množinu charakteristík fixného r
 pre každý ofarbený vrchol ukladať jeho presnú farbu, môžeme si dovoliť reprezentovať aj
 vrcholové separátory a použiť ich na rozdelenie problému. O presnom spôsobe a aplikácií
 takéhoto rozdelenia si povieme v ďalšej časti.
-
-FIXME: Pridať nejakú poznámku o tom, ako môžu charakteristiky vyzerať (dve $\bar{1}$ musia byť
-dostatočne ďaleko).
 
 Predtým si ale stručne pripomenieme lemu o hranových separátoroch z predošlej kapitoly \ref{hrsep-lema}.
 Táto lema hovorí, že existencia $L(2,1)$-farbenia grafu $G$ vyplýva z existencie $L(2,1)$-farbení
@@ -232,7 +229,7 @@ a množiny $A$ a $B$ sú disjunktné, množina $B \cap N[C]$ má nanajvýš polo
 Pre konštrukciu algoritmu použijeme hranový separátor medzi množinami $B$ a $C$, ktorý obsahuje vrcholy
 $C \cup (B \cap N[C])$. Túto množinu vrcholov budeme ďalej označovať $S$. Množinu hrán medzi množinami
 $B$ a $C$ označíme $E$. Komponenty súvislosti grafu $G-E$ označíme $K_1, \ldots, K_l$. Počet vrcholov v $S$
-označíme $p$, počet vrcholov v $C$ označíme $q$. FIXME: ďalšie označenia
+označíme $p$, počet vrcholov v $C$ označíme $q$.
 
 Z lemy o hranových separátoroch vieme, že pre zafixovanú charakteristiku vrcholov $S$ môžeme pre každý
 z komponentov $K_1 \ldots K_l$ ukladať množinu jeho charakteristík nezávisle. Množinu charakteristík
@@ -320,8 +317,6 @@ na žiadnu inú vlastnosť planárnych grafov. Preto uvedený algoritmus funguje
 v ktorých existuje vrcholový separátor veľkosti $O(\sqrt{n})$. Toto tvrdenie vieme dokonca mierne
 zosilniť na triedy grafov, v ktorých existuje vrcholový separátor veľkosti $O(n^{1 - \epsilon})$ pre
 ľubovoľnú hodnotu $\epsilon > 0$.
-
-FIXME: Napisat nejaky rozumny pseudokod. Ak ostane na taketo pompeznosti cas.
 
 \section{Farbenie vyvážene rozdeliteľných grafov}
 
@@ -541,3 +536,8 @@ kombinácii prechodu a komponentu dostaneme množinu nanajvýš $O^*\left(2.65\s
 Pre každú z nich v polynomiálnom čase overíme, či je konzistentná s prechodom separátora.
 
 Časová zložitosť tohto algoritmu je teda zhora ohraničená na $O^*\left(2.65\strut^{\frac{2n}{3}} \cdot 12\strut^{\frac{n}{8}}\right) = O^*(2.613^n)$.
+
+Podobne, ako pri planárnych grafoch, aj pri vyvážene rozdeliteľných grafoch je možné prispôsobovať
+konštanty. Ak by sme napríklad požadovali, že množiny $A$ a $B$ majú obe nanajvýš $\frac{n}{2} + o(n)$ vrcholov,
+a povolili by sme väčšie množiny $C$ a $D$, napr. že by dohromady mali nanajvýš $\frac{n}{3}$ vrcholov,
+dostali by sme algoritmus s časovou zložitosťou $O^*(2.464^{n + o(n)})$.

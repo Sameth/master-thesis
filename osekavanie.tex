@@ -1,4 +1,4 @@
-\chapter{TODO: Kapitola o zmensovani a rozoberani "specialnych" pripadov}
+\chapter{Delenie problému $L(2,1)$-farbenia}
 
 Časová zložitosť algoritmu Junosza-Szaniawski je principiálne veľká na grafoch, v ktorých
 existuje veľa rôznych čiastočných $L(2,1)$ ofarbení. Ako sme videli v predošlej kapitole,
@@ -8,7 +8,9 @@ riešia problém $L(2,1)$-farbenia.
 
 Intuitívne platí, že pri jednoduchých grafoch vieme problém rozdeliť na viacero menších,
 menšie problémy vyriešiť nezávisle a nakoniec ich riešenia pospájať. V tejto kapitole
-sa pozrieme na spôsob, akým vieme túto intuíciu aplikovať.
+sa pozrieme na spôsob, akým vieme túto intuíciu aplikovať. Nakoniec ukážeme, ako redukovať
+problém $L(2,1)$-farbenia na triedu chlpatých $2$-hranovo súvislých grafov, okrem prípadov,
+keď sa pýtame na príliš malý rozsah farbenia.
 
 Aj keď v práci rozoberáme problém $L(2,1)$-farbenia, postupy z tejto kapitoly sa principiálne
 dajú aplikovať aj na všeobecnejšie $L(p,q)$-farbenia.
@@ -18,10 +20,6 @@ dajú aplikovať aj na všeobecnejšie $L(p,q)$-farbenia.
 Ako sa ďalej v práci ukáže, aby sme vedeli problém dobre rozdeliť, potrebujeme riešiť
 o trochu všeobecnejší problém: Každému vrcholu grafu pridáme obmedzenie na hodnoty,
 ktorými môže byť ofarbený.
-
-FIXME: Zmenit problem a prepisat vsade. Nechceme zoznam povolenych hodnot, chceme mat nejake
-ciastocne ofarbenie a doplnit ho. Toto potom vie J-S riesit v case $a^n$ bez ohladu na ostatne
-veci.
 
 \begin{defn}
     Rozhodovací problém \emph{doplnenia $L(2,1)$-farbenia} definujeme nasledovne: Inštanciou je
@@ -158,7 +156,7 @@ $L(2,1)$-farbenie celého grafu $G$. Toto tvrdenie si formálne zhrnieme v nasle
         spojením vznikne tiež $k$-$L(2,1)$-farbenie.
 \end{proof}
 
-FIXME: Grafické znázornenie lemy a dôsledku? %TODO!!
+%FIXME: Grafické znázornenie lemy a dôsledku? %TODO!!
 
 Tento dôsledok nám vlastne dáva spôsob, ktorým vieme rozdeliť rozhodovanie
 problému $L(2,1)$-farbenia grafu $G$ na dve nezávislé časti v prípade,
@@ -213,6 +211,7 @@ pre každé ohodnotenie mostových vrcholov vieme nájsť jeho triviálne $L(2,1
 rozsahom $k$. Tento fakt zachytáva nasledujúce tvrdenie.
 
 \begin{lema}
+    \label{pseudoblok-prune}
     Nech $e$ je mostová hrana grafu $G$, nech $u_1, u_2$ sú vrcholy incidentné s $e$,
     nech $G_1, G_2$ sú komponenty grafu $G - e$, nech vrchol $u_1$ leží v komponente $G_1$ a vrchol $u_2$
     v komponente $G_2$ a
@@ -334,8 +333,8 @@ a kol., ktorý vie riešiť problém $L(2,1)$-farbenia pre rozsah $k \leq 5$ v �
 Nakoniec ukážeme, ako môžeme ľubovoľný algoritmus $\mathcal{B}$, ktorý rieši problém doplnenia
 $L(2,1)$-farbenia na chlpatých $2$-hranovo súvislých grafoch, prerobiť na algoritmus $\mathcal{A}$, ktorý
 rieši problém $L(2,1)$-farbenia na všeobecných grafoch. Ak je časová zložitosť $\mathcal{B}$
-$O^*(\alpha^n)$ pre nejaké $\alpha \ge 2.55$, bude časová zložitosť algoritmu $\mathcal{A}$ tiež
-$O^*(\alpha^n)$.
+$O^*(\alpha^n)$ pre nejaké $\alpha \ge 2.5$, časová zložitosť algoritmu $\mathcal{A}$ bude $O^*(\alpha^n)$
+s výnimkou prípadov, keď $k$ bude z rozsahu $6 \ldots 9$.
 
 Algoritmus $\mathcal{A}$ dostane na vstupe súvislý graf $G$ a číslo $k$ a akceptuje práve vtedy,
 keď existuje $L(2,1)$-farbenie grafu $G$ s rozsahom $k$. Popis algoritmu:
@@ -348,7 +347,7 @@ keď existuje $L(2,1)$-farbenie grafu $G$ s rozsahom $k$. Popis algoritmu:
     \item Vytvor pseudoblokovo-mostový strom $T$ grafu $G$. $O^*(1)$
     \item Kým $T$ obsahuje listový vrchol $l$ s hodnotou nanajvýš $\frac{k}{2}$, odstráň
           z $T$ vrchol $l$ a zvýš rodičovi $l$ hodnotu o $1$. V grafe $G$ odstráň podgraf
-          zodpovedajúci vrcholu $l$ okrem hrany a vrcholu, ktorý ho pripájajú ku zvyšku grafu. $O^*(1)$
+          zodpovedajúci vrcholu $l$ okrem hrany a vrcholu, ktorý ho pripájajú ku zvyšku grafu \ref{pseudoblok-prune}. $O^*(1)$
     \item Ak je $G$ po predošlom kroku chlpatý $2$-hranovo súvislý graf, spusti algoritmus $\mathcal{B}$. $O^*(\alpha^n)$
     \item Nájdi vrchol $v$ grafu $T$, ktorý
           spĺňa lemu o rovnovážnom rozdelení stromu \ref{stromsep-lema}. $O^*(1)$
@@ -358,7 +357,7 @@ keď existuje $L(2,1)$-farbenie grafu $G$ s rozsahom $k$. Popis algoritmu:
           $e = (uw)$ v grafe $G$. Pre každé ohodnotenie vrcholov $u, w$ spusti upravený
           algoritmus Junosza-Szaniawski na komponentoch grafu $G - e$. Akceptuj, ak pre
           niektoré ohodnotenie vrcholov $u, w$ algoritmus Junosza-Szaniawski akceptoval
-          na oboch komponentoch grafu $G-e$ zároveň. V opačnom prípade zamietni. $O^*(2.6488^{\frac{9n}{10}})$
+          na oboch komponentoch grafu $G-e$ zároveň. V opačnom prípade zamietni. $O^*(k^2 \cdot 2.6488^{\frac{9n}{10}}) = O^*(2.5^n)$
     \item Pre každý z komponentov $K_i$ nájdi hranu $e_i'$, ktorá prepája vrchol $v$ a vrchol
           v komponente $K_i$ a jej zodpovedajúcu hranu $e_i$ v grafe $G$. Pre komponent $K_i$ zostroj
           $G_i$ ako podgraf $G$, ktorý zodpovedá grafu $K_i$ v $T$ s hranou $e_i$. 
@@ -370,6 +369,36 @@ keď existuje $L(2,1)$-farbenie grafu $G$ s rozsahom $k$. Popis algoritmu:
           spusti algoritmus $\mathcal{B}$ na $G_v$. Ak aspoň jeden z behov akceptoval, akceptuj.
           V opačnom prípade zamietni.
 \end{enumerate}
+
+Ďalej odvodíme časovú zložitosť algoritmu $\mathcal{A}$. Poriadnejšie si vysvetlíme časovú zložitosť
+krokov $10, 12$ a $13$.
+
+Pri kroku $10$ sme našli hranu, ktorej odstránením dostaneme dva komponenty
+grafu, z ktorých každý má nanajvýš $\frac{9n}{10}$ vrcholov. Ohodnotení vrcholov hrany je nanajvýš
+$(k+1)^2 = O(n^2)$, čiže algoritmus Junosza-Szaniawski pustíme nanajvýš $O(n^2)$-krát.
+
+Ku kroku $12$ sa dostaneme iba v prípade, že sme v kroku $10$ nenašli komponent, ktorý by mal
+aspoň $\frac{n}{10}$ vrcholov. Zároveň vieme počet komponentov zhora odhadnúť na $n$. Pre každý
+z komponentov, ktorý má nanajvýš $\frac{n}{10}$ vrcholov teda spustíme $(k+1)^2 = O(n^2)$-krát
+algoritmus Junosza-Szaniawski, čím dostaneme dohromady časovú zložitosť $O^*(1.2^n)$.
+
+Pre odhad časovej zložitosti kroku $13$ najprv odhadneme, koľko rôznych (usporiadaných) dvojíc
+farieb môžeme priradiť dvom susedným vrcholom $u, w$. 
+Pokiaľ vrchol $u$ ofarbíme farbou $x$, vrchol $w$ môže dostať ľubovoľnú farbu okrem $x, x-1$ a $x + 1$.
+To znamená, že ak vrchol $u$ ofarbíme farbou $0$ alebo $k$, ostane nám pre vrchol $w$ presne $k + 1 - 2$ možností.
+Ak vrchol $u$ ofarbíme ktoroukoľvek zo zvyšných $k-1$ možností, pre vrchol $w$ nám vždy ostane $k + 1 - 3$
+možností. Úpravou dostaneme, že počet ofarbení týchto vrcholov je $2(k-1) + (k-1)(k-2) = k(k-1)$.
+
+Každý z komponentov $K_i$ má súčet hodnôt ostro viac ako $\frac{k}{2}$, ináč by bol v kroku $6$
+odstránený. Keďže hodnoty v grafe $T$ sme priradzovali ako počty vrcholov, môžeme túto nerovnosť upraviť:
+Každý z komponentov $K_i$ má súčet hodnôt aspoň $\lfloor \frac{k}{2} \rfloor + 1$. Symbolom $p$
+označíme počet komponentov grafu $T - v$ a symbolom $q$ označíme počet vrcholov grafu $G_v$,
+na ktorom budeme v kroku $13$ spúšťať algoritmus $\mathcal{B}$.
+
+Platí nerovnosť $q \leq n - p \cdot \lfloor \frac{k}{2} \rfloor$, lebo z každého z $p$ komponentov
+si ponecháme iba jeden vrchol.
+
+FIXME: Dopísať. Chceme spraviť čosi také, že zaplatením $k(k-1)$ odstránime aspoň $\lceil k/2 \rceil$ vrcholov
 
 ======================= Pod tymto vsetko zmazat? ============================================
 
