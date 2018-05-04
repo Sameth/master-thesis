@@ -135,9 +135,15 @@ Fakulta matematiky, fyziky a informatiky
 ~
 
 \vfill
-{\bf Poďakovanie:} Tu môžete poďakovať školiteľovi, prípadne
-ďalším osobám, ktoré vám s prácou nejako pomohli, poradili,
-poskytli dáta a podobne.
+{\bf Poďakovanie:} Ďakujem môjmu školiteľovi, RNDr. Michalovi Foriškovi, PhD., za všetku
+pomoc pri tvorbe tejto práce, či už išlo o cenné nápady k problémom, podporu pri
+práci, alebo rady k tomu, ako napísať textovú podobu práce.
+
+Ďakujem mojej rodine, ktorá ma počas celého štúdia podporovala. Ďakujem všetkým kamarátom
+z Trojstenu, ste super a bez Vás by bol Matfyz chudobnejší.
+
+V neposlednom rade ďakujem škole, jej učiteľom, docentom a profesorom, za výborných päť
+rokov štúdia a veľa príležitostí rásť, najmä v smeroch, ktorými by som sa sám nevydal.
 
 % --- Koniec poďakovania
 
@@ -147,13 +153,24 @@ poskytli dáta a podobne.
 \newpage 
 \section*{Abstrakt}
 
+$L(2,1)$-farbenie grafu je očíslovanie jeho vrcholov prirodzenými číslami tak,
+že čísla susedných vrcholov sa líšia aspoň o $2$ a čísla vrcholov vo vzdialenosti
+$2$ sa líšia aspoň o $1$. Rozpätie $L(2,1)$ farbenia je najväčšie číslo, ktoré
+používa. Minimálne rozpätie $L(2,1)$-farbenia grafu $G$ označujeme $\lambda(G)$.
+Najlepší algoritmus na hľadanie $\lambda(G)$ na všeobecných grafoch má
+časovú zložitosť $O^*(2.6488^n)$.
 
-Slovenský abstrakt v rozsahu 100-500 slov, jeden odstavec. Abstrakt
-stručne sumarizuje výsledky práce. Mal by byť pochopiteľný pre bežného
-informatika. Nemal by teda využívať skratky, termíny alebo označenie
-zavedené v práci, okrem tých, ktoré sú všeobecne známe.
+V práci popisujeme metódy rozdelenia problému na menšie časti, pomocou
+ktorých vytvárame efektívnejšie algoritmy pre hľadanie $\lambda(G)$.
+Vytvoríme algoritmus na hľadanie rozpätia $L(2,1)$-farbenia na planárnych
+grafoch v čase $O^*(2.2^{n + o(n)}$ a v čase $O^*(2.613^n)$ na grafoch s malým
+vrcholovým separátorom. Nakoniec popisujeme postup generovania všetkých neoznačených
+minimálne $2$-hranovo súvislých grafov. Experimentálne overujeme, že spomedzi $2$-hranovo
+súvislých grafov majú najväčší počet kombinatorickej štruktúry, ktorá sa
+nazýva vlastný pár, práve kružnice.
 
-\paragraph*{Kľúčové slová:} jedno, druhé, tretie (prípadne štvrté, piate)
+\paragraph*{Kľúčové slová:} $L(2,1)$-farbenie, planárny graf, bezmostový graf, exponenciálny algoritmus
+
 % --- Koniec Abstrakt - Slovensky
 
 
@@ -163,11 +180,22 @@ zavedené v práci, okrem tých, ktoré sú všeobecne známe.
 \newpage 
 \section*{Abstract}
 
-Abstract in the English language (translation of the abstract in the
-Slovak language).
+$L(2,1)$-colouring of a graph is an assignment of natural numbers to its vertices such
+that adjacent vertices differ by at least $2$ and vertices sharing a common neighbor
+differ by at least $1$. The span of an $L(2,1)$-colouring is the largest number assigned
+to a vertex. The minimum span of any $L(2,1)$-colouring of graph is denoted by $\lambda(G)$.
+The best current algorithm for determining $\lambda(G)$ for general graphs has
+time complexity of $O^*(2.6488^n)$.
 
+We describe methods for splitting the problem into independent smaller parts
+and use them to develop faster algorithms for determining $\lambda(G)$.
+We showcase our method for the planar graphs, for which we create an $O^*(2.2^{n + o(n)}$
+algorithm. We create an algorithm for graphs with small cuts having time complexity
+$O^*(2.613^n)$. Last, we develop an algorithm for generating all the minimally $2$-edge-connected
+graphs. Using this, we experimentally verify that cycles have the most proper pairs from
+the class of $2$-edge-connected graphs.
 
-\paragraph*{Keywords:} 
+\paragraph*{Keywords:} $L(2,1)$-colouring, planar graph, edge-free graph, exponential-time algorithm 
 
 % --- Koniec Abstrakt - Anglicky
 
