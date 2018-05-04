@@ -11,11 +11,12 @@ súvislé a jednoduché, bez slučiek a násobných hrán. Množinu vrcholov bud
 označovať $V(G)$ a množinu hrán $E(G)$. Vzdialenosť dvoch vrcholov $u$ a $v$
 v grafe $G$ budeme označovať $d_G(u,v)$. Pokiaľ bude z kontextu jasné, o
 ktorý graf sa jedná, budeme vzdialenosť vrcholov $u, v$ značiť $d(u,v)$.
+Symbolom $n$ budeme označovať počet vrcholov grafu $G$.
 
-Pre ľubovoľný vrchol $v$ budeme symbolom $N(v)$ značiť množinu vrcholov, ktoré
+Pre ľubovoľný vrchol $v$ budeme výrazom $N(v)$ značiť množinu vrcholov, ktoré
 sú hranou spojené s $v$. Pod značením $N[v]$ budeme rozumieť množinu $N(v) \cup \{v\}$.
 Toto značenie rozšírime aj na množiny vrcholov. Pre množinu vrcholov $S$ budeme
-symbolom $N[S]$ značiť množinu $\bigcup \limits_{v \in S} N[v]$ a symbolom
+výrazom $N[S]$ značiť množinu $\bigcup \limits_{v \in S} N[v]$ a výrazom
 $N(S)$ označíme množinu $N[S] - S$.
 
 Ako prvé si poriadne
@@ -35,7 +36,7 @@ Pri obyčajných vrcholových, či hranových farbeniach grafov skúmame, aký
 najmenší počet farieb potrebujeme pre platné ofarbenie daného grafu. Podobne
 si vieme pri $L(2,1)$-farbeniach všímať, aké najväčšie číslo používajú. Toto
 číslo budeme nazývať \emph{rozpätím $L(2,1)$-farbenia}. Najmenšie možné rozpätie
-$L(2,1)$-farbenia grafu $G$ budeme nazývať \emph{$L(2,1)$-farbiace číslo} a
+$L(2,1)$-farbenia grafu $G$ budeme nazývať \emph{$L(2,1)$-farbiace číslo grafu $G$} a
 označovať $\lambda(G)$. Všimnime si, že $L(2,1)$-farbenie s
 rozpätím $k$ môže používať až $k+1$ rôznych hodnôt.
 
@@ -72,18 +73,18 @@ si ho poriadne zadefinujeme.
 Veľkou oblasťou skúmania $L(2,1)$-farbení boli dolné a horné ohraničenia na hodnotu $\lambda(G)$.
 Vhodnou charakteristikou sa ukázal byť maximálny stupeň grafu. Pre všeobecné
 grafy bolo najprv dokázané horné ohraničenie $\lambda(G) \leq \Delta^2 + 2\Delta$
-pomocou jednoduchého pažravého priradenia\cite{griggs_yeh_tree},
+pomocou jednoduchého pažravého priradenia \cite{griggs_yeh_tree},
 ktoré bolo neskôr vylepšené na $\lambda(G) \leq \Delta^2 + \Delta$ s použitím
-šikovnejšieho priradzovania\cite{chang_kuo}.
+šikovnejšieho priradzovania \cite{chang_kuo}.
 
 Pre špeciálne triedy grafov sa podarilo dokázať silnejšie ohraničenia. Napríklad
-pre grafy s priemerom $2$ platí a je tesný odhad $\lambda(G) \leq \Delta^2$\cite{griggs_yeh_tree}.
-Ďalej pre chordálne grafy platí odhad $\lambda(G) \leq \frac{\left( \Delta + 3 \right)^2}{4}$\cite{griggs_yeh_tree}.
+pre grafy s priemerom $2$ platí a je tesný odhad $\lambda(G) \leq \Delta^2$ \cite{griggs_yeh_tree}.
+Ďalej pre chordálne grafy platí odhad $\lambda(G) \leq \frac{\left( \Delta + 3 \right)^2}{4}$ \cite{griggs_yeh_tree}.
 
 Medzi ďalšie triedy grafov, na ktorých sú dokázané tesnejšie obmedzenia na $L(2,1)$-farbiace
-číslo, patria aj stromy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 2$\cite{griggs_yeh_tree},
-kaktusy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 3$\cite{kaktusy} a vonkajšie planárne
-grafy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 8$\cite{outer_planar_bound}.
+číslo, patria aj stromy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 2$ \cite{griggs_yeh_tree},
+kaktusy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 3$ \cite{kaktusy} a vonkajšie planárne
+grafy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 8$ \cite{outer_planar_bound}.
 
 Griggs a Yeh taktiež vyslovili hypotézu, že v každom grafe platí $\lambda(G) \leq \Delta^2$,
 ktorá dodnes nebola vyriešená.
@@ -94,7 +95,7 @@ v polynomiálnom čase a popíšeme si zodpovedajúce algoritmy.
 \section{Polynomiálne farbenie špeciálnych grafov}
 
 Prvou triedou grafov, pre ktoré bol objavený polynomiálny algoritmus na riešenie
-problému $k$-$L(2,1)$-farbenia, sú stromy\cite{chang_kuo}. Tento algoritmus si
+problému $L(2,1)$-farbenia, sú stromy \cite{chang_kuo}. Tento algoritmus si
 podrobne popíšeme.
 
 \subsection{Chang-Kuo algoritmus}
@@ -131,7 +132,7 @@ $v_1, \ldots v_q$, pri ktorom je platné ohodnotenie vrcholov $v$ a $v'$ hodnota
 Nakoniec $L(2,1)$-farbenie stromu $T$ s rozpätím $k$ existuje práve vtedy, keď je množina
 $S(T(r))$ neprázdna.
 
-Časová zložitosť tohto algoritmu je $O(n \cdot k^{4.5})$\cite{chang_kuo}. Neskôr sa objavili
+Časová zložitosť tohto algoritmu je $O(n \cdot k^{4.5})$ \cite{chang_kuo}. Neskôr sa objavili
 mierne upravené algoritmy s lepšou časovou zložitosťou.
 
 \subsection{Zlepšenia Chang-Kuo algoritmu}
@@ -147,19 +148,19 @@ tú, ktorá spája nejaký vrchol s hodnotou $b$.
 Vďaka tomu vieme overiť existenciu párenia v Chang-Kuo algoritme hľadaním nanajvýš
 jednej zlepšujúcej cesty. Ďalšie zlepšenie vyplýva z využitia predspracovania stromu popísaného
 už v článku s pôvodným algoritmom. Vďaka nemu sa dá vstupný strom zredukovať tak, aby každý
-listový vrchol bol hranou spojený s vrcholom maximálneho stupňa v grafe\cite{chang_kuo}.
+listový vrchol bol hranou spojený s vrcholom maximálneho stupňa v grafe \cite{chang_kuo}.
 
 Dôslednou analýzou 
-zložitosti dostaneme celkovú časovú zložitosť vylepšeného algoritmu $O(n^{1.75})$\cite{chang_kuo_improv}.
+zložitosti dostaneme celkovú časovú zložitosť vylepšeného algoritmu $O(n^{1.75})$ \cite{chang_kuo_improv}.
 
 Pri poslednom zlepšení algoritmu riešiaceho problém $L(2,1)$-farbenia autori zavádzajú
 pojem kompatibility ohodnotenia vrcholov, vďaka ktorému dokážu viaceré farby vrcholu $v$
-spracovať naraz. Časová zložitosť algoritmu bude lineárna od veľkosti vstupného stromu\cite{chang_kuo_linear}.
+spracovať naraz. Časová zložitosť algoritmu bude lineárna od veľkosti vstupného stromu \cite{chang_kuo_linear}.
 
 \subsection{Cyklové stromy a vonkajšie planárne grafy}
 
-Ďalšími triedami grafov s polynomiálnymi algoritmami sú cyklové stromy\cite{kaktusy} a vonkajšie
-planárne grafy\cite{outer_planar}.
+Ďalšími triedami grafov s polynomiálnymi algoritmami sú cyklové stromy \cite{kaktusy} a vonkajšie
+planárne grafy \cite{outer_planar}.
 
 \begin{defn}
     Cyklový strom je graf, v ktorom každý vrchol leží na najviac jednej kružnici.
@@ -183,17 +184,17 @@ sa skúmajú algoritmy schopné riešiť tento problém na všeobecných grafoch
 ktorého exponenciálne riešenia majú pomerne veľký základ, pre časovú zložitosť budeme používať
 $O^*$-notáciu, pri ktorej sa neuvádzajú ani násobné polynomiálne faktory.
 
-S prvým význačným riešením tohto problému prišiel D. Kráľ, keď vyriešil všeobecnejší problém
+S prvým význačným riešením tohto problému prišiel D. Kráľ, ktorý riešil všeobecnejší problém
 priradzovania kanálov (channel assignment problem). Pre problém $L(2,1)$-farbenia z neho 
-jednoduchou úpravou vstupu vznikol algoritmus s časovou zložitosťou $O^*(4^n)$\cite{kral_channel}.
+jednoduchou úpravou vstupu vznikol algoritmus s časovou zložitosťou $O^*(4^n)$ \cite{kral_channel}.
 
 S lepšími algoritmami prišli Havet a kol. Prezentujú algoritmus pre problém $4$-$L(2,1)$-farbenia
 s časovou zložitosťou $O^*(1.3009^n)$ a algoritmus pre riešenie problému $L(2,1)$-farbenia s
-časovou zložitosťou $O^*(3.8730^n)$.
+časovou zložitosťou $O^*(3.8730^n)$ \cite{havet}.
 
 Algoritmy na riešenie všeobecného problému sa postupom času vylepšovali spolu s približovaním
-horných a dolných odhadov. Aktuálne najlepším algoritmom pre všeobecné grafy je algoritmus
-od Junosza-Szaniawskeho a kol., ktorého časová zložitosť je $O^*(2.6488^n)$\cite{junosza_fast}.
+horných a dolných odhadov ich časových zložitostí. Aktuálne najlepším algoritmom pre všeobecné grafy je algoritmus
+od Junosza-Szaniawskeho a kol., ktorého časová zložitosť je $O^*(2.6488^n)$ \cite{junosza_fast}.
 Tento algoritmus budeme ďalej nazývať ako algoritmus Junosza-Szaniawski.
 
 \subsection{Algoritmus Junosza-Szaniawski}
@@ -224,7 +225,6 @@ Základnou myšlienkou algoritmu je vytvárať všetky čiastočné $L(2,1)$-far
 Tieto čiastočné farbenia rozdelíme do tabuliek $T_0, T_1, \ldots T_{2n-2}$ a budeme kódovať pomocou
 $n$-znakových reťazcov nad abecedou $\{0, \bar{0}, 1, \bar{1}\}$. Tabuľka $T_k$ bude obsahovať
 reťazec $a$ práve vtedy, keď existuje čiastočné $L(2,1)$-farbenie $f$ s rozpätím $k$ a s nasledujúcimi vlastnosťami:
-
 \begin{enumerate}
     \item $a_i = 0$ ak je vrchol $v_i$ neohodnotený farbením $f$ a \emph{neexistuje} vrchol susediaci s $v_i$ ofarbený farbou $k$,
     \item $a_i = \bar{0}$ ak je vrchol $v_i$ neohodnotený farbením $f$ a \emph{existuje} vrchol susediaci s $v_i$ ofarbený farbou $k$,
@@ -275,13 +275,13 @@ sa bude tento postup podobať na Strassenov algoritmus. Graf $G$ si rozdelíme 
 $G_1, G_2, \ldots G_q$ tak, aby s vopred zvoleným $k$ platilo:
 
 \begin{enumerate}
-    \item $\forall v \in V(G) \exists j : v \in V(G_j)$
-    \item $\forall j \in \{2, 3, \ldots q \} : |V(G_j)| \ge k$
+    \item $\forall v \in V(G) \ \exists j : v \in V(G_j)$
+    \item $\forall j \in \{1, 2, \ldots q-1 \} : |V(G_j)| \ge k$
     \item $\forall j \in \{ 1, 2, \ldots q \} : |V(G_j)| \leq 2k$
     \item $\sum_{j=1}^q |V(G_j)| \leq n(1 + \frac{1}{k})$
 \end{enumerate}
 
-Pre množinu reťazcov $A$ a reťazec $w$ zadefinujeme množinu suffixov $w$ v $A$ ako $A_w = \{v | wv \in A\}$.
+Pre množinu reťazcov $A$ a reťazec $w$ zadefinujeme množinu suffixov $w$ v $A$ ako $A_w = \{v \ | \ wv \in A\}$.
 S takýmto označením vieme potom výpočet $A \oplus B$ rozdeliť na dve časti nasledovne:
 $$A \oplus B = \bigcup_{\substack{u \in \{0, \bar{0}, 1, \bar{1}\}^p \\ v \in \{0, 1\}^p \\ [u \oplus v \textrm{ je definované}]} }
 (u \oplus v)(A_u \oplus B_v) = \bigcup_{\substack{v \in \{0, 1\}^p \\ w \in \{0, 1, \bar{1}\}^p}}
@@ -295,15 +295,15 @@ Z predpisu zobrazenia $\oplus$ vidíme, že $v_i = 1$ práve vtedy, keď $w_i =
 $v$ preto môže existovať nanajvýš $2^{p - \|v\|}$, kde $\|v\|$ označuje počet jednotkových znakov
 vo $v$. Počet dvojíc $v$ a $w$, pre ktoré existuje nejaké platné $u$ teda vieme zhora ohraničiť
 hodnotou
-$$\sum_{v \in \{0, 1\} 2^{p - \|v\|}}.$$
+$$\sum_{v \in \{0, 1\}} 2^{p - \|v\|}.$$
 
 Keďže v algoritme vykonávame operáciu $T_i \oplus P$, kde $P$ sú reťazce zodpovedajúce
 $2$-pakovaniam grafu $G$ a grafy $G_1, G_2, \ldots G_q$, podľa ktorých budeme operáciu $T_i \oplus P$
-deliť na menšie časti, sú súvislé, vieme túto sumu vyjadriť ako $pp(p)$\ref{pp_g}.
+deliť na menšie časti, sú súvislé, vieme túto sumu zhora ohraničiť na $pp(p)$ \ref{pp_g}.
 
 Keďže súčet počtov vrcholov v grafoch $G_1 \ldots G_q$ je $n' \leq n(1 + \frac{1}{k})$, kde
 $n' \ge n$, v reťazcoch z výpočtu $T_i \oplus P$ budeme mať pre niektoré vrcholy viacero
-nezávislých pozícií kodujúcich ich stav ofarbenia. Všetky reťazce, v ktorých bude niektorý
+nezávislých pozícií kódujúcich ich stav ofarbenia. Všetky reťazce, v ktorých bude niektorý
 vrchol zároveň ofarbený aj neofarbený, z množiny odstránime. Keďže reťazce sú polynomiálne
 dlhé v závislosti od $n$, túto kontrolu vieme pre každý reťazec vykonať v polynomiálnom čase.
 
@@ -335,14 +335,14 @@ Pre odhad hodnoty $pp(n)$ najprv zmenšíme množinu uvažovaných grafov nasle
 pomocnými pozorovaniami.
 
 \begin{lema}
-    Nech $e$ je hrana súvislého grafu $G$ taká, že graf $G-\{e\}$ je súvislý. Potom
-    $pp(G) \leq pp(G-\{e\})$.
+    Nech $e$ je hrana súvislého grafu $G$ taká, že graf $G-e$ je súvislý. Potom
+    $pp(G) \leq pp(G-e)$.
 \end{lema}
 
 \begin{proof}
     Nech $S$ je $2$-pakovaním grafu $G$. Odstránením hrany $e$ z grafu $G$ nezmenšíme
     vzdialenosť žiadnej dvojice vrcholov v $G$, čiže nezmenšíme vzdialenosť žiadnej
-    dvojice vrcholov v $S$. Množina $S$ je teda zároveň aj $2$-pakovaním grafu $G-\{e\}$.
+    dvojice vrcholov v $S$. Množina $S$ je teda zároveň aj $2$-pakovaním grafu $G-e$.
     Z vyjadrenia $pp(g)$ pomocou $2$-pakovaní \ref{pp_g} vyplýva dokazovaná nerovnosť.
 \end{proof}
 
@@ -413,6 +413,6 @@ Prvé dolné odhady hodnoty $pp(n)$ využívali grafy znázornené na obr. \ref{
 Pomocou rekurzívneho vyjadrenia počtu vlastných párov na týchto špeciálnych grafoch
 vzniklo dolné ohraničenie $pp(n) = \Omega(2.6117^n)$.
 
-Analýzou zakorenených stromov s priemerom $6$ sa dá dolný odhad zvýšiť na $pp(n) = \Omega(2.6313^n)\cite{vlastne_pary}$.
+Analýzou zakorenených stromov s priemerom $6$ sa dá dolný odhad zvýšiť na $pp(n) = \Omega(2.6313^n) \cite{vlastne_pary}$.
 Dôkladnejšou analýzou zakorenených stromov, ktorých všetky podstromy sú rovnaké, sa dá
-odhad vylepšiť až na $pp(n) = \Omega(2.6391^n)$\cite{vlastne_pary}.
+odhad vylepšiť až na $pp(n) = \Omega(2.6391^n)$ \cite{vlastne_pary}.
