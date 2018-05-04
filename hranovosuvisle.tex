@@ -36,11 +36,11 @@ dovolíme okrem $H$-ciest pridávať aj $H$-kružnice.
 \begin{proof}
     Najprv dokážeme, že $G$ obsahuje kružnicu ako podgraf. Graf $G$ je $2$-hranovo súvislý,
     preto pre ľubovoľnú hranu $(uv) = e \in E(G)$ platí, že graf $G - e$ je súvislý. Nájdeme
-    cestu $P$ medzi vrcholmi $u$ a $v$ v grafe $G - E$. Cesta $P$ doplnená o hranu $e$ tvorí
+    cestu $P$ medzi vrcholmi $u$ a $v$ v grafe $G - e$. Cesta $P$ doplnená o hranu $e$ tvorí
     kružnicu.
 
     Ďalej budeme postupovať sporom, graf $G$ sa nedá zostrojiť popísaným spôsobom. Graf $G$
-    obsahuje kružnicu a teda existuje nejaký podgraf $G$, ktorý sa dá týmto spôsobom
+    obsahuje kružnicu a teda existuje nejaký podgraf grafu $G$, ktorý sa dá týmto spôsobom
     skonštruovať. Označme $H$ ako najväčší (vzhľadom na inklúziu) takýto podgraf.
 
     Ak by existovala hrana $(uv) \in E(G) - E(H)$, ktorej koncové vrcholy $u, v$ ležia v
@@ -70,7 +70,7 @@ Rekurzívna procedúra dostane ako parameter nejaký $2$-hranovo súvislý graf 
 vrcholov $k$, ktoré treba ešte do grafu pridať.
 
 Pridávanie $H$-ciest bude fungovať nasledovne: Pre každý možný výber dvojice rôznych
-vrcholov $u, v$ a každú možnosť počtu nových vrcholov $p \leq k$ vytvorí graf $H'$,
+vrcholov $u, v$ a každú možnosť počtu nových vrcholov $p \leq k$ vytvorí graf $H'$.
 Graf $H'$ vznikne z grafu $H$ pridaním cesty s $p$ novými vrcholmi medzi vrcholy $u, v$.
 Nakoniec rekurzívne spustí túto procedúru s parametrami $H'$ a $k - p$.
 
@@ -160,7 +160,7 @@ sme mohli pridať až $c$ vrcholov a pri pridaní $H$-cesty medzi vrcholy až $c
 \subsection{Minimálne $2$-hranovo súvislý graf}
 
 V treťom algoritme naplno využijeme vlastnosť, že odstránenie hrany nezmenšuje počet vlastných
-párov. Zaujímať nás budú teda také grafy $H$, v ktorých platí, že graf $H - e$ nie je $2$-hranovo
+párov. Zaujímať nás budú teda také grafy $H$, v ktorých pre každú hranu $e$ platí, že graf $H - e$ nie je $2$-hranovo
 súvislý. Takéto grafy sa nazývajú \emph{minimálne $2$-hranovo súvislé}.
 
 Ak niektorý $2$-hranoco súvislý podgraf $G \subseteq H$ nie je minimálne $2$-hranovo súvislý,
@@ -182,12 +182,15 @@ a $H$-kružníc vhodne usporiadať. Využijeme, že v našej reprezentácii mám
 reprezentovať ako dvojicu čísel $(u,v)$. Podobne pridanie $H$-cyklu pripojeného k vrcholu s číslom $u$
 môžeme reprezentovať ako dvojicu čísel $(u,u)$.
 
-Pri ľubovoľnom postupe vytvárania grafu môžeme vymeniť dve operácie s reprezentáciami (v poradí)
+Pri ľubovoľnom postupe vytvárania grafu môžeme dve operácie s reprezentáciami (v poradí)
 $X = (x_1,x_2)$ a $Y = (y_1, y_2)$ vymeniť, ak je $Y$ lexikograficky menšia ako $X$. Ak pri
 vykonávaní operácie $X$ graf obsahoval vrchol $x_1$, tak musel obsahovať aj menší (rovný) vrchol $y_1$
 a menší (rovný) vrchol $y_2$.
 
-Týmto sme zavŕšili popis štvrtého algoritmu.
+Z tohto pozorovania vyplýva náš štvrtý algoritmus: Do rekurzívnej funkcie, ktorá vytvára grafy,
+pridáme ďalší parameter: Najväčšiu doterajšiu reprezentáciu pridania $H$-cesty alebo $H$-kružnice.
+Pre dané volanie rekurzívnej funkcie budeme pridávať iba také $H$-cesty a $H$-kružnice, ktoré
+majú väčšiu alebo rovnakú reprezentáciu.
 
 \subsection{Najväčší cyklus v grafe znova}
 
