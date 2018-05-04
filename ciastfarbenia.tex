@@ -21,8 +21,8 @@ Ako prvú si uvedieme definíciu našej kompaktnej reprezentácie čiastočných
     Ďalej pod pojmom \emph{rozšírená charakteristika rádu $k$ zobrazenia $f$} budeme rozumieť reťazec
     $s \in \{0, \bar{0}, 1, \bar{1}\}^n$, ktorý spĺňa
     \begin{align*}
-        s_i = 0 & \Leftrightarrow v_i \notin S \wedge (\forall j \in \{1 \dots n\}: v_j \in N(v_i) \Rightarrow t_j \neq 1 \\
-        s_i = \bar{0} & \Leftrightarrow v_i \notin S \wedge (\exists j \in \{1 \dots n\}: v_j \in N(v_i) \wedge t_j = 1 \\
+        s_i = 0 & \Leftrightarrow v_i \notin S \wedge (\forall j \in \{1 \dots n\}: v_j \in N(v_i) \Rightarrow s_j \neq \bar{1} \\
+        s_i = \bar{0} & \Leftrightarrow v_i \notin S \wedge (\exists j \in \{1 \dots n\}: v_j \in N(v_i) \wedge s_j = \bar{1} \\
         s_i = 1 & \Leftrightarrow v_i \in S \wedge f(v_i) \neq k \\
         s_i = \bar{1} & \Leftrightarrow v_i \in S \wedge f(v_i) = k
     \end{align*}
@@ -40,14 +40,14 @@ pre každý ofarbený vrchol ukladať jeho presnú farbu, môžeme si dovoliť r
 vrcholové separátory a použiť ich na rozdelenie problému. O presnom spôsobe a aplikácií
 takéhoto rozdelenia si povieme v ďalšej časti.
 
-Predtým si ale stručne pripomenieme lemu o hranových separátoroch z predošlej kapitoly \ref{hrsep-lema}.
+Predtým si ale stručne pripomenieme lemu o hranových separátoroch z predošlej kapitoly (\ref{hrsep-lema}).
 Táto lema hovorí, že existencia $L(2,1)$-farbenia grafu $G$ vyplýva z existencie $L(2,1)$-farbení
 komponentov grafu $G-E$ pre hranový oddeľovač $E$. Tieto farbenia musia navyše farbiť všetky vrcholy
 z hranového oddeľovača a musia sa zhodovať v ich farbách.
 
 Podobné tvrdenie platí aj pre čiastočné farbenia. V tomto prípade je podmienkou, že všetky čiastočné
 farbenia farbia tú istú podmnožinu vrcholov z hranového oddeľovača a navyše im priradzujú rovnakú farbu.
-Keďže ide o takmer identické tvrdenie k leme o hranových separátoroch \ref{hrsep-lema}, nebudeme
+Keďže ide o takmer identické tvrdenie k leme o hranových separátoroch (\ref{hrsep-lema}), nebudeme
 jeho presné znenie uvádzať.
 
 \section{Rozdelenie na vrcholových separátoroch}
@@ -58,7 +58,8 @@ je nezávislé.
 
 \begin{lema}
     Nech $S_V$ je vrcholový separátor grafu $G$, nech $G_1, G_2, \ldots G_k$ sú komponenty
-    grafu $G - S_V$ a nech $H_1, H_2, \ldots, H_k$ sú grafy indukované množinami $V(G_1) \cup S_V,\ V(G_2) \cup S_V,\ \ldots,\ V(G_k) \cup S_V$.
+    grafu $G - S_V$ a nech $H_1, H_2, \ldots, H_k$ sú podgrafy $G$ indukované množinami $V(G_1) \cup S_V,\ V(G_2) \cup S_V,\ \ldots,\ V(G_k) \cup S_V$.
+    
     Nech $f$ je čiastočné $L(2,1)$-farbenie nejakej podmnožiny $S \subseteq N[S_V]$ v grafe $G$ a nech $f_1, f_2, \ldots f_k$
     sú čiastočné farbenia množín $S_1, S_2, \ldots, S_k$ v grafoch $H_1, H_2, \ldots, H_k$ (v tomto poradí), ktoré spĺňajú podmienku
     $$ \forall i \in \{1 \ldots k\},\ \forall v \in V(H_i) \cap N[S_V]: (v \in S_i \Leftrightarrow v \in S) \wedge (v \in S_i \Rightarrow f_i(v) = f(v)).$$
@@ -146,7 +147,8 @@ množinu suffixov reťazca $w$ ako $R_w = \{u | wu \in R \}$. Budeme potrebovať
     Nech $G$ je graf. Dvojicu charakteristík $(r_1, r_2)$ budeme nazývať \emph{prechod rádu $k$}, ak existujú
     čiastočné $L(2,1)$-farbenia $f_1, f_2$, ktoré spĺňajú nasledujúce podmienky:
     \begin{enumerate}
-        \item $r_1$ je charakteristika $f_1$ a $f_2$ je charakteristika $r_2$,
+        \item $f_1$ má rozpätie $k$, $f_2$ má rozpätie $k+1$,
+        \item $r_1$ je charakteristika rádu $k$ farbenia $f_1$ a $r_2$ je charakteristika rádu $k+1$ farbenia $f_2$,
         \item $\forall i \leq k : \{v \ |\ f_1(v) = i\} = \{v \ |\ f_2(v) = i\}$.
     \end{enumerate}
 
@@ -185,9 +187,9 @@ potom rozoberieme prípad $|N[C]| < \frac{3n}{4}$.
 \subsection{Separátor s veľkým okolím}
 
 Popíšeme algoritmus, ktorý pre danú množinu charakteristík $R$ rádu $k$ spočíta novú množinu charakteristík
-rádu $k+1$. Základný postup sme už popísali, pre každú možnosť starej a novej charakteristiky separátora
-vyskúšame pridať novú farbu zvyšným vrcholom. Separátor označíme $S$, počet vrcholov v $N[S]$ označíme $p$, počet
-vrcholov $S$ označíme $q$.
+rádu $k+1$. Základný postup sme už popísali, pre každú možnosť prechodu separátora
+vyskúšame pridať novú farbu zvyšným vrcholom. Separátor označíme $C$, počet vrcholov v $N[C]$ označíme $p$, počet
+vrcholov $C$ označíme $q$.
 
 Pre ľubovoľnú charakteristiku separátora a jeho okolia existuje najviac $(p+1)^q$ možností, ktoré
 vrcholy dostanú novú farbu $k+1$. Taktiež vieme všetky tieto možnosti generovať -- pre každý vrchol v separátore
@@ -208,7 +210,7 @@ jedného výberu je polynomiálne, lebo stačí pre každú dvojicu vrcholov vo 
 $2$ skontrolovať, či by ich priradenie farieb neporušilo podmienky $L(2,1)$-farbenia.
 
 Pre každú z nanajvýš $2^p (p+1)^q$ možností ofarbenia $S$ vyskúšame nanajvýš $(p+1)^q$ možností pridania
-novej farby do $S$. Pre každú takúto možnosť následne vyskúšame nanajvýš $4^{n-p}$ možností pridania novej
+novej farby do $C$. Pre každú takúto možnosť následne vyskúšame nanajvýš $4^{n-p}$ možností pridania novej
 farby do množiny charakteristík a pre každú možnosť vykonáme polynomiálne veľa práce.
 
 Celková časová
@@ -221,7 +223,7 @@ Dosadením horných odhadov dostaneme časovú zložitosť $O^*\left(2\strut^{\f
 
 \subsection{Separátor s malým okolím}
 
-V prípade separátora s malým okolím budeme využívať rozdelenie pomocou separátora. Nech $A, B, C$ sú množiny
+V prípade separátora s malým okolím budeme využívať rozdelenie pomocou hranového separátora. Nech $A, B, C$ sú množiny
 vrcholov spĺňajúce vetu o planárnom separátore \ref{planarsep-veta}. Bez ujmy na všeobecnosti má množina $C$
 viac susedov v množine $A$, než v množine $B$. Keďže dokopy má množina $N[C]$ menej ako $\frac{3n}{4}$ vrcholov
 a množiny $A$ a $B$ sú disjunktné, množina $B \cap N[C]$ má nanajvýš polovicu z tohto počtu, čiže $\frac{3n}{8}$.
@@ -243,7 +245,7 @@ graf, môžeme na počítanie $\oplus(R_i)$ použiť postup z algoritmu Junosza-
 
 Pre počítanie operácie $\oplus$ podľa algoritmu Junosza-Szaniawski potrebujeme poznať rozšírené charakteristiky.
 Pre každý komponent a každú jeho (nerozšírenú) charakteristiku vieme vypočítať jej rozšírený ekvivalent v
-polynomiálnom čase: Pre každý vrchol s hodnotou $\bar{1}$ prečíslujeme všetkých susedov s hodnotou $0$
+polynomiálnom čase: Pre každý vrchol s hodnotou $\bar{1}$ prečíslujeme všetkých jeho susedov s hodnotou $0$
 na hodnotu $\bar{0}$.
 
 Pri počítaní operácie $\oplus$ na komponentoch $K_1, \ldots, K_l$ neberieme do úvahy celý separátor,
@@ -290,7 +292,8 @@ ktorá na komponente s veľkosťou $x$ pracuje v čase $O^*(2.65^x)$. Každý ko
 spúšťať, má nanajvýš $\frac{n}{2} + 16\sqrt{n}$ vrcholov. Komponentov je nanajvýš $n$, teda budeme
 potrebovať nanajvýš $n$ nezávislých výpočtov. Tento faktor sa stratí v $O^*$ notácii.
 
-Časová zložitosť tohto algoritmu teda bude $O^*\left(2\strut^{\frac{3n}{8}} \cdot (\frac{3n}{8} + 16 \sqrt{n} + 1)\strut^{32 \sqrt{n}} \cdot 2.65\strut^{\frac{n}{2} + 16 \sqrt{n}}\right) = O^*\left(2.12\strut^{n + o(n)}\right)$.
+Časová zložitosť tohto algoritmu teda bude
+$$O^*\left(2\strut^{\frac{3n}{8}} \cdot (\frac{3n}{8} + 16 \sqrt{n} + 1)\strut^{32 \sqrt{n}} \cdot 2.65\strut^{\frac{n}{2} + 16 \sqrt{n}}\right) = O^*\left(2.12\strut^{n + o(n)}\right).$$
 
 \subsection{Vylepšenie a poznámky}
 
@@ -301,7 +304,7 @@ sme používali algoritmus pre separátor s veľkým okolím, pre ostatné algor
 s malým okolím. Ďalej odhadneme lepšiu konštantu a časovú zložitosť, ktorá z jej použitia vyplýva.
 
 Časová zložitosť algoritmu pre separátor s veľkým okolím je pre ľubovoľnú konštantu $\alpha \in (0, 1)$
-v triede funkcií $O^*(2^{\alpha n + o(n)}4^{(1 - \alpha) n} = O^*(2^{n(2 - \alpha) + o(n)})$.
+v triede funkcií $O^*(2^{\alpha n + o(n)}4^{(1 - \alpha) n}) = O^*(2^{n(2 - \alpha) + o(n)})$.
 
 Časová zložitosť algoritmu pre separátor s malým okolím je pre ľubovoľnú konštantu $\alpha \in (0,1)$
 v triede funkcií $O^*(2^{n\frac{\alpha}{2} + o(n)} 2.65^{\frac{n}{2} + o(n)})$.
@@ -539,5 +542,5 @@ Pre každú z nich v polynomiálnom čase overíme, či je konzistentná s prech
 
 Podobne, ako pri planárnych grafoch, aj pri vyvážene rozdeliteľných grafoch je možné prispôsobovať
 konštanty. Ak by sme napríklad požadovali, že množiny $A$ a $B$ majú obe nanajvýš $\frac{n}{2} + o(n)$ vrcholov,
-a povolili by sme väčšie množiny $C$ a $D$, napr. že by dohromady mali nanajvýš $\frac{n}{3}$ vrcholov,
+a povolili by sme väčšie množiny $C$ a $D$, napr. aby dohromady mali nanajvýš $\frac{n}{3}$ vrcholov,
 dostali by sme algoritmus s časovou zložitosťou $O^*(2.464^{n + o(n)})$.
