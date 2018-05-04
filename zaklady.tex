@@ -2,7 +2,7 @@
 
 V tejto kapitole si zavedieme pojmy a označenia, ktoré budeme používať
 vo zvyšku práce. Taktiež si podrobne popíšeme predošlé výsledky o
-$L(2,1)$-farbeniach grafov, ktoré budú dôležité pre túto prácu.
+$L(2,1)$-farbeniach grafov.
 
 \section{Základné pojmy}
 
@@ -18,8 +18,6 @@ Toto značenie rozšírime aj na množiny vrcholov. Pre množinu vrcholov $S$ bu
 symbolom $N[S]$ značiť množinu $\bigcup \limits_{v \in S} N[v]$ a symbolom
 $N(S)$ označíme množinu $N[S] - S$.
 
-FIXME: Graf s ohodnotenymi vrcholmi - honotenie je zobrazenie z V(G) do N
-
 Ako prvé si poriadne
 zadefinujeme $L(2,1)$-farbenie grafu a problémy s ním súvisiace.
 
@@ -33,9 +31,6 @@ zadefinujeme $L(2,1)$-farbenie grafu a problémy s ním súvisiace.
     \end{itemize}
 \end{defn}
 
-FIXME: Dobre zadefinovať problém $L(2,1)$-farbenia. Nechceme používať pojem
-"problém $k$-$L(2,1)$-farbenia!
-
 Pri obyčajných vrcholových, či hranových farbeniach grafov skúmame, aký
 najmenší počet farieb potrebujeme pre platné ofarbenie daného grafu. Podobne
 si vieme pri $L(2,1)$-farbeniach všímať, aké najväčšie číslo používajú. Toto
@@ -44,11 +39,16 @@ $L(2,1)$-farbenia grafu $G$ budeme nazývať \emph{$L(2,1)$-farbiace číslo} a
 označovať $\lambda(G)$. Všimnime si, že $L(2,1)$-farbenie s
 rozpätím $k$ môže používať až $k+1$ rôznych hodnôt.
 
-Pod problémom $k$-$L(2,1)$-farbenia budeme rozumieť problém existencie farbenia
-s rozpätím nanajvýš $k$. Podobne vieme zadefinovať problém $L(2,1)$-farbenia ako
-hľadanie $\lambda(G)$. Keďže pre každý graf existuje triviálne ofarbenie
+\begin{defn}
+    Pod problémom $L(2,1)$-farbenia budeme rozumieť nasledujúci rozhodovací problém.
+    Inštanciou je graf $G$ a prirodzené číslo $k$. Inštancia je riešiteľná práve vtedy,
+    ak existuje $L(2,1)$-farbenie grafu $G$ s rozsahom $k$.
+\end{defn}
+
+Podobne by sme mohli zadefinovať problém rozpätia $L(2,1)$-farbenia, v ktorom by sme
+pre daný graf hľadali jeho farbiace číslo. Pre každý graf existuje triviálne ofarbenie
 používajúce párne čísla od $0$ po $2n - 2$, z hľadiska výpočtovej zložitosti
-sú tieto problémy takmer totožné.
+sú teda tieto problémy takmer totožné.
 
 V práci budeme často používať pojem \emph{čiastočného $L(2,1)$-farbenia}, preto
 si ho poriadne zadefinujeme.
@@ -416,7 +416,3 @@ vzniklo dolné ohraničenie $pp(n) = \Omega(2.6117^n)$.
 Analýzou zakorenených stromov s priemerom $6$ sa dá dolný odhad zvýšiť na $pp(n) = \Omega(2.6313^n)\cite{vlastne_pary}$.
 Dôkladnejšou analýzou zakorenených stromov, ktorých všetky podstromy sú rovnaké, sa dá
 odhad vylepšiť až na $pp(n) = \Omega(2.6391^n)$\cite{vlastne_pary}.
-
-Dôležité je poznamenať, že zatiaľ čo horný asymptotický odhad počtu vlastných párov je zároveň
-horným odhadom časovej zložitosti algoritmu Junosza-Szaniawski, o dolnom odhade počtu vlastných
-párov zatiaľ nie je dokázané, že by zdola odhadoval zložitosť tohto algoritmu.
