@@ -2,4 +2,68 @@
 \addcontentsline{toc}{chapter}{Úvod} % rucne pridanie do obsahu
 \markboth{Úvod}{Úvod} % vyriesenie hlaviciek
 
-Placeholder, než vznikne niečo rozumné.
+Farbenie grafov je známy a pomerne dobre preštudovaný ťažký problém na grafoch.
+Jedným zo zovšeobecnení farbenia grafu je $L(2,1)$-farbenie grafu, v ktorom
+vrcholom priradzujeme prirodzené čísla. Požadujeme pri tom, aby susedné
+vrcholy mali priradené čísla s rozdielom aspoň $2$ a vrcholy so spoločným
+susedom mali priradené rôzne čísla.
+
+Jedným z dôvodov, prečo je $L(2,1)$-farbeniam venovaná pozornosť, je ich uplatnenie
+pri prideľovaní frekvenčných pásiem vysielacím staniciam. Kvôli interferencii
+elektromagnetických vysielačov a prijímačov na podobných frekvenciách totiž
+musia veľmi blízke vysielače dostať veľmi rozdielne pásmo, ale viac vzdialeným
+vysielačom stačí menší rozdiel.
+
+Dôležitou charakteristikou $L(2,1)$-farbenia
+je jeho rozpätie -- najväčšie číslo, ktoré je priradené niektorému vrcholu. Väčšina
+problémov ohľadom $L(2,1)$-farbení sa týka práve tohto rozpätia. Jedným zo základných
+problémov je pre daný graf a danú hodnotu $k$ povedať, či existuje $L(2,1)$-farbenie
+tohto grafu s rozpätím $k$.
+
+Problémy $L(2,1)$-farbenia formulujeme v jazyku prirodzených čísel. Ukazuje sa,
+že toto zjednodušenie z reálneho sveta je postačujúce. Už v prvých prácach venujúcich sa tejto problematike
+bola dokázaná ekvivalencia problémov definovaných na prirodzených číslach
+so zovšeobecnením na reálne čísla \cite{griggs_yeh_tree}.
+
+Keďže ide o problém príbuzný farbeniam grafov, je očakávateľné, že
+bude NP-ťažký, čo sa podarilo dokázať v tom istom článku.
+Taktiež sa postupom času dokázala zložitosť problému aj na niektorých obmedzených
+triedach grafov, napr. planárnych, bipartitných, na grafoch s
+priemerom $2$ \cite{color_survey}.
+
+Pre niektoré triedy grafov boli objavené algoritmy, ktoré hľadajú minimálne rozpätie
+$L(2,1)$-farbenia v polynomiálnom čase. Prvým výsledkom bol polynomiálny algoritmus
+na stromoch \cite{chang_kuo}. Ďalšiu triedu grafov s polynomiálnym algoritmom tvoria
+cyklové stromy \cite{kaktusy} -- grafy, v ktorých sú všetky kružnice vrcholovo disjunktné.
+
+Druhou oblasťou skúmania sú algoritmy, ktoré riešia problém na všeobecných grafoch. Snahou
+je vytvoriť algoritmus, ktorý rieši problém s najlepšou časovou zložitosťou. Keďže
+ide o NP-ťažký problém, skúmajú sa riešenia s exponenciálnou časovou zožitosťou. Pre
+zjednodušenie sa používa $O^*$-notácia, ktorá zanedbáva polynomiálne faktory v zložitosti.
+
+Najrýchlejším algoritmom na hľadanie minimálneho rozsahu $L(2,1)$-farbenia grafu
+je algoritmus od Junosza-Szaniawskeho a kol., ktorý dosahuje časovú zložitosť
+na grafe s $n$ vrcholmi $O^*(2.6488^n)$ \cite{junosza_fast}. Časová zložitosť tohto algoritmu je úzko spätá
+s kombinatorickou štruktúrou zvanou vlastný pár -- časová zložitosť algoritmu je
+zhruba polynomiálne závislá od počtu vlastných párov v grafe.
+
+Na druhú stranu platí, že najviac vlastných párov majú stromy -- grafy, na ktorých
+vieme problém riešiť v polynomiálnom čase. V tejto práci sa budeme venovať využitiu
+metódy rozdeľuj a panuj na konštrukciu rýchlejšieho algoritmu.
+
+V druhej kapitole sa pozrieme na delenie problému na nezávislé časti s použitím
+hranového separátora. Podrobnejšie sa pozrieme na grafy s mostami a pre dostatočne
+veľké $k$ ukážeme, ako zredukovať problém existencie $L(2,1)$-farbenia s rozpätím $k$
+v ľubovoľnom grafe na problém na triede grafov, v ktorých odstránením ľubovoľného mostu vznikne izolovaný
+vrchol. Z rýchleho riešenia na tejto špeciálnej triede grafov potom bude vyplývať
+rýchle riešenie pre všeobecné grafy.
+
+V 3. kapitole ukážeme algoritmus, ktorý nadviaže na prácu Junosza-Szaniawekeho a kol.
+Pomocou delenia problému skonštruujeme algoritmus pre planárne grafy s časovou
+zložitosťou $O^*(2.2^{n+ o(n)})$ a algoritmus pre dobre rozdeliteľné grafy s časovou
+zložitosťou $O^*(2.613^n)$.
+
+Vo 4. kapitole odprezentujeme experiment na triede $2$-hranovo súvislých grafov.
+Ukážeme, že pri grafoch do $20$ vrcholov majú najväčší počet vlastných párov
+práve kružnice. Zaujímavým výsledkom tejto časti je aj postup generovania všetkých
+neoznačených $2$-hranovo súvislých grafov (s opakovaním).

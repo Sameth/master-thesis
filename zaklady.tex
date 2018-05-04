@@ -64,23 +64,7 @@ si ho poriadne zadefinujeme.
 
 \section{Predošlé výsledky}
 
-Jedným z dôvodov, prečo je $L(2,1)$-farbeniam venovaná pozornosť, je ich uplatnenie
-pri prideľovaní frekvenčných pásiem vysielacím staniciam. Kvôli interferencii
-elektromagnetických vysielačov a prijímačov na podobných frekvenciách totiž
-musia veľmi blízke vysielače dostať veľmi rozdielne pásmo, ale viac vzdialeným
-vysielačom stačí menší rozdiel.
-
-Aj keď je náš problém formulovaný jazykom celých čísel, už v prvých článkoch
-venujúcich sa tejto problematike bola dokázaná ekvivalencia
-nami definovaného problému so zovšeobecnením problému na reálne čísla\cite{griggs_yeh_tree}.
-
-Keďže ide o modifikáciu problému farbenia grafov, je očakávateľné, že tento
-problém bude $\mathcal{NP}$-ťažký, čo sa podarilo dokázať v tom istom článku.
-Taktiež sa postupom času dokázala zložitosť problému aj na niektorých obmedzených
-triedach grafov, napr. planárnych, bipartitných, dokonca aj na grafoch s
-priemerom $2$\cite{color_survey}.
-
-Ďalšou oblasťou skúmania boli dolné a horné ohraničenia na hodnotu $\lambda(G)$.
+Veľkou oblasťou skúmania $L(2,1)$-farbení boli dolné a horné ohraničenia na hodnotu $\lambda(G)$.
 Vhodnou charakteristikou sa ukázal byť maximálny stupeň grafu. Pre všeobecné
 grafy bolo najprv dokázané horné ohraničenie $\lambda(G) \leq \Delta^2 + 2\Delta$
 pomocou jednoduchého pažravého priradenia\cite{griggs_yeh_tree},
@@ -88,9 +72,8 @@ ktoré bolo neskôr vylepšené na $\lambda(G) \leq \Delta^2 + \Delta$ s použit
 šikovnejšieho priradzovania\cite{chang_kuo}.
 
 Pre špeciálne triedy grafov sa podarilo dokázať silnejšie ohraničenia. Napríklad
-pre grafy s priemerom $2$ platí a je tesný odhad $\lambda(G) \leq \Delta^2$\cite{griggs_yeh_tree}
-. Ďalej pre chordálne grafy platí odhad $\lambda(G) \leq \frac{\left( \Delta + 3 \right)^2}{4}$\cite{griggs_yeh_tree}
-.
+pre grafy s priemerom $2$ platí a je tesný odhad $\lambda(G) \leq \Delta^2$\cite{griggs_yeh_tree}.
+Ďalej pre chordálne grafy platí odhad $\lambda(G) \leq \frac{\left( \Delta + 3 \right)^2}{4}$\cite{griggs_yeh_tree}.
 
 Medzi ďalšie triedy grafov, na ktorých sú dokázané tesnejšie obmedzenia na $L(2,1)$-farbiace
 číslo, patria aj stromy s obmedzením $\Delta + 1 \leq \lambda(G) \leq \Delta + 2$\cite{griggs_yeh_tree},
@@ -189,7 +172,8 @@ príliš veľa.
 
 \section{Farbenie všeobecných grafov}
 
-Paralelne k výskumu špeciálnych tried grafov, na ktorých sa dá riešiť problém $L(2,1)$-farbenia,
+Paralelne k výskumu špeciálnych tried grafov, na ktorých sa dá riešiť problém $L(2,1)$-farbenia
+v polynomiálnom čase,
 sa skúmajú algoritmy schopné riešiť tento problém na všeobecných grafoch. Keďže ide o problém,
 ktorého exponenciálne riešenia majú pomerne veľký základ, pre časovú zložitosť budeme používať
 $O^*$-notáciu, pri ktorej sa neuvádzajú ani násobné polynomiálne faktory.
