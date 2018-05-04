@@ -334,7 +334,7 @@ Nakoniec ukážeme, ako môžeme ľubovoľný algoritmus $\mathcal{B}$, ktorý r
 $L(2,1)$-farbenia na chlpatých $2$-hranovo súvislých grafoch, prerobiť na algoritmus $\mathcal{A}$, ktorý
 rieši problém $L(2,1)$-farbenia na všeobecných grafoch. Ak je časová zložitosť $\mathcal{B}$
 $O^*(\alpha^n)$ pre nejaké $\alpha \ge 2.5$, časová zložitosť algoritmu $\mathcal{A}$ bude $O^*(\alpha^n)$
-s výnimkou prípadov, keď $k$ bude z rozsahu $6 \ldots 9$.
+s výnimkou prípadov, keď $k$ bude z rozsahu $6 \ldots 11$.
 
 Algoritmus $\mathcal{A}$ dostane na vstupe súvislý graf $G$ a číslo $k$ a akceptuje práve vtedy,
 keď existuje $L(2,1)$-farbenie grafu $G$ s rozsahom $k$. Popis algoritmu:
@@ -396,186 +396,27 @@ označíme počet komponentov grafu $T - v$ a symbolom $q$ označíme počet vr
 na ktorom budeme v kroku $13$ spúšťať algoritmus $\mathcal{B}$.
 
 Platí nerovnosť $q \leq n - p \cdot \lfloor \frac{k}{2} \rfloor$, lebo z každého z $p$ komponentov
-si ponecháme iba jeden vrchol.
+si ponecháme iba jeden vrchol. Pre každý z $p$ komponentov teda vyskúšame všetkých $k(k-1)$ ofarbení
+mostu, ktorý ho pripája. Pre každú z týchto $(k(k-1))^p$ možností spustíme algoritmus $\mathcal{B}$
+s časovou zložitosťou $O^*(\alpha^q)$. Celková časová zložitosť teda bude $O^*\left((k^2-k)^p \alpha^q\right) =
+O^*\left((k^2 - k)^p \alpha^{n - p \cdot \lfloor \frac{k}{2} \rfloor}\right)$.
+
+Ďalej ukážeme, že pre $k \ge 12$ platí nerovnosť $(k^2 - k)\strut^{\frac{1}{\lfloor \frac{k}{2} \rfloor}} \leq 2.5$.
+Najprv spravíme niekoľko odhadov: $(k^2 - k)\strut^{\frac{1}{\lfloor \frac{k}{2} \rfloor}} \leq k\strut^{\frac{2}{\lfloor \frac{k}{2} \rfloor}} \leq
+k\strut^{\frac{2}{\frac{k}{2} - 1}} \leq k\strut^{\frac{2}{\frac{k}{3}}} = k\strut^{\frac{6}{k}} = \exp{(\frac{6 \ln{k}}{k})}$.
+
+Funkcia $\frac{6 \ln{k}}{k}$ je klesajúca pre $k \ge e$ a hodnota $\exp{(\frac{6 \ln{k}}{k}}$ je 
+v bode $k=20$ je zhruba $2.46$. Pre $k$ v rozsahu $12 \ldots 19$ uvedieme hodnoty funkcie $(k^2 - k)^{\frac{1}{\lfloor \frac{k}{2} \rfloor}}$:
+
+\begin{tabular}{|c | c | c | c | c | c | c | c |} \hline
+$ k=12 $ & $ k=13 $ & $ k=14 $ & $ k=15 $ & $ k=16 $ & $ k=17 $ & $ k=18 $ & $ k=19 $ \\ \hline
+2.25647 & 2.32018 & 2.10314 & 2.14657 & 1.98393 & 2.01521 & 1.88882 & 1.91231 \\ \hline
+\end{tabular}
+
+Nakoniec s využitím nerovnosti $(k^2 - k)\strut^{\frac{1}{\lfloor \frac{k}{2} \rfloor}} \leq 2.5$ a $\alpha \ge 2.5$
+upravíme časovú zložitosť pre $k \ge 12$:
+$$O^*\left((k^2 - k)^p \alpha^{n - p \cdot \lfloor \frac{k}{2} \rfloor}\right) =
+O^*\left(\alpha^{n} \cdot \frac{(k^2 - k)^p}{\alpha^{p \cdot \lfloor \frac{k}{2} \rfloor}}\right) = O^*\left(\alpha^n \cdot \left(\frac{(k^2 - k)^{\frac{1}{\lfloor \frac{k}{2} \rfloor}}}{\alpha}\right) \strut^{p \cdot \lfloor \frac{k}{2} \rfloor}\right) = O^*(\alpha^n)$$
 
 FIXME: Dopísať. Chceme spraviť čosi také, že zaplatením $k(k-1)$ odstránime aspoň $\lceil k/2 \rceil$ vrcholov
-
-======================= Pod tymto vsetko zmazat? ============================================
-
-Pokiaľ overujeme existenciu $k$-$L(2,1)$-farbenia pre dostatočne veľkú hodnotu $k$ a v grafe
-nájdeme most, ktorého odstránením bude prvý komponent malý a druhý veľký, podľa tejto lemy
-môžeme malý komponent odignorovať. Pri takomto prístupe by nám mohli robiť problém malé
-hodnoty $k$. Tie môžeme vyriešiť s použitím algoritmu od Haveta a kol., ktorý rieši
-problém $L(2,1)$-farbenia pre $k \leq 5$ v čase $O^*(2.5^n)$ \cite{havet}. Tento
-algoritmus principiálne prehľadáva všetky $k$-$L(2,1)$-farbenia grafu, preto sa dá
-priamočiaro prerobiť na algoritmus, ktorý rieši problém doplnenia $L(2,1)$-farbenia.
-
-Teraz máme všetky podklady pre to, aby sme vedeli upraviť algoritmus,
-ktorý rieši problém doplnenia $L(2,1)$-farbenia na chlpatých
-$2$-hranovo súvislých grafoch, na algoritmus riešiaci problém $L(2,1)$-farbenia
-na súvislých grafoch. Do pozornosti dávame, že náš algoritmus nebude riešiť
-problém doplnenia $L(2,1)$-farbenia.
-
-\begin{veta}
-    FIXME: Toto v skutocnosti nefunguje. Rozbit na viacero pripadov, tato veta moze pokryvat pripad, ze
-    pseudobloky su dostatocne velke. Doriesit pripady, kedy mozu byt pseudobloky male.
-
-    Ak existuje algoritmus $\mathcal{B}$, ktorý rieši rozhodovací problém zoznamového $L(2,1)$-farbenia
-    na chlpatých $2$-hranovo-súvislých grafoch s časovou zložitosťou $O^*(\alpha^n)$, kde
-    $\alpha \ge 2.5$, tak existuje algoritmus $\mathcal{A}$, ktorý rieši problém $L(2,1)$-farbenia
-    na súvislých grafoch s časovou zložitosťou $O^*(\alpha^n)$.
-\end{veta}
-
-\begin{proof}
-    Najprv skonštruujeme algoritmus $\mathcal{A}$, ktorý dostane hodnotu $k$, graf $G$ a zoznam
-    povolených hodnôt $c$. Algoritmus bude fungovať nasledovne:
-
-    \begin{enumerate}
-        \item Ak $k \leq 5$, spusti algoritmus od Haveta a kol.
-        \item Ak $G$ je chlpatý $2$-hranovo-súvislý graf, spusti a vráť výstup algoritmu $\mathcal{B}$.
-        \item Inak sa v grafe nachádza netriviálny most. Nájdi most $e$ s koncovými vrcholmi $u, v$.
-        Skonštruuj graf $G_1$ ako komponent súvislosti grafu $G - \{e\}$ obsahujúci $u$ a $G_2$ ako
-        komponent súvislosti obsahujúci $v$. Bez ujmy na všeobecnosti platí $|V(G_1)| \leq |V(G_2)|$.
-        V prípade viacerých možností pre výber mostu $e$ vyber niektorý z tých, pre ktoré je počet
-        vrcholov v grafe $G_1$ najmenší.
-        \item Ak $\left |V(G_1) \right| \leq \frac{k}{2}$, rekurzívne spusti a vráť výstup algoritmu
-        $\mathcal{A}$ na grafe $G_2 \cup \{e, u\}$ s príslušne zúženým zoznamom hodnôt $c$.
-        \item Pre všetky prípustné (podľa $c$) ofarbenia $f$ vrcholov $u, v$ spusti rekurzívne
-        algoritmus $\mathcal{A}$ na grafe $G_1 \cup \{e, v\}$. V každom volaní je zoznam $c$ zúžený
-        na príslušnú množinu vrcholov a navyše $c(u) = \{f(u)\}$ a $c(v) = \{f(v)\}$. Zoznam dvojíc
-        $(f(u), f(v))$, pre ktoré výpočet akceptoval, označíme $Z$.
-        \item Pre všetky prípustné (podľa $c$) ofarbenia $f(u)$ vrchola $u$ spusti rekurzívne
-        algoritmus $\mathcal{A}$ na grafe $G_2 \cup \{e, u\}$. V každom volaní je zoznam $c$ zúžený
-        na príslušnú množinu vrcholov a navyše $c(u) = \{f(u)\}$ a $c(v) = \{x | (f(u), x) \in Z\}$.
-        \item Ak aspoň jedno z rekurzívnych volaní v 6. kroku akceptovalo, akceptuj. V opačnom prípade
-        zamietni.
-    \end{enumerate}
-
-    Overenie, či graf patrí do triedy chlpatých $2$-hranovo-súvislých grafov, vieme realizovať v čase
-    $O(|V(G)| + |E(G)|)$ nájdením všetkých mostov pomocou Tarjanovho
-    algoritmu \cite{tarjan_bridge}. Prehľadávaním do hĺbky vieme v čase $O(|V(G)| + |E(G)|)$ pre
-    každý most a pre každý komponent, ktorý jeho odstránenie indukuje, spočítať, koľko vrcholov obsahuje.
-    Zvyšné manipulácie s dátami vieme pri vhodnej reprezentácii robiť v polynomiálnom čase.
-
-    Pokiaľ platí podmienka v kroku 1, alebo v kroku 2, časová zložitosť algoritmu je nanajvýš
-    $T(n) \leq O^*(1) + O^*(\alpha^n)$.
-
-    Pokiaľ sa vykoná krok 4, graf $G_2$ bude obsahovať nanajvýš $n-1$ vrcholov, z čoho dostávame
-    vzťah pre časovú zložitosť $T(n) \leq O^*(1) + T(n-1)$.
-
-    Pre hodnotu $k \ge 6$ spočítame, koľkými spôsobmi môžeme ofarbiť dvojicu susedných vrcholov $u, v$.
-    Pokiaľ vrchol $u$ ofarbíme farbou $x$, vrchol $v$ môže dostať ľubovoľnú farbu okrem $x, x-1$ a $x + 1$.
-    To znamená, že ak vrchol $u$ ofarbíme farbou $0$ alebo $k$, ostane nám pre vrchol $k + 1 - 2$ možností.
-    Ak vrchol $u$ ofarbíme ktoroukoľvek zo zvyšných $k-1$ možností, pre vrchol $v$ nám vždy ostane $k + 1 - 3$
-    možností. Úpravou dostaneme, že počet ofarbení týchto vrcholov je $2(k-1) + (k-1)(k-2) = k(k-1)$.
-
-    Ďalej označíme $n_1$ ako počet vrcholov komponentu $G_1$. 
-    Krok 5 zahŕňa $k(k-1)$ spustení algoritmu na grafe $G_1 \cup \{e, v\}$, ktorý má $n_1 + 1$
-    vrcholov. Krok 6 zahŕňa nanajvýš $k+1$ spustení algoritmu na grafe $G_2 \cup \{e, u\}$, ktorý
-    má $n - n_1 + 1$ vrcholov. Časová zložitosť tejto vetvy výpočtu teda spĺňa vzťah 
-    $$T(n) \leq O^*(1) + k(k-1)T(n_1+1) + (k+1)T(n - n_1 + 1).$$
-
-    Ďalej dokážeme, že pre vhodne zvolený polynóm $q$ je časová zložitosť
-    algoritmu $\mathcal{A}$ nanajvýš $q(n) \alpha^n$.
-
-    Nech $p$ je neklesajúci polynóm, pre ktorý platí, že časová zložitosť algoritmu $\mathcal{B}$ aj algoritmu
-    od Haveta a kol. je zhora ohraničená $p(n)\alpha^n$. Nech $s$ je neklesajúci polynóm, ktorý
-    zhora ohraničuje časovú zložitosť jedného volania algoritmu $\mathcal{A}$, bez započítania 
-    rekurzívnych volaní a volaní iných algoritmov. Nech $r$ je neklesajúci polynóm, ktorý spĺňa
-    $\forall n \in \mathbb{N}: r(n) \ge p(n)$ a navyše pre $n \leq 20$ je hodnota $r(n)$ horným
-    ohraničením na časovú zložitosť algoritmu $\mathcal{A}$ na grafe s $n$ vrcholmi.
-
-    Nakoniec polynóm $q$ určíme vzťahom $q(n) = r(n) + n \cdot s(n)$. Za zmienku stojí, že takto
-    definovaný polynóm $q$ je tiež neklesajúci. Ďalej matematickou indukciou
-    dokážeme, že časová zložitosť algoritmu $\mathcal{A}$ na grafe s $n$ vrcholmi je zhora ohraničená
-    funkciou $q(n) \alpha^n$. Bázou indukcie bude tvrdenie, že pre $n \leq 20$ ohraničenie platí. Toto
-    triviálne vyplýva z definície polynómov $r(n)$ a $q(n)$. Pre dôkaz indukčného kroku rozoberieme
-    všetky možnosti vetvenia algoritmu $\mathcal{A}$.
-
-    Pokiaľ platí podmienka v 1. alebo 2. kroku,
-    $q(n) \alpha^n \ge p(n) \alpha^n + s(n)$ vyplýva z nerovností $q(n) \ge r(n) + s(n) \ge p(n) + s(n)$.
-
-    Pokiaľ platí podmienka v 4. kroku, potrebujeme dokázať $q(n) \alpha^n \ge q(n-1) \alpha^{n-1} + s(n)$:
-    $$ q(n) \alpha^n \ge q(n) \alpha^{n-1} = \left(r(n) + n \cdot s(n) \right) \alpha^{n-1} \ge s(n) + \left(r(n) + (n-1)s(n) \right) \alpha^{n-1} \ge $$
-    $$ \ge s(n) + \left(r(n-1) + (n-1)s(n-1) \right) \alpha^{n-1} = s(n) + q(n-1) \alpha^{n-1}$$.
-
-    Pokiaľ sa vykoná 5. a 6. krok, potrebujeme dokázať
-
-    $$q(n) \alpha^n \ge k(k-1)q(n_1+1)\alpha^{n_1 + 1} + (k+1)q(n - n_1 + 1)\alpha^{n - n_1 + 1} + s(n).$$
-
-    Kvôli prehľadnosti zasubstituujeme členy v predošlej nerovnosti: $a := q(n) \alpha^n,\\ b :=  k(k-1)q(n_1+1)\alpha^{n_1 + 1},
-    c := (k+1)q(n - n_1 + 1)\alpha^{n - n_1 + 1}, d := s(n)$. Potrebujeme dokázať $a \ge b + c + d$.
-    Rozoberieme zopár prípadov. Ak $c \ge b + d$, stačí dokázať $a \ge 2c$. Inak platí $c < b + d$ a
-    teda stačí dokázať $a \ge 2(b + d)$. Opäť rozoberieme prípady podľa veľkosti výrazov. Ak $b \ge 2d$,
-    stačí dokázať $a \ge 3b$, v opačnom prípade stačí dokázať $a \ge 6d$. Ak teda platí
-    $a \ge 2c \wedge a \ge 3b \wedge a \ge 6d$, zaručene platí aj $a \ge b + c + d$. Všetky
-    tri prípady rozoberieme:
-
-    \begin{description}
-    \item[$\boxed{a \ge 6d}$], čiže $q(n) \alpha^n \ge 6s(n)$. Keďže indukčný
-    krok dokazujeme pre $n \ge 20$, platí $q(n) \alpha^n \ge q(n) = r(n) + n\cdot s(n) \ge
-    20s(n) \ge 6s(n)$.
-
-    \item[$\boxed{a \ge 3b}$], čiže $q(n) \alpha^n \ge 3k(k-1)q(n_1 + 1)\alpha^{n_1 + 1}$.
-    Z algoritmu máme predpoklad, že komponent $G_1$ má nanajvýš toľko vrcholov, čo $G_2$, preto
-    $n_1 \leq \frac{n}{2}$. Z neklesajúcosti $q$ a exponenciálnej funkcie platí $q(n_1 + 1)\alpha^{n_1 + 1}
-    \leq q(n) \alpha^{\frac{n}{2} + 1}$. Nakoniec využijeme nerovnosť $k < 2n_1 \leq n$, ktorá musí platiť,
-    aby algoritmus $\mathcal{A}$ neskončil už v kroku 4.
-
-    $$3k(k-1)q(n_1 + 1)\alpha^{n_1 + 1} \leq 3k(k-1)q(n)\alpha^{\frac{n}{2} + 1} = \frac{3k(k-1)}{\alpha^{\frac{n}{2} - 1}}q(n)\alpha^n < \frac{3n(n-1)}{\alpha^{\frac{n}{2} - 1}}q(n)\alpha^n$$
-
-    Nakoniec potrebujeme dokázať $\frac{3n(n-1)}{\alpha^{\frac{n}{2}-1}} \leq 1$. Pre $n > 20$ je čitateľ aj
-    menovateľ kladný, preto stačí dokázať $3n(n-1) \leq \alpha^{\frac{n}{2} - 1}$. Keďže $\alpha \ge 2.5$,
-    stačí nám dokázať $3n(n-1) \leq 2.5^{\frac{n}{2} - 1}$. Pre $n = 20$ táto nerovnosť platí a navyše
-    pre $n \ge 20$ je derivácia funkcie na ľavej strane menšia, ako derivácia funkcie na pravej strane.
-    Z toho vyplýva nerovnosť $3n(n-1) \leq 2.5^{\frac{n}{2}-1}$ a aj dokazovaná nerovnosť.
-
-    \item[$\boxed{a \ge 2c}$], čiže $q(n) \alpha^n \ge 2(k+1)q(n - n_1 + 1)\alpha^{n - n_1 + 1}$.
-    Opäť využijeme fakt, že $k < 2n_1$. Z netriviálnosti komponentu $G_1$ vyplýva $n - n_1 + 1 < n$ 
-
-    $$2(k+1)q(n - n_1 + 1)\alpha^{n - n_1 + 1} \leq \frac{2(k+1)}{\alpha^{n_1 - 1}}q(n)\alpha^n < \frac{2k + 2}{\alpha^{\frac{k}{2} - 1}} q(n)\alpha^n$$
-
-    Aby platila nerovnosť, stačí teda dokázať $\frac{2k + 2}{\alpha^{\frac{k}{2} - 1}} \leq 1$. Keďže
-    $f(k) = 2k + 2$ aj $g(k) = \alpha^{\frac{k}{2} - 1}$ sú pre $k \ge 6$ kladné, stačí dokázať
-    $f(k) \leq g(k)$. Pre $k = 9$ nerovnosť platí a pre $k \ge 9$ platí $f'(x) \leq g'(x)$.
-
-    Pre $k \ge 9$ teda nerovnosť platí. Pre $k \in \{6, 7, 8\}$ musíme odhad robiť presnejšie.
-    Potrebujeme dobre odhadnúť zlomok $\frac{2k+2}{\alpha^{n_1 - 1}}$. Z nerovnosti $k < 2n_1$
-    vyplýva, že pre $k \in \{6, 7\}$ platí $n_1 \ge 4$ a pre $k = 8$ platí $n_1 \ge 5$.
-
-    Pre $k=6$ a $n_1 \ge 4$ je zlomok $\frac{2k+2}{n_1 - 1}$ zhora ohraničený hodnotou $\frac{14}{2.5^3} \leq 0.9$,
-    pre $k=8$ a $n_1 \ge 5$ je zlomok $\frac{2k+2}{n_1 - 1}$ zhora ohraničený hodnotou $\frac{18}{2.5^4} \leq 0.5$.
-
-    Pre $k=7$ potrebujeme odhad s $n_1 \ge 4$. Pre $n_1 = 4$ má ale zlomok $\frac{2k+2}{n_1 - 1}$ hodnotu
-    väčšiu ako $1$. Pre $n_1 \ge 5$ je zlomok $\frac{16}{2.5^{n_1}}$ zhora ohraničený hodnotou $\frac{16}{2.5^4} \leq 0.5$.
-
-    Pre všetky hodnoty $k \ge 6$ a $n_1 \ge \frac{k}{2}$ okrem dvojice $(7, 4)$ teda platí
-    $$q^n \alpha^n \ge 2(k+1)\alpha^{n - n_1 + 1}.$$
-
-    \end{description}
-
-    Pre takmer všetky možnosti $k$ a $n_1$, pre ktoré algoritmus $\mathcal{A}$ vykoná kroky 5, 6 a 7,
-    sme dokázali, že $q(n) \alpha^n$ je horným odhadom pre jeho časovú zložitosť. Jediná kombinácia
-    $k$ a $n_1$, pre ktorú sme to zatiaľ nedokázali, je $k=7$ a $n_1 = 4$. Špeciálne pre tieto hodnoty
-    spravíme presnejší odhad.
-
-    Potrebujeme teda dokázať $q(n) \alpha^n \ge 42 \cdot q(5) \alpha^5 + 8 \cdot q(n - 3) \alpha^{n-3} + s(n)$.
-    Keďže dokazujeme indukčný krok, môžeme predpokladať $n \ge 20$.
-
-    $$q(n) \alpha^n = \left(r(n) + n \cdot s(n) \right) \alpha^n \ge \left(r(n) + (n-1)s(n) \right) \alpha^n + s(n) \ge q(n-3) \alpha^n + s(n) \ge$$
-    $$\ge \left(\frac{2.5}{2} \right)^3 \cdot 8 \cdot q(n-3) \alpha^{n-3} + s(n) = \left( \frac{61}{64} + 1\right) \cdot 8 \cdot q(n-3)\alpha^{n-3} + s(n) \ge $$
-    $$\ge q(n-3) \alpha^{n-3} + 8 \cdot q(n-3) + s(n) \ge^{(*)} q(17) \alpha^{17} + 8 \cdot q(n-3)\alpha^{n-3} + s(n) \ge $$
-    $$\ge q(5)2^{12}\alpha^{5} + 8 \cdot q(n-3) + s(n) \ge 42 q(5)\alpha^5 + 8 \cdot q(n-3) + s(n)$$
-
-    Označená nerovnosť platí kvôli $n \ge 20$.
-
-    Týmto sme dokázali, že existuje polynóm $q(n)$ taký, že časová zložitosť algoritmu $\mathcal{A}$ je
-    zhora ohraničená funkciou $q(n)\alpha^n$. Preto časová zložitosť algoritmu je $O^*(\alpha^n)$. \qedhere
-
-\end{proof}
-
-Naším cieľom je vytvoriť rýchly algoritmus na riešenie problému $L(2,1)$-farbenia. Posledná veta
-nám hovorí, že nám stačí vyriešiť tento problém na chlpatých $2$-hranovo súvislých grafoch. V dôkaze
-máme aj návod, ako takéto špecifické riešenie prerobiť na algoritmus na všeobecných grafoch.
-
 
