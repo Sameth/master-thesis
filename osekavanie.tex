@@ -18,8 +18,7 @@ dajú aplikovať aj na všeobecnejšie $L(p,q)$-farbenia.
 \section{Teoretické základy rozdelenia problému}
 
 Ako sa ďalej v práci ukáže, aby sme vedeli problém dobre rozdeliť, potrebujeme riešiť
-o trochu všeobecnejší problém: Každému vrcholu grafu pridáme obmedzenie na hodnoty,
-ktorými môže byť ofarbený.
+o trochu všeobecnejší problém: Niektoré vrcholy môžu mať predpísanú svoju farbu.
 
 \begin{defn}
     Rozhodovací problém \emph{doplnenia $L(2,1)$-farbenia} definujeme nasledovne: Inštanciou je
@@ -58,7 +57,7 @@ spravíme najviac $(3n)$-krát, časová zložitosť tohto algoritmu bude $O^*(2
     Základná myšlienka dôkazu je nasledovná. Vezmeme množinu farieb, ktoré sú priradené vrcholom v $S$
     a označíme ju $F$. Ak nájdeme množinu farieb $F'$, ktorá má veľkosť (aspoň) $|V(G) - S|$,
     každá dvojica farieb v nej má rozdiel aspoň $2$ a každá dvojica farieb $(c_1, c_2) \in F \times F'$ má
-    rozdiel aspoň $2$, tak neofarbeným vrcholom môžeme ľubovoľne priradiť farby z $F'$ a dostneme
+    rozdiel aspoň $2$, tak neofarbeným vrcholom môžeme ľubovoľne priradiť rôzne farby z $F'$ a dostneme
     $L(2,1)$-farbenie.
 
     V každej trojici čísel $(3x, 3x + 1, 3x+2)$, kde $0 \leq x < n$, buď existuje vrchol
@@ -137,7 +136,7 @@ $L(2,1)$-farbenie celého grafu $G$. Toto tvrdenie si formálne zhrnieme v nasle
 \end{proof}
 
 \begin{dosl}
-    Nech $e \in E(G)$ je most grafu $G$, nech $u, v$ sú vrcholy hrany $e$, nech graf $G - \{e\}$ pozostáva z dvoch
+    Nech $e \in E(G)$ je most grafu $G$, nech $u, v$ sú vrcholy hrany $e$, nech graf $G - e$ pozostáva z dvoch
     komponentov $G_1$ a $G_2$ veľkosti aspoň $2$. Potom je graf $G$ $k$-$L(2,1)$-zafarbiteľný práve vtedy, ak
     existujú hodnoty $a, b$ také, že $0 \leq a, b \leq k, \left| a - b \right| \ge 2$ a existujú $k$-$L(2,1)$-farbenia $f_1, f_2$ grafov
     $G_1 \cup \{v, u, e\}$ a $G_2 \cup \{v, u, e\}$, pre ktoré platí $f_1(u) = f_2(u) = a \wedge f_1(v) = f_2(v) = b$.
@@ -201,7 +200,7 @@ znázornených na obrázku \ref{graf:ec2}.
 \begin{defn}
     Graf $G$ budeme nazývať \emph{chlpatý $2$-hranovo súvislý graf}, ak je súvislý a pre
     každú mostovú hranu $e \in E(G)$ platí, že jeden z komponentov súvislosti grafu
-    $G - \{e\}$ obsahuje jeden vrchol.
+    $G - e$ obsahuje jeden vrchol.
 \end{defn}
 
 Pripomeňme si, že každý graf, bez ohľadu na jeho štruktúru, má triviálne $L(2,1)$-farbenie
@@ -228,7 +227,7 @@ rozsahom $k$. Tento fakt zachytáva nasledujúce tvrdenie.
     v ktorej rozdiel každej dvojice prvkov bude aspoň $2$ a ktorej veľkosť bude aspoň $n_1$.
     
     Graf $G_1$ má $n_1$ vrcholov, vrchol $u_1$ z neho už má priradenú niektorú farbu z $F$. Keď vrcholom
-    grafu $G_1 - \{u_1\}$ ľubovoľne priradíme rôzne hodnoty z $F - \{f(u_1)\}$, dostaneme $k$-$L(2,1)$-farbenie
+    grafu $G_1 - u_1$ ľubovoľne priradíme rôzne hodnoty z $F - \{f(u_1)\}$, dostaneme $k$-$L(2,1)$-farbenie
     grafu $G$.
 
     Rozoberieme niekoľko prípadov:
@@ -334,7 +333,8 @@ Nakoniec ukážeme, ako môžeme ľubovoľný algoritmus $\mathcal{B}$, ktorý r
 $L(2,1)$-farbenia na chlpatých $2$-hranovo súvislých grafoch, prerobiť na algoritmus $\mathcal{A}$, ktorý
 rieši problém $L(2,1)$-farbenia na všeobecných grafoch. Ak je časová zložitosť $\mathcal{B}$
 $O^*(\alpha^n)$ pre nejaké $\alpha \ge 2.5$, časová zložitosť algoritmu $\mathcal{A}$ bude $O^*(\alpha^n)$
-s výnimkou prípadov, keď $k$ bude z rozsahu $6 \ldots 11$.
+s výnimkou prípadov, keď $k$ bude z rozsahu $6 \ldots 11$. Do pozornosti dávame fakt, že
+$\mathcal{A}$ a $\mathcal{B}$ riešia mierne odlišné problémy.
 
 Algoritmus $\mathcal{A}$ dostane na vstupe súvislý graf $G$ a číslo $k$ a akceptuje práve vtedy,
 keď existuje $L(2,1)$-farbenie grafu $G$ s rozsahom $k$. Popis algoritmu:
@@ -347,10 +347,10 @@ keď existuje $L(2,1)$-farbenie grafu $G$ s rozsahom $k$. Popis algoritmu:
     \item Vytvor pseudoblokovo-mostový strom $T$ grafu $G$. $O^*(1)$
     \item Kým $T$ obsahuje listový vrchol $l$ s hodnotou nanajvýš $\frac{k}{2}$, odstráň
           z $T$ vrchol $l$ a zvýš rodičovi $l$ hodnotu o $1$. V grafe $G$ odstráň podgraf
-          zodpovedajúci vrcholu $l$ okrem hrany a vrcholu, ktorý ho pripájajú ku zvyšku grafu \ref{pseudoblok-prune}. $O^*(1)$
+          zodpovedajúci vrcholu $l$ okrem hrany a vrcholu, ktorý ho pripájajú ku zvyšku grafu (Lema \ref{pseudoblok-prune}). $O^*(1)$
     \item Ak je $G$ po predošlom kroku chlpatý $2$-hranovo súvislý graf, spusti algoritmus $\mathcal{B}$. $O^*(\alpha^n)$
     \item Nájdi vrchol $v$ grafu $T$, ktorý
-          spĺňa lemu o rovnovážnom rozdelení stromu \ref{stromsep-lema}. $O^*(1)$
+          spĺňa lemu o rovnovážnom rozdelení stromu (Lema \ref{stromsep-lema}). $O^*(1)$
     \item Pre každý komponent $K_i$ grafu $T - v$ spočítaj súčet jeho hodnôt $s_i$. $O^*(1)$
     \item Ak pre niektorý komponent $K_i$ je hodnota $s_i$ väčšia ako $\frac{n}{10}$,
           nájdi hranu $e'$, ktorá pripája $K_i$ k $v$ v grafe $T$ a zodpovedajúci most
@@ -390,7 +390,7 @@ Ak vrchol $u$ ofarbíme ktoroukoľvek zo zvyšných $k-1$ možností, pre vrcho
 možností. Úpravou dostaneme, že počet ofarbení týchto vrcholov je $2(k-1) + (k-1)(k-2) = k(k-1)$.
 
 Každý z komponentov $K_i$ má súčet hodnôt ostro viac ako $\frac{k}{2}$, ináč by bol v kroku $6$
-odstránený. Keďže hodnoty v grafe $T$ sme priradzovali ako počty vrcholov, môžeme túto nerovnosť upraviť:
+odstránený. Keďže hodnoty v grafe $T$ sú prirodzené čísla, môžeme túto nerovnosť upraviť:
 Každý z komponentov $K_i$ má súčet hodnôt aspoň $\lfloor \frac{k}{2} \rfloor + 1$. Symbolom $p$
 označíme počet komponentov grafu $T - v$ a symbolom $q$ označíme počet vrcholov grafu $G_v$,
 na ktorom budeme v kroku $13$ spúšťať algoritmus $\mathcal{B}$.
@@ -405,7 +405,7 @@ O^*\left((k^2 - k)^p \alpha^{n - p \cdot \lfloor \frac{k}{2} \rfloor}\right)$.
 Najprv spravíme niekoľko odhadov: $(k^2 - k)\strut^{\frac{1}{\lfloor \frac{k}{2} \rfloor}} \leq k\strut^{\frac{2}{\lfloor \frac{k}{2} \rfloor}} \leq
 k\strut^{\frac{2}{\frac{k}{2} - 1}} \leq k\strut^{\frac{2}{\frac{k}{3}}} = k\strut^{\frac{6}{k}} = \exp{(\frac{6 \ln{k}}{k})}$.
 
-Funkcia $\frac{6 \ln{k}}{k}$ je klesajúca pre $k \ge e$ a hodnota $\exp{(\frac{6 \ln{k}}{k}}$ je 
+Funkcia $\frac{6 \ln{k}}{k}$ je klesajúca pre $k \ge e$ a hodnota $\exp{(\frac{6 \ln{k}}{k})}$ je 
 v bode $k=20$ je zhruba $2.46$. Pre $k$ v rozsahu $12 \ldots 19$ uvedieme hodnoty funkcie $(k^2 - k)^{\frac{1}{\lfloor \frac{k}{2} \rfloor}}$:
 
 \begin{tabular}{|c | c | c | c | c | c | c | c |} \hline
@@ -419,3 +419,8 @@ $$O^*\left((k^2 - k)^p \alpha^{n - p \cdot \lfloor \frac{k}{2} \rfloor}\right) =
 O^*\left(\alpha^{n} \cdot \frac{(k^2 - k)^p}{\alpha^{p \cdot \lfloor \frac{k}{2} \rfloor}}\right) = O^*\left(\alpha^n \cdot \left(\frac{(k^2 - k)^{\frac{1}{\lfloor \frac{k}{2} \rfloor}}}{\alpha}\right) \strut^{p \cdot \lfloor \frac{k}{2} \rfloor}\right) = $$
 $$ = O^*(\alpha^n)$$
 
+Ukázali sme teda spôsob, ako takmer ľubovoľnú inštanciu problému $L(2,1)$-farbenia vyriešiť pomocou
+algoritmu pre problém doplnenia $L(2,1)$-farbenia na chlpatom $2$-hranovo súvislom grafe. Ostalo
+niekoľko hodnôt $k$, pre ktoré by náš algoritmus nedosahoval dobrú časovú zložitosť. Grafy, ktoré
+by dosahovali veľmi zlú časovú zložitosť, sú však pomerne špeciálne. Na ich vyriešenie by však
+bol potrebný oveľa dôkladnejší rozbor.
