@@ -416,7 +416,6 @@ $ k=12 $ & $ k=13 $ & $ k=14 $ & $ k=15 $ & $ k=16 $ & $ k=17 $ & $ k=18 $ & $ k
 Nakoniec s využitím nerovnosti $(k^2 - k)\strut^{\frac{1}{\lfloor \frac{k}{2} \rfloor}} \leq 2.5$ a $\alpha \ge 2.5$
 upravíme časovú zložitosť pre $k \ge 12$:
 $$O^*\left((k^2 - k)^p \alpha^{n - p \cdot \lfloor \frac{k}{2} \rfloor}\right) =
-O^*\left(\alpha^{n} \cdot \frac{(k^2 - k)^p}{\alpha^{p \cdot \lfloor \frac{k}{2} \rfloor}}\right) = O^*\left(\alpha^n \cdot \left(\frac{(k^2 - k)^{\frac{1}{\lfloor \frac{k}{2} \rfloor}}}{\alpha}\right) \strut^{p \cdot \lfloor \frac{k}{2} \rfloor}\right) = O^*(\alpha^n)$$
-
-FIXME: Dopísať. Chceme spraviť čosi také, že zaplatením $k(k-1)$ odstránime aspoň $\lceil k/2 \rceil$ vrcholov
+O^*\left(\alpha^{n} \cdot \frac{(k^2 - k)^p}{\alpha^{p \cdot \lfloor \frac{k}{2} \rfloor}}\right) = O^*\left(\alpha^n \cdot \left(\frac{(k^2 - k)^{\frac{1}{\lfloor \frac{k}{2} \rfloor}}}{\alpha}\right) \strut^{p \cdot \lfloor \frac{k}{2} \rfloor}\right) = $$
+$$ = O^*(\alpha^n)$$
 

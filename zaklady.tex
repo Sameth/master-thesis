@@ -12,7 +12,12 @@ označovať $V(G)$ a množinu hrán $E(G)$. Vzdialenosť dvoch vrcholov $u$ a $v
 v grafe $G$ budeme označovať $d_G(u,v)$. Pokiaľ bude z kontextu jasné, o
 ktorý graf sa jedná, budeme vzdialenosť vrcholov $u, v$ značiť $d(u,v)$.
 
-FIXME: Susedstvo vrchola, uzavreté susedstvo vrchola, susedstvá množín vrcholov.
+Pre ľubovoľný vrchol $v$ budeme symbolom $N(v)$ značiť množinu vrcholov, ktoré
+sú hranou spojené s $v$. Pod značením $N[v]$ budeme rozumieť množinu $N(v) \cup \{v\}$.
+Toto značenie rozšírime aj na množiny vrcholov. Pre množinu vrcholov $S$ budeme
+symbolom $N[S]$ značiť množinu $\bigcup \limits_{v \in S} N[v]$ a symbolom
+$N(S)$ označíme množinu $N[S] - S$.
+
 FIXME: Graf s ohodnotenymi vrcholmi - honotenie je zobrazenie z V(G) do N
 
 Ako prvé si poriadne
