@@ -1,0 +1,17 @@
+Používa C++11, funguje s gcc 5.4.0
+
+Súbory pp2p.hpp a pp2p.cpp obsahujú funkcie na počítanie 2-pakovaní
+a vlastných párov.
+
+Súbory graphmaker* obsahujú funkciu na vytvorenie súboru s popisom
+pre graphviz.
+
+countgraph.* je jednoduchy program, ktory nacita popis grafu a povie
+jeho pocet vlastnych parov.
+
+pscs.py je jednoduchý Python3 skript, ktorý predpočíta počet vlastných
+párov na cestách a kružniciach s menej ako 100 000 vrcholmi a pustí
+interaktívnu konzolu.
+
+Nakoniec z Makefile sa dá príkazom make skompilovať všetkých 6
+verzií generovania grafov.
