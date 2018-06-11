@@ -59,10 +59,10 @@ bool minimallyconnected(int actn) {
 }
 
 int recursive_maxdist(int v, int t, ll mask, vvi& memo, int actn) {
-    if (memo [v][mask] != -1) return memo [v][mask];
+    if (memo [v][mask] != -1000000) return memo [v][mask];
     if (v == t) return 0;
 
-    int res = 0;
+    int res = -100000;
     For(i, actn) {
         if (adjmatrix [v][i] && (mask & (1 << i)) == 0) {
             res = max(res, 1 + recursive_maxdist(i, t, mask | (1<<i), memo, actn));
@@ -75,7 +75,7 @@ int recursive_maxdist(int v, int t, ll mask, vvi& memo, int actn) {
 void compute_maxdists(vvi& result) {
     int actn = result.size();
     For(i, actn) {
-        vvi memo(actn, vi(1<<actn, -1));
+        vvi memo(actn, vi(1<<actn, -1000000));
         For(j, i) {
             result [i][j] = recursive_maxdist(j, i, 1<<j, memo, actn);
             result [j][i] = result [i][j];
