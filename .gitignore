@@ -1,6 +1,7 @@
 
 main.pdf
 *.bin
+impl/experiment/min2con/nauty*
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
