@@ -1,10 +1,15 @@
-\documentclass{beamer}
+\documentclass[slovak]{beamer}
 \usepackage[slovak]{babel}
 \usepackage[utf8x]{inputenc}
 
+\usetheme{Boadilla}
+
 \title[$L(2,1)$-farbenia grafov]{Farbenia grafov s obmedzeniami do vzdialenosti dva}
-\author{Bc. Jaroslav Petrucha \\ školiteľ: RNDr. Michal Foríšek, PhD.}
+\author[Bc. Jaroslav Petrucha]{Bc. Jaroslav Petrucha \\ školiteľ: RNDr. Michal Forišek, PhD.}
 \date{14. 6. 2018}
+
+
+\deftranslation[to=Slovak]{Theorem}{Veta}
 
 \begin{document}
 
@@ -67,109 +72,135 @@
 
 \begin{frame}{Vlastná práca - mosty}
     \begin{itemize}
-        \item
+        \item Mostová hrana $e = \{u,v\}$
+        \item Vrcholy v rôznych komponentoch sú ďaleko
+        \item Ofarbíme $u$ a $v$, komponenty riešime zvlášť
     \end{itemize}
+    FIXME: Obrázok delenia
 \end{frame}
 
-\begin{frame}{Junosza-Szaniawski}
+\begin{frame}{Pozorovania}
     \begin{itemize}
-        \item 
+        \item Musíme riešiť rozhodovací problém
+        \begin{itemize}
+            \item Máme daný rozsah $k$
+        \end{itemize}
+        \item Najlepšie je rovnomerné rozdelenie
+        \begin{itemize}
+            \item Za malý komponent platíme viac, než ušetríme
+        \end{itemize}
+        \item Ak je komponent príliš malý, môžeme ho ignorovať
+        \begin{itemize}
+            \item Vzhľadom na rozsah $k$
+            \item Zaručene sa dá dofarbiť
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Civitas v škatuľke}
-%    \includegraphics[scale=0.7]{civitas-arch.pdf}
+\begin{frame}{Orezanie malého komponentu}
+    FIXME: obrázok pre orezanie malého komponentu
 \end{frame}
 
-\begin{frame}{Civitas v škatuľke - inicializácia}
-    \begin{enumerate}
-        \item Vedúci určí registračných aj výsledných sčítavačov podľa verejných kľúčov.
-        \item Matrikár určí voličov, pre každého budú známe dva verejné kľúče: registračný a
-        overovací.
-        \item Výslední sčítavači spolu vygenerujú tajný súkromný a známy verejný kľúč $K_{V}$ k šifrovacej
-        schéme.
-        \item Registrační sčítavači pre každého voliča distribuovane vygenerujú jeho volebné oprávnenie (čerstvú
-        správu) s verejnou a súkromnou podobou.
-    \end{enumerate}
-\end{frame}
-
-\begin{frame}{Civitas v škatuľke - volenie}
-    \begin{enumerate}
-        \item Volič s registračným kľúčom získa od každého registračného sčítavača časť svojho
-        oprávnenia.
-        \item S pomocou overovacieho kľúča zistí, či je každý podiel vierohodný.
-        \item Z podielov rekonštruuje oprávnenie.
-        \item Odosiela svoj zašifrovaný hlas s oprávnením do ``volebnej urny''. 
-        \item S hlasom posiela dôkaz, že je korektný a že pozná otvorený text hlasu a oprávnenia.
-    \end{enumerate}
-\end{frame}
-
-\begin{frame}{Civitas v škatuľke - sčítanie}
-    \begin{enumerate}
-        \item Výslední sčítavači pozbierajú všetky hlasy.
-        \item Skontrolujú sa dôkazy k hlasom, neplatné sa vyhodia.
-        \item Prípadné duplicitné hlasy sa spracujú podľa vopred daných podmienok.
-        \item Každý výsledný sčítavač aplikuje svoju vlastnú (náhodnú) permutáciu s prešifrovaním na
-        hlasy a oprávnenia.
-        \item Kvadraticky sa skontroluje oprávnenosť každého hlasu.
-        \item Hlasy sa odšifrujú a zverejnia (oprávnenia nie).
-    \end{enumerate}
-\end{frame}
-
-\begin{frame}{ElGamal - pripomenutie}
+\begin{frame}{Základná myšlienka}
     \begin{itemize}
-        \item Grupa $G$ rádu $q$ a generátor $g$
-        \item Súkromný kľúč $x$, verejný kľúč $h = g^x$.
-        \item Šifrovanie: náhodné $y$ a správa $m$, šifrovaná správa je $(c_1, c_2) = (g^y, m \cdot h^y)$.
-        \item Dešifrovanie: $m = c_2 \cdot c_1^{-x}$.
-        \item Prešifrovanie novým kľúčom: náhodné $r$, nová správa je $(g^r \cdot c_1, h^r \cdot c_2)$.
-
-        \bigskip
-
-        \item Homomorfná vlastnosť: $E(m_1 \cdot m_2) = E(m_1) \cdot E(m_2)$.
+        \item Pre rozsah $k \leq 5$ použijeme iný algoritmus
+        \item Odstránime malé komponenty
+        \item Nájdeme stredný komponent $K_s$
+        \item Ofarbíme všetky mosty v $K_s$
+        \item Pre každú možnosť vyriešime menší problém
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Dôkaz znalosti diskrétneho logaritmu}
+\begin{frame}{Výsledok}
     \begin{itemize}
-        \item Alica dokazuje Bobovi, že pozná $x : h = g^x$.
+        \item Stačí riešiť grafy bez netriviálnych mostov
     \end{itemize}
-    \bigskip
-    \begin{enumerate}
-        \item Alica si zvolí náhodné $r$ a pošle Bobovi $t = g^r$.
-        \item Bob si zvolí náhodné $c$ a pošle ho Alici.
-        \item Alica pošle Bobovi $r = v - c \cdot x$.
-        \item Bob overí $t = g^r \cdot y^c$.
-    \end{enumerate}
-    Veľmi podobne vieme dokázať, že dve dvojice prvkov $(g_i, g_i^{x_i})$ majú
-    rovnaké $x$.
+    FIXME: Obrázok
+    \begin{itemize}
+        \item Zo špecifického $O^*(\alpha^n)$ dostaneme rovnako
+        rýchle všeobecné riešenie
+        \item Pre $6 \leq k \leq 11$ horšia časová zložitosť
+        \begin{itemize}
+            \item Na niektorých zlých typoch grafov
+        \end{itemize}
+    \end{itemize}
 \end{frame}
 
-\begin{frame}{Distribuovaný ElGamal}
-    \begin{enumerate}
-        \item Účastník si vygeneruje $x_i$ a $h_i = g^{x_i}$.
-        \item Zverejní commit: $H(y_i)$.
-        \item Po zverejnení všetkých ostatných commitov zverejní $y_i$ a dokáže znalosť logaritmu.
-        \item Overí ostatné dôkazy a commity.
-        \item Spoločný verejný kľúč je súčin jednotlivých verejných kľúčov, súkromný kľúč je súčet
-        súkroných kľúčov.
-    \end{enumerate}
-
-    Pre dešifrovanie správy $(a,b)$ stačí zverejniť $a^{x_i}$ a dokázať ekvivalenciu diskrétnych
-    logaritmov.
+\begin{frame}{Algoritmus Junosza-Szaniawski}
+    \begin{itemize}
+        \item Každý graf má triviálne $2n$-farbenie
+        \item Postupne počítame tabuľky $T_0, T_1 \ldots T_{2n}$
+        \item $T_k$ popisuje všetky čiastočné farbenia s rozsahom $k$
+        \item Hlavná časť algoritmu je počítanie $\oplus: T_k \mapsto T_{k+1}$
+    \end{itemize}
 \end{frame}
 
-\begin{frame}{Bezpečnosť}
-    Schéma Civitas je overiteľná a zabraňuje ovplyvňovaniu voliča, za predpokladov:
-    \begin{enumerate}
-        \item Útočník nevie plne odsimulovať voliča,
-        \item Každý volič verí aspoň jednému registračnému sčítavačovi a má s ním dôverné spojenie.
-        \item Volič verí zariadeniu, s ktorým hlasuje.
-        \item Všetka komunikácia voliča je anonymná.
-        \item Aspoň jedna hlasovacia urna, ktorú volič použil, sa správa korektne.
-        \item Aspoň jeden výsledný sčítavač nie je útočníkom.
-        \item Rozhodovací Diffie-Hellman problém aj RSA-problém sú výpočtovo náročné, SHA-256
-        je náhodné orákulum.
-    \end{enumerate}
+\begin{frame}{Algoritmus Junosza-Szaniawski}
+    \begin{itemize}
+        \item $T_k$ popisuje čiastočné farbenia s rozsahom $k$
+        \item Stačí vedieť, ktoré vrcholy majú farbu $k$ a ktoré sú ofarbené
+        \item Stavy sa nazývajú \emph{vlastné páry}
+        \item Počet vlastných párov aj časová zložitosť je $O^*(2.6488^n)$
+        \item Najviac vlastných párov majú stromy
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Vlastná práca - planárne grafy}
+    \begin{theorem}[Lipton, Tarjan]
+        Nech $G$ je ľubovoľný $n$-vrcholový planárny graf. Vrcholy $G$ sa dajú rozdeliť
+        do množín $A, B, C$ tak, že neexistuje hrana medzi vrcholom v $A$ a vrcholom v $B$,
+        veľkosť množiny $A$ aj množiny $B$ je nanajvýš $\frac{n}{2}$ a veľkosť množiny $C$ je nanajvýš
+        $\frac{2\sqrt{2}}{1 - \sqrt{2/3}} \sqrt{n}$.
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{Základná myšlienka}
+    \begin{itemize}
+        \item Nájdeme vrcholový separátor $S$ s $O(\sqrt{n})$ vrcholmi
+        \item Čiastočné farbenia rozdelíme podľa ofarbenia $S$ a okolia
+        \item Pre komponenty $G - S$ počítame množiny nezávisle
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Ukážka na príklade}
+    FIXME: Obrázok
+\end{frame}
+
+\begin{frame}{Riešenie pre planárne grafy}
+    \begin{itemize}
+        \item Mierne odlišné riešenie podľa veľkosti okolia separátora $S$
+        \item Časová zložitosť v oboch prípadoch $O^*(2.2^{n + o(n)})$
+        \item Funguje pre grafy s $O(n^{1 - \varepsilon})$ separátorom
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Vyvážene rozdeliteľné grafy}
+    \begin{itemize}
+        \item Vrcholy vieme rozdeliť do množín $A$ a $B$
+        \item $A$ aj $B$ majú nanajvýš $\frac{2n}{3}$ vrcholov
+        \item Počet vrcholov so susedom v druhej množine je nanajvýš $\frac{n}{4}$
+        \item Časová zložitosť algoritmu je $O^*(2.614^n)$
+    \end{itemize}
+
+    FIXME: obrázok
+\end{frame}
+
+\begin{frame}{Vlastné páry na $2$-hranovo súvislých grafoch}
+    \begin{itemize}
+        \item Vyplýva z práce k mostom
+        \item Generujeme minimálne $2$-hranovo súvislé grafy
+        \item Myšlienka založená na generovaní $2$-súvislých grafov
+        \item U grafov s nanajvýš $20$ vrcholmi má najviac vlastných párov kružnica
+        \item Kružnica s $n$ vrcholmi má $O(2.5943^n)$ vlastných párov
+    \end{itemize}
+    FIXME: Obrázok generovania grafu
+\end{frame}
+
+\begin{frame}[plain,c]
+
+\begin{center}
+\Huge Ďakujem za pozornosť!
+\end{center}
+
 \end{frame}
 \end{document}
