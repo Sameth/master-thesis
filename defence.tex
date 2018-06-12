@@ -1,0 +1,175 @@
+\documentclass{beamer}
+\usepackage[slovak]{babel}
+\usepackage[utf8x]{inputenc}
+
+\title[$L(2,1)$-farbenia grafov]{Farbenia grafov s obmedzeniami do vzdialenosti dva}
+\author{Bc. Jaroslav Petrucha \\ školiteľ: RNDr. Michal Foríšek, PhD.}
+\date{14. 6. 2018}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{$L(2,1)$-farbenie}
+    \begin{itemize}
+        \item Ohodnotenie vrcholov prirodzenými číslami
+        \begin{itemize}
+            \item Susedné vrcholy majú veľký rozdiel
+            \item Vzdialené vrcholy sa líšia
+        \end{itemize}
+    \end{itemize}
+        FIXME: Obrázok!
+\end{frame}
+
+\begin{frame}{Súvisiace problémy}
+    \begin{itemize}
+        \item Skúmame rozsah priradených hodnôt
+        \item Rozhodovacie aj optimalizačné problémy
+        \begin{itemize}
+            \item Stačí rozsah $k$?
+            \item Aký je minimálny rozsah?
+        \end{itemize}
+        \item{$\mathcal{NP}$-ťažký na mnohých triedach}
+        \begin{itemize}
+            \item Planárne grafy
+            \item FIXME: Treewidth 2
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Polynomiálny algoritmus}
+    \begin{itemize}
+        \item Špeciálne triedy grafov
+        \begin{itemize}
+            \item Stromy, cyklové stromy
+            \item Vonkajšoplanárne grafy
+        \end{itemize}
+        \item Lokálne riešenie malých podproblémov
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Všeobecný algoritmus}
+    \begin{itemize}
+        \item Dynamické programovanie
+        \begin{itemize}
+            \item FIXME: Časová zložitosť
+            \item FIXME: Havet et al.
+        \end{itemize}
+        \item Množiny všetkých čiastočných farbení
+        \begin{itemize}
+            \item $O^*(2.6488^n)$
+            \item FIXME: Junosza-Szaniawski et al.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Vlastná práca - mosty}
+    \begin{itemize}
+        \item
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Junosza-Szaniawski}
+    \begin{itemize}
+        \item 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Civitas v škatuľke}
+%    \includegraphics[scale=0.7]{civitas-arch.pdf}
+\end{frame}
+
+\begin{frame}{Civitas v škatuľke - inicializácia}
+    \begin{enumerate}
+        \item Vedúci určí registračných aj výsledných sčítavačov podľa verejných kľúčov.
+        \item Matrikár určí voličov, pre každého budú známe dva verejné kľúče: registračný a
+        overovací.
+        \item Výslední sčítavači spolu vygenerujú tajný súkromný a známy verejný kľúč $K_{V}$ k šifrovacej
+        schéme.
+        \item Registrační sčítavači pre každého voliča distribuovane vygenerujú jeho volebné oprávnenie (čerstvú
+        správu) s verejnou a súkromnou podobou.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Civitas v škatuľke - volenie}
+    \begin{enumerate}
+        \item Volič s registračným kľúčom získa od každého registračného sčítavača časť svojho
+        oprávnenia.
+        \item S pomocou overovacieho kľúča zistí, či je každý podiel vierohodný.
+        \item Z podielov rekonštruuje oprávnenie.
+        \item Odosiela svoj zašifrovaný hlas s oprávnením do ``volebnej urny''. 
+        \item S hlasom posiela dôkaz, že je korektný a že pozná otvorený text hlasu a oprávnenia.
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{Civitas v škatuľke - sčítanie}
+    \begin{enumerate}
+        \item Výslední sčítavači pozbierajú všetky hlasy.
+        \item Skontrolujú sa dôkazy k hlasom, neplatné sa vyhodia.
+        \item Prípadné duplicitné hlasy sa spracujú podľa vopred daných podmienok.
+        \item Každý výsledný sčítavač aplikuje svoju vlastnú (náhodnú) permutáciu s prešifrovaním na
+        hlasy a oprávnenia.
+        \item Kvadraticky sa skontroluje oprávnenosť každého hlasu.
+        \item Hlasy sa odšifrujú a zverejnia (oprávnenia nie).
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{ElGamal - pripomenutie}
+    \begin{itemize}
+        \item Grupa $G$ rádu $q$ a generátor $g$
+        \item Súkromný kľúč $x$, verejný kľúč $h = g^x$.
+        \item Šifrovanie: náhodné $y$ a správa $m$, šifrovaná správa je $(c_1, c_2) = (g^y, m \cdot h^y)$.
+        \item Dešifrovanie: $m = c_2 \cdot c_1^{-x}$.
+        \item Prešifrovanie novým kľúčom: náhodné $r$, nová správa je $(g^r \cdot c_1, h^r \cdot c_2)$.
+
+        \bigskip
+
+        \item Homomorfná vlastnosť: $E(m_1 \cdot m_2) = E(m_1) \cdot E(m_2)$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Dôkaz znalosti diskrétneho logaritmu}
+    \begin{itemize}
+        \item Alica dokazuje Bobovi, že pozná $x : h = g^x$.
+    \end{itemize}
+    \bigskip
+    \begin{enumerate}
+        \item Alica si zvolí náhodné $r$ a pošle Bobovi $t = g^r$.
+        \item Bob si zvolí náhodné $c$ a pošle ho Alici.
+        \item Alica pošle Bobovi $r = v - c \cdot x$.
+        \item Bob overí $t = g^r \cdot y^c$.
+    \end{enumerate}
+    Veľmi podobne vieme dokázať, že dve dvojice prvkov $(g_i, g_i^{x_i})$ majú
+    rovnaké $x$.
+\end{frame}
+
+\begin{frame}{Distribuovaný ElGamal}
+    \begin{enumerate}
+        \item Účastník si vygeneruje $x_i$ a $h_i = g^{x_i}$.
+        \item Zverejní commit: $H(y_i)$.
+        \item Po zverejnení všetkých ostatných commitov zverejní $y_i$ a dokáže znalosť logaritmu.
+        \item Overí ostatné dôkazy a commity.
+        \item Spoločný verejný kľúč je súčin jednotlivých verejných kľúčov, súkromný kľúč je súčet
+        súkroných kľúčov.
+    \end{enumerate}
+
+    Pre dešifrovanie správy $(a,b)$ stačí zverejniť $a^{x_i}$ a dokázať ekvivalenciu diskrétnych
+    logaritmov.
+\end{frame}
+
+\begin{frame}{Bezpečnosť}
+    Schéma Civitas je overiteľná a zabraňuje ovplyvňovaniu voliča, za predpokladov:
+    \begin{enumerate}
+        \item Útočník nevie plne odsimulovať voliča,
+        \item Každý volič verí aspoň jednému registračnému sčítavačovi a má s ním dôverné spojenie.
+        \item Volič verí zariadeniu, s ktorým hlasuje.
+        \item Všetka komunikácia voliča je anonymná.
+        \item Aspoň jedna hlasovacia urna, ktorú volič použil, sa správa korektne.
+        \item Aspoň jeden výsledný sčítavač nie je útočníkom.
+        \item Rozhodovací Diffie-Hellman problém aj RSA-problém sú výpočtovo náročné, SHA-256
+        je náhodné orákulum.
+    \end{enumerate}
+\end{frame}
+\end{document}
