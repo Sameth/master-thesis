@@ -1,5 +1,6 @@
 
 main.pdf
+defence.pdf
 *.bin
 impl/experiment/min2con/nauty*
 
