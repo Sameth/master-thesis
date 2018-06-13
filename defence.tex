@@ -1,4 +1,5 @@
 \documentclass[slovak]{beamer}
+\usepackage{appendixnumberbeamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
@@ -25,7 +26,7 @@
         \item Ohodnotenie vrcholov prirodzenými číslami
         \begin{itemize}
             \item Susedné vrcholy majú veľký rozdiel
-            \item Vzdialené vrcholy sa líšia
+            \item Vrcholy so spoločným susedom sa líšia
         \end{itemize}
     \end{itemize}
     \begin{center}
@@ -200,7 +201,6 @@
     \begin{itemize}
         \item Vyplýva z práce k mostom
         \item Generujeme minimálne $2$-hranovo súvislé grafy
-        \item Myšlienka založená na generovaní $2$-súvislých grafov
         \item Z grafov s nanajvýš $20$ vrcholmi má najviac kružnica
         \item Kružnica s $n$ vrcholmi má $O(2.5943^n)$ vlastných párov
     \end{itemize}
@@ -212,11 +212,31 @@
     \end{center}
 \end{frame}
 
+\begin{frame}{Záver}
+    \begin{itemize}
+        \item Zjednodušenie problému na chlpaté $2$-hranovo súvislé grafy
+        \item Rýchlejší algoritmus pre planárne grafy
+        \item Rýchlejší algoritmus pre vyvážene rozdeliteľné grafy
+        \item Generátor minimálne $2$-hranovo súvislých grafov
+        \item Experiment nad $2$-hranovo súvislými grafmi
+    \end{itemize}
+\end{frame}
+
 \begin{frame}[plain,c]
 
 \begin{center}
 \Huge Ďakujem za pozornosť!
 \end{center}
 
+\end{frame}
+
+\appendix
+
+\begin{frame}
+1
+\end{frame}
+
+\begin{frame}
+2
 \end{frame}
 \end{document}
