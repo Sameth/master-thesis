@@ -50,28 +50,17 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Polynomiálny algoritmus}
+\begin{frame}{Doterajšie algoritmy}
     \begin{itemize}
-        \item Špeciálne triedy grafov
+        \item Polynomiálne na triedach grafov
         \begin{itemize}
             \item Stromy, cyklové stromy
-            \item Vonkajšoplanárne grafy
+            \item Riešenie malých lokálnych problémov
         \end{itemize}
-        \item Lokálne riešenie malých podproblémov
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Všeobecný algoritmus}
-    \begin{itemize}
-        \item Dynamické programovanie
+        \item Pre všeobecné grafy
         \begin{itemize}
-            \item FIXME: Časová zložitosť
-            \item FIXME: Havet et al.
-        \end{itemize}
-        \item Množiny všetkých čiastočných farbení
-        \begin{itemize}
+            \item Počítanie všetkých čiastočných ofarbení
             \item $O^*(2.6488^n)$
-            \item FIXME: Junosza-Szaniawski et al.
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -93,11 +82,11 @@
         \begin{itemize}
             \item Máme daný rozsah $k$
         \end{itemize}
-        \item Najlepšie je rovnomerné rozdelenie
+        \item Najlepšie je rozdelenie na polovice
         \begin{itemize}
-            \item Za malý komponent platíme viac, než ušetríme
+            \item Za malý blok platíme viac, než ušetríme
         \end{itemize}
-        \item Ak je komponent príliš malý, môžeme ho ignorovať
+        \item Ak je blok príliš malý, môžeme ho ignorovať
         \begin{itemize}
             \item Vzhľadom na rozsah $k$
             \item Zaručene sa dá dofarbiť
@@ -105,7 +94,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Orezanie malého komponentu}
+\begin{frame}{Orezanie malého bloku}
     \begin{center}
         \includegraphics[width=0.6\textwidth]{grafy/zanedbaj.pdf}
     \end{center}
@@ -114,8 +103,8 @@
 \begin{frame}{Základná myšlienka}
     \begin{itemize}
         \item Pre rozsah $k \leq 5$ použijeme iný algoritmus
-        \item Odstránime malé komponenty
-        \item Nájdeme stredný komponent $K_s$
+        \item Odstránime malé listové bloky
+        \item Nájdeme stredný blok $K_s$
         \item Ofarbíme všetky mosty v $K_s$
         \item Pre každú možnosť vyriešime menší problém
     \end{itemize}
@@ -171,11 +160,8 @@
         \item Nájdeme vrcholový separátor $S$ s $O(\sqrt{n})$ vrcholmi
         \item Čiastočné farbenia rozdelíme podľa ofarbenia $S$ a okolia
         \item Pre komponenty $G - S$ počítame množiny $T_i$ nezávisle
+        \item Reprezentácia z algoritmu Junosza-Szaniawski má málo stavov
     \end{itemize}
-\end{frame}
-
-\begin{frame}{Ukážka na príklade}
-    FIXME: Obrázok
 \end{frame}
 
 \begin{frame}{Riešenie pre planárne grafy}
@@ -222,6 +208,15 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Ďalšia práca v oblasti}
+    \begin{itemize}
+        \item Odhad počtu vlastných párov v nerozdeliteľných grafoch
+        \item Algoritmus pre nerozdeliteľné grafy
+        \item Algoritmus pre (chlpaté) $2$-hranovo súvislé grafy
+        \item Odstraňovanie mostov pre rozsah $6 \leq k \leq 11$
+    \end{itemize}
+\end{frame}
+
 \begin{frame}[plain,c]
 
 \begin{center}
@@ -232,11 +227,34 @@
 
 \appendix
 
-\begin{frame}
-1
+\begin{frame}{Zlé grafy}
+    \begin{itemize}
+        \item
+    \end{itemize}
 \end{frame}
 
-\begin{frame}
-2
+\begin{frame}{Odstrániteľný vrchol}
+    \begin{itemize}
+        \item Ľubovoľná kostra
+        \item Listový vrchol
+        \item Prípadne koncový vrchol nepredĺžiteľnej cesty
+    \end{itemize}
 \end{frame}
+
+\begin{frame}{Oprava dôkazu}
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{grafy/posledny_krok.pdf}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Polynóm a jeho korene}
+    \begin{itemize}
+        \item Počet vlastných párov na cestách
+        \item $p_n = 2p_{n-1} + 4p_{n-3}$
+        \item Charakteristický polynóm $p(x) = x^3 - 2x^2 - 4$
+        \item Korene: $2.5944, -0.2972 + 1.2056i, -0.2972 - 1.2056i$
+        \item Vlastné čísla matice rekurencie
+    \end{itemize}
+\end{frame}
+
 \end{document}
