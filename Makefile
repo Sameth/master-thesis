@@ -8,3 +8,4 @@ main.pdf: main.tex *.tex *.bib images/*
 
 defence.pdf: defence.tex grafy/*
 	pdflatex defence
+	pdflatex defence
