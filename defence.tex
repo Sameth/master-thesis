@@ -25,9 +25,10 @@
     \begin{itemize}
         \item Ohodnotenie vrcholov prirodzenými číslami
         \begin{itemize}
-            \item Susedné vrcholy majú veľký rozdiel
-            \item Vrcholy so spoločným susedom sa líšia
+            \item Susedné vrcholy majú rozdiel aspoň 2
+            \item Vrcholy so spoločným susedom majú rozdiel aspoň 1
         \end{itemize}
+        \item Motivácia v priraďovaní Wi-Fi kanálov
     \end{itemize}
     \begin{center}
         \includegraphics[width=0.3\textwidth]{grafy/l21-example.pdf}
@@ -82,6 +83,16 @@
         \begin{itemize}
             \item Máme daný rozsah $k$
         \end{itemize}
+        \item Mierne pozmenený problém
+        \begin{itemize}
+            \item Niektoré vrcholy majú fixovanú farbu
+            \item Podobne ťažký problém
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Pozorovania}
+    \begin{itemize}
         \item Najlepšie je rozdelenie na polovice
         \begin{itemize}
             \item Za malý blok platíme viac, než ušetríme
@@ -143,6 +154,9 @@
         \item Stavy sa nazývajú \emph{vlastné páry}
         \item Počet vlastných párov aj časová zložitosť je $O^*(2.6488^n)$
         \item Najviac vlastných párov majú stromy
+        \begin{itemize}
+            \item Ale majú polynomiálny algoritmus
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -200,7 +214,7 @@
 
 \begin{frame}{Záver}
     \begin{itemize}
-        \item Zjednodušenie problému na chlpaté $2$-hranovo súvislé grafy
+        \item Zjednodušenie problému na ``chlpaté'' $2$-hranovo súvislé grafy
         \item Rýchlejší algoritmus pre planárne grafy
         \item Rýchlejší algoritmus pre vyvážene rozdeliteľné grafy
         \item Generátor minimálne $2$-hranovo súvislých grafov
