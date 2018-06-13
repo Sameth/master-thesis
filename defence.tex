@@ -1,6 +1,9 @@
 \documentclass[slovak]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+
 \usepackage[slovak]{babel}
-\usepackage[utf8x]{inputenc}
 
 \usetheme{Boadilla}
 
@@ -25,7 +28,9 @@
             \item Vzdialené vrcholy sa líšia
         \end{itemize}
     \end{itemize}
-        FIXME: Obrázok!
+    \begin{center}
+        \includegraphics[width=0.3\textwidth]{grafy/l21-example.pdf}
+    \end{center}
 \end{frame}
 
 \begin{frame}{Súvisiace problémy}
@@ -39,7 +44,7 @@
         \item{$\mathcal{NP}$-ťažký na mnohých triedach}
         \begin{itemize}
             \item Planárne grafy
-            \item FIXME: Treewidth 2
+            \item Čiastočné $2$-stromy, bipartitné grafy
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -76,7 +81,9 @@
         \item Vrcholy v rôznych komponentoch sú ďaleko
         \item Ofarbíme $u$ a $v$, komponenty riešime zvlášť
     \end{itemize}
-    FIXME: Obrázok delenia
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{grafy/bridgesplit.pdf}
+    \end{center}
 \end{frame}
 
 \begin{frame}{Pozorovania}
@@ -98,7 +105,9 @@
 \end{frame}
 
 \begin{frame}{Orezanie malého komponentu}
-    FIXME: obrázok pre orezanie malého komponentu
+    \begin{center}
+        \includegraphics[width=0.6\textwidth]{grafy/zanedbaj.pdf}
+    \end{center}
 \end{frame}
 
 \begin{frame}{Základná myšlienka}
@@ -115,7 +124,9 @@
     \begin{itemize}
         \item Stačí riešiť grafy bez netriviálnych mostov
     \end{itemize}
-    FIXME: Obrázok
+    \begin{center}
+        \includegraphics[width=0.7\textwidth]{grafy/ec2-example.pdf}
+    \end{center}
     \begin{itemize}
         \item Zo špecifického $O^*(\alpha^n)$ dostaneme rovnako
         rýchle všeobecné riešenie
@@ -128,7 +139,7 @@
 
 \begin{frame}{Algoritmus Junosza-Szaniawski}
     \begin{itemize}
-        \item Každý graf má triviálne $2n$-farbenie
+        \item Každý graf má triviálne $(2n)$-farbenie
         \item Postupne počítame tabuľky $T_0, T_1 \ldots T_{2n}$
         \item $T_k$ popisuje všetky čiastočné farbenia s rozsahom $k$
         \item Hlavná časť algoritmu je počítanie $\oplus: T_k \mapsto T_{k+1}$
@@ -158,7 +169,7 @@
     \begin{itemize}
         \item Nájdeme vrcholový separátor $S$ s $O(\sqrt{n})$ vrcholmi
         \item Čiastočné farbenia rozdelíme podľa ofarbenia $S$ a okolia
-        \item Pre komponenty $G - S$ počítame množiny nezávisle
+        \item Pre komponenty $G - S$ počítame množiny $T_i$ nezávisle
     \end{itemize}
 \end{frame}
 
@@ -182,7 +193,7 @@
         \item Časová zložitosť algoritmu je $O^*(2.614^n)$
     \end{itemize}
 
-    FIXME: obrázok
+    %FIXME: obrázok
 \end{frame}
 
 \begin{frame}{Vlastné páry na $2$-hranovo súvislých grafoch}
@@ -190,10 +201,15 @@
         \item Vyplýva z práce k mostom
         \item Generujeme minimálne $2$-hranovo súvislé grafy
         \item Myšlienka založená na generovaní $2$-súvislých grafov
-        \item U grafov s nanajvýš $20$ vrcholmi má najviac vlastných párov kružnica
+        \item Z grafov s nanajvýš $20$ vrcholmi má najviac kružnica
         \item Kružnica s $n$ vrcholmi má $O(2.5943^n)$ vlastných párov
     \end{itemize}
-    FIXME: Obrázok generovania grafu
+\end{frame}
+
+\begin{frame}{Generovanie grafov}
+    \begin{center}
+        \includegraphics[width=0.6\textwidth]{grafy/gengraph.pdf}
+    \end{center}
 \end{frame}
 
 \begin{frame}[plain,c]

@@ -6,5 +6,5 @@ main.pdf: main.tex *.tex *.bib images/*
 	pdflatex main
 	pdflatex main
 
-defence.pdf: defence.tex
+defence.pdf: defence.tex grafy/*
 	pdflatex defence
